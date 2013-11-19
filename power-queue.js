@@ -36,8 +36,6 @@ PowerQueue = function(name) {
     }
 
     if (!self.paused) {
-
-
       if (invokations.length) {
         var f = invokations.shift();
         self.paused = (invokations.length === 0);
@@ -61,6 +59,9 @@ PowerQueue = function(name) {
 
   self.run = function() {
     console.log(title + ' RUN');
+    if (!invokations.length) {
+      return;
+    }
     self.paused = false;
     maxLength = invokations.length;
     // Update the progress
