@@ -2,7 +2,7 @@
 PowerQueue = function(name) {
   var self = this;
   var invokations = [];
-  var paused = true;
+  self.paused = true;
   var maxLength = 0;
   var title = name || 'Queue';
 
@@ -12,7 +12,7 @@ PowerQueue = function(name) {
 
   self.reset = function() {
     console.log(title + ' RESET');
-    paused = true;
+    self.paused = true;
     invokations = [];
   };
 
@@ -23,7 +23,7 @@ PowerQueue = function(name) {
     }
     invokations.push(f);
 
-    if (paused) {
+    if (self.paused) {
       self.run();
     }
   };
@@ -35,13 +35,13 @@ PowerQueue = function(name) {
       console.log(' ' + text);
     }
 
-    if (!paused) {
+    if (!self.paused) {
 
 
       if (invokations.length) {
         var f = invokations.shift();
-        paused = (invokations.length === 0);
-        if (paused) {
+        self.paused = (invokations.length === 0);
+        if (self.paused) {
           console.log(title + ' ENDED');
         }
         // Update the progress
@@ -61,7 +61,7 @@ PowerQueue = function(name) {
 
   self.run = function() {
     console.log(title + ' RUN');
-    paused = false;
+    self.paused = false;
     maxLength = invokations.length;
     // Update the progress
     self.progress(invokations.length, maxLength);
