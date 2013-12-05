@@ -24,7 +24,6 @@ PowerQueue = function(name) {
     }
     invokations.add(f);
     maxLength++;
-    self.run();
   };
 
   self.next = function(text) {
@@ -70,6 +69,9 @@ PowerQueue = function(name) {
   };
 };
 
+// A basic lifo or fifo queue
+// This is better than a simple array with pop/shift because shift is O(n)
+// and can become slow with a large array.
 function q(lifo) {
   var self = this, first = 0, last = -1, list = [];
   
