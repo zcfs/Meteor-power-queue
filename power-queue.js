@@ -1,11 +1,11 @@
-// FIFO
 PowerQueue = function(name) {
   var self = this;
-  var invokations = [];
+  var invokations = new q();
   self.paused = true;
   var maxLength = 0;
   var title = name || 'Queue';
 
+  // Generally, override this
   self.progress = function(count, total) {
     console.log(title + ': ' + count + ' of ' + total + ' left');
   };
@@ -13,7 +13,8 @@ PowerQueue = function(name) {
   self.reset = function() {
     console.log(title + ' RESET');
     self.paused = true;
-    invokations = [];
+    maxLength = 0;
+    invokations.reset();
   };
 
   self.add = function(f) {
@@ -21,11 +22,9 @@ PowerQueue = function(name) {
     if (typeof f !== 'function') {
       throw new Error('queue requires function');
     }
-    invokations.push(f);
-
-    if (self.paused) {
-      self.run();
-    }
+    invokations.add(f);
+    maxLength++;
+    self.run();
   };
 
   self.next = function(text) {
@@ -36,20 +35,18 @@ PowerQueue = function(name) {
     }
 
     if (!self.paused) {
-      if (invokations.length) {
-        var f = invokations.shift();
-        self.paused = (invokations.length === 0);
-        if (self.paused) {
-          console.log(title + ' ENDED');
-        }
-        // Update the progress
-        self.progress(invokations.length, maxLength);
-        setTimeout(function() {
-          // Run function
-          f(self.next);
-        }, 0);
+      var f = invokations.get();
+      var remaining = invokations.length;
+      if (remaining === 0) {
+        self.reset();
+        console.log(title + ' ENDED');
       }
-
+      // Update the progress
+      self.progress(remaining, maxLength);
+      Meteor.setTimeout(function() {
+        // Run function
+        f(self.next);
+      }, 0);
     }
   };
 
@@ -58,14 +55,52 @@ PowerQueue = function(name) {
   };
 
   self.run = function() {
+    if (!self.paused) {
+      return; //already running
+    }
     console.log(title + ' RUN');
-    if (!invokations.length) {
+    var remaining = invokations.length;
+    if (!remaining) {
       return;
     }
     self.paused = false;
-    maxLength = invokations.length;
     // Update the progress
-    self.progress(invokations.length, maxLength);
+    self.progress(remaining, maxLength);
     self.next();
   };
 };
+
+function q(lifo) {
+  var self = this, first = 0, last = -1, list = [];
+  
+  self.length = 0;
+
+  self.add = function(value) {
+    list[++last] = value;
+    self.length++;
+  };
+
+  self.get = function() {
+    var value;
+    if (first > last)
+      return; // queue empty
+    if (lifo) {
+      value = list[first];
+      delete list[first]; // help garbage collector
+      first++;
+    } else {
+      value = list[last];
+      delete list[last]; // help garbage collector
+      last--;
+    }
+    self.length--;
+    return value;
+  };
+
+  self.reset = function() {
+    first = 0;
+    last = -1;
+    self.length = 0;
+    list = [];
+  };
+}
