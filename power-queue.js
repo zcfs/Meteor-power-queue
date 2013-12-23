@@ -15,7 +15,9 @@
 PowerQueue = function(options) {
   var self = this;
 
-  /** private */ var invokations = new microQueue(options && options.filo || options && options.lifo); // Default is fifo lilo
+  /** private */ var activeQueue = options && options.queue || microQueue; // Allow user to use another micro-queue #3
+
+  /** private */ var invocations = new activeQueue(options && options.filo || options && options.lifo); // Default is fifo lilo
 
   /** private */ var _maxProcessing = new reactiveProperty(options && options.maxProcessing || 1);
 
@@ -37,13 +39,17 @@ PowerQueue = function(options) {
 
   /** private */ var title = options && options.name || 'Queue';
 
+  self.onEnded = options && options.onEnded || function() { console.log(title + ' ENDED'); };
+
+  self.onAutostart = options && options.onAutostart || function() { console.log(title + ' Autostart'); };
+
   /**
     *
     */
-  self.length = invokations.length;
+  self.length = invocations.length;
 
   self.progress = function() {
-    var progress = _maxLength.get()-invokations.length();
+    var progress = _maxLength.get()-invocations.length();
     if (_maxLength.get() > 0) {
       return Math.round( progress / _maxLength.get() * 100);
     }
@@ -82,17 +88,17 @@ PowerQueue = function(options) {
     _maxLength.set(0);
     _failures.set(0);
     _errors.set(0);
-    invokations.reset();
+    invocations.reset();
   };
 
   self.add = function(data, failures) {
     var self = this;
     //console.log(title + ' ADD');
-    invokations.add({ data: data, failures: failures || 0 });
+    invocations.add({ data: data, failures: failures || 0 });
     _maxLength.inc();
     // If we should start running the queue when tasks are added:
     if (!_paused.get() && !_running.get() && _autostart.get()) {
-      console.log('Auto start');
+      self.onAutostart();
       _running.set(true);
       self.next(null);
     }
@@ -107,7 +113,7 @@ PowerQueue = function(options) {
     // If not paused and running then
     if (!_paused.get() && _running.get()) {
       // If room for more current in process
-      for (var i = 0; (_maxProcessing.get() > _isProcessing.get()) && (invokations.length() > 0); i++) {
+      for (var i = 0; (_maxProcessing.get() > _isProcessing.get()) && (invocations.length() > 0); i++) {
         // Increase counter of current number of tasks being processed
         _isProcessing.inc();
         // Spawn task
@@ -116,7 +122,7 @@ PowerQueue = function(options) {
             // Run function
             self.runTask(data);
           }, 0);
-        })(invokations.get()); // Get a task
+        })(invocations.get()); // Get a task
       }
 
     }
@@ -125,27 +131,26 @@ PowerQueue = function(options) {
     if (_running.get() && _isProcessing.get() === 0 && err !== null && !_paused.get()) {
       // Stop the queue
       _running.set(false);
-      invokations.reset();
-      console.log(title + ' ENDED');
+      invocations.reset();
+      self.onEnded();
     }
   };
 
-  self.runTask = function(invokation) {
+  self.runTask = function(invocation) {
     var self = this;
 
     function callback(error) {
       if (typeof error !== 'undefined') {
         // If the task handler throws an error then add it to the queue again
         // we allow this for a max of _maxFailures
-        invokation.failures++;
+        invocation.failures++;
         _failures.inc();
-        if (invokation.failures < _maxFailures.get()) {
+        if (invocation.failures < _maxFailures.get()) {
           // Add the task again with the increased failures
-          self.add(invokation.data, invokation.failures);
+          self.add(invocation.data, invocation.failures);
         } else {
-          console.log('Terminate at ' + invokation.failures + ' failures');
           _errors.inc();
-          self.errorHandler(invokation.data, self.add);
+          self.errorHandler(invocation.data, self.add, invocation.failures);
         }
       }
 
@@ -153,31 +158,32 @@ PowerQueue = function(options) {
     }
 
     try {
-      self.taskHandler(invokation.data, callback);
+      self.taskHandler(invocation.data, callback, invocation.failures);
     } catch(err) {
-      throw new Error('Error while running taskHandler for queue');
+      throw new Error('Error while running taskHandler for queue, Error: ' + err.message);
     }
   };
 
   // Can be overwrittin by the user
-  self.taskHandler = function(data, next) {
-    // This default task handler expects data to be a function to run
+  self.taskHandler = function(data, next, failures) {
+    // This default task handler expects invocation to be a function to run
     if (typeof data !== 'function') {
       throw new Error('Default task handler expects a function');
     }
     try {
       // Have the function call next
-      data(next);
+      data(next, failures);
     } catch(err) {
       // Throw to fail this task
-      next('Default task handler could not run task');
+      next('Default task handler could not run task, Error: ' + err.message);
     }
   };
 
-  self.errorHandler = function(data, addTask) {
+  self.errorHandler = function(data, addTask, failures) {
     // This could be overwritten the data contains the task data and addTask
     // is a helper for adding the task to the queue
     // try again: addTask(data);
+    console.log('Terminate at ' + failures + ' failures');
   };
 
   self.pause = function() {
@@ -186,7 +192,7 @@ PowerQueue = function(options) {
 
   self.run = function() {
     //not paused and already running or queue empty
-    if (!_paused.get() && _running.get() || !invokations.length()) {
+    if (!_paused.get() && _running.get() || !invocations.length()) {
       return;
     }
     console.log(title + ' RUN');

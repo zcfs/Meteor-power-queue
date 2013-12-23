@@ -23,14 +23,17 @@ All getters and setters are reactive.
 * PowerQueue.maxProcessing - Getter + Setter for max tasks to run in parallel
 * PowerQueue.autostart - Getter + Setter for autostart flag - Allow add task to start the queue
 * PowerQueue.maxFailures - Max allowed retries for failing tasks before marked as an error
+* options.queue - Use custom micro-queue compatible queue
+* options.onEnded - Called when queue has ended
+* options.onAutostart - Called when queue was autostarted
 
 ##Methods
 * PowerQueue.add(data) - Add a task to queue
 * PowerQueue.run() - Start the queue
 * PowerQueue.pause() - Pause the queue
 * PowerQueue.reset() - Reset the queue
-* PowerQueue.taskHandler(data, next) - Default task handler, where data is a `function(done)`, can be overwritten
-* PowerQueue.errorHandler(data, addTask) - Default error handler, can be overwritten
+* PowerQueue.taskHandler(data, next, failures) - Default task handler, where data is a `function(done)`, can be overwritten
+* PowerQueue.errorHandler(data, addTask, failures) - Default error handler, can be overwritten
 
 #Example 1
 ```js
