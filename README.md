@@ -85,6 +85,10 @@ This is a very rough example of how to make custom task handling,
       // This async task duration is between 500 - 1000ms
     }, Math.round(500 + 500 * Math.random()));
   };
+
+  // Add the task:
+  var taskId = 0;
+  queue.add({ id: tasks.insert({ status: 'added', index: ++taskId }) });
 ```
 
 #Contribute
