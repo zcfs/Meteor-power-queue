@@ -3,9 +3,11 @@ Package.describe({
 });
 
 Package.on_use(function (api) {
-  "use strict";
+
+  api.use('deps', ['client', 'server']);
+
   api.export && api.export('PowerQueue');
-  api.add_files('power-queue.js', ['client', 'server']);
+  api.add_files(['reactive-property.js', 'micro-queue.js', 'power-queue.js'], ['client', 'server']);
 });
 
 Package.on_test(function (api) {

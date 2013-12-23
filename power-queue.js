@@ -1,28 +1,45 @@
+/**
+  * Creates an instance of a power queue
+  * [Check out demo]{@link http://power-queue-test.meteor.com/}
+  * @constructor
+  * @this {PowerQueue}
+  * @param {object} [options] Settings
+  * @param {boolean} [options.filo=false] Make it a first in last out queue
+  * @param {boolean} [options.isPaused=false] Set queue paused
+  * @param {boolean} [options.autostart=true] May adding a task start the queue
+  * @param {string} [options.name="Queue"] Name of the queue
+  * @param {number} [options.maxProcessing=1] Limit of simultanous running tasks
+  * @param {number} [options.maxFailures=5] Limit retries of failed tasks
+  *
+  */
 PowerQueue = function(options) {
   var self = this;
 
-  var invokations = new q(options && options.filo || options && options.lifo); // Default is fifo lilo
+  /** private */ var invokations = new microQueue(options && options.filo || options && options.lifo); // Default is fifo lilo
 
-  var _maxProcessing = new reactiveProperty(options && options.maxProcessing || 10);
+  /** private */ var _maxProcessing = new reactiveProperty(options && options.maxProcessing || 1);
 
-  var _isProcessing = new reactiveProperty(0);
+  /** private */ var _isProcessing = new reactiveProperty(0);
 
-  var _paused = new reactiveProperty(options && options.isPaused || false);
+  /** private */ var _paused = new reactiveProperty(options && options.isPaused || false);
 
-  var _running = new reactiveProperty(false);
+  /** private */ var _running = new reactiveProperty(false);
 
-  var _errors = new reactiveProperty(0);
+  /** private */ var _errors = new reactiveProperty(0);
 
-  var _failures = new reactiveProperty(0);
+  /** private */ var _failures = new reactiveProperty(0);
 
-  var _maxLength = new reactiveProperty(0);
+  /** private */ var _maxLength = new reactiveProperty(0);
 
-  var _autostart = new reactiveProperty((options && options.autostart === false)?false : true);
+  /** private */ var _autostart = new reactiveProperty((options && options.autostart === false)?false : true);
 
-  var _maxFailures = new reactiveProperty(options && options.maxFailures || 5);
+  /** private */ var _maxFailures = new reactiveProperty(options && options.maxFailures || 5);
 
-  var title = options && options.name || 'Queue';
+  /** private */ var title = options && options.name || 'Queue';
 
+  /**
+    *
+    */
   self.length = invokations.length;
 
   self.progress = function() {
@@ -50,7 +67,7 @@ PowerQueue = function(options) {
   self.isRunning = _running.get;
 
   // Get setter for max parallel
-  self.maxParallel = _maxProcessing.getset;
+  self.maxProcessing = _maxProcessing.getset;
 
   // Get setter for max autostart
   self.autostart = _autostart.getset;
@@ -178,68 +195,3 @@ PowerQueue = function(options) {
     self.next(null);
   };
 };
-
-reactiveProperty = function(defaultValue) {
-  var self = this;
-  var _value = defaultValue;
-  var _deps = new Deps.Dependency();
-
-  self.get = function() {
-    _deps.depend();
-    return _value;
-  };
-
-  self.set = function(value) {
-    if (_value !== value) {
-      _value = value;
-      _deps.changed();
-    }
-  };
-
-  self.dec = function(by) {
-    _value -= by || 1;
-    _deps.changed();
-  };
-
-  self.inc = function(by) {
-    _value += by || 1;
-    _deps.changed();
-  };
-
-  self.getset = function(value) {
-    if (typeof value !== 'undefined') {
-      self.set(value);
-    } else {
-      return self.get();
-    }
-  };
-
-};
-
-// A basic lifo or fifo queue
-// This is better than a simple array with pop/shift because shift is O(n)
-// and can become slow with a large array.
-function q(lifo) {
-  var self = this, list = [];
-
-  _length = new reactiveProperty(0);
-
-  self.length = _length.get;
-
-  self.add = function(value) {
-    list.push(value);
-    _length.set(list.length);
-  };
-
-  self.get = function() {
-    var value;
-    value = (lifo)?list.pop() : list.shift();
-    _length.set(list.length);
-    return value;
-  };
-
-  self.reset = function() {
-    list = [];
-    _length.set(0);
-  };
-}
