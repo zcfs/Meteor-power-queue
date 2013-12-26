@@ -9,6 +9,7 @@ It is a work in progress. Pushes and PRs can go to the master branch.
 
 #API
 All getters and setters are reactive.
+[API Documentation](http://collectionfs.github.io/Meteor-powerqueue)
 
 ##Helpers / Getters / Setters:
 * PowerQueue.length - Number of tasks in queue

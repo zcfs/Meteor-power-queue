@@ -40,4 +40,8 @@ $ npm install jsdoc -g
 ##Run jsdoc to update documentation
 ```js
 $ jsdoc . -d docs
+$ cd docs
+$ git add -A
+$ git commit -am 'updated documentation'
+$ git push
 ```
