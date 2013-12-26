@@ -97,7 +97,7 @@ This is a very rough example of how to make custom task handling,
 
 #Contribute
 We try to follow the jsdoc3 *(still under evaluation)*
-Update docs
+Update docs, `npm install docmeteor`
 ```bash
-$ jsdox . --output docs
+$ docmeteor -m 'updated foo documentation'
 ```
