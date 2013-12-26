@@ -43,9 +43,6 @@ PowerQueue = function(options) {
 
   self.onAutostart = options && options.onAutostart || function() { console.log(title + ' Autostart'); };
 
-  /**
-    *
-    */
   self.length = invocations.length;
 
   self.progress = function() {
