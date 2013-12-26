@@ -10,7 +10,6 @@
   * @param {string} [options.name="Queue"] Name of the queue
   * @param {number} [options.maxProcessing=1] Limit of simultanous running tasks
   * @param {number} [options.maxFailures=5] Limit retries of failed tasks
-  *
   */
 PowerQueue = function(options) {
   var self = this;

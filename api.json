@@ -1,0 +1,161 @@
+{
+    "classes": [
+        {
+            "name": "PowerQueue",
+            "description": "",
+            "extends": [],
+            "access": "",
+            "virtual": false,
+            "fires": "",
+            "constructor": {
+                "name": "PowerQueue",
+                "description": "Creates an instance of a power queue\n[Check out demo]{@link http://power-queue-test.meteor.com/}",
+                "parameters": [
+                    {
+                        "name": "options",
+                        "type": "object",
+                        "description": "Settings",
+                        "default": "",
+                        "optional": true,
+                        "nullable": ""
+                    },
+                    {
+                        "name": "options.filo",
+                        "type": "boolean",
+                        "description": "Make it a first in last out queue",
+                        "default": "false",
+                        "optional": true,
+                        "nullable": ""
+                    },
+                    {
+                        "name": "options.isPaused",
+                        "type": "boolean",
+                        "description": "Set queue paused",
+                        "default": "false",
+                        "optional": true,
+                        "nullable": ""
+                    },
+                    {
+                        "name": "options.autostart",
+                        "type": "boolean",
+                        "description": "May adding a task start the queue",
+                        "default": "true",
+                        "optional": true,
+                        "nullable": ""
+                    },
+                    {
+                        "name": "options.name",
+                        "type": "string",
+                        "description": "Name of the queue",
+                        "default": "\"Queue\"",
+                        "optional": true,
+                        "nullable": ""
+                    },
+                    {
+                        "name": "options.maxProcessing",
+                        "type": "number",
+                        "description": "Limit of simultanous running tasks",
+                        "default": "1",
+                        "optional": true,
+                        "nullable": ""
+                    },
+                    {
+                        "name": "options.maxFailures",
+                        "type": "number",
+                        "description": "Limit retries of failed tasks",
+                        "default": "5",
+                        "optional": true,
+                        "nullable": ""
+                    }
+                ],
+                "examples": []
+            },
+            "properties": [
+                {
+                    "name": "activeQueue",
+                    "access": "",
+                    "virtual": false,
+                    "description": "private",
+                    "type": ""
+                },
+                {
+                    "name": "invocations",
+                    "access": "",
+                    "virtual": false,
+                    "description": "private",
+                    "type": ""
+                },
+                {
+                    "name": "_maxProcessing",
+                    "access": "",
+                    "virtual": false,
+                    "description": "private",
+                    "type": ""
+                },
+                {
+                    "name": "_isProcessing",
+                    "access": "",
+                    "virtual": false,
+                    "description": "private",
+                    "type": ""
+                },
+                {
+                    "name": "_paused",
+                    "access": "",
+                    "virtual": false,
+                    "description": "private",
+                    "type": ""
+                },
+                {
+                    "name": "_running",
+                    "access": "",
+                    "virtual": false,
+                    "description": "private",
+                    "type": ""
+                },
+                {
+                    "name": "_errors",
+                    "access": "",
+                    "virtual": false,
+                    "description": "private",
+                    "type": ""
+                },
+                {
+                    "name": "_failures",
+                    "access": "",
+                    "virtual": false,
+                    "description": "private",
+                    "type": ""
+                },
+                {
+                    "name": "_maxLength",
+                    "access": "",
+                    "virtual": false,
+                    "description": "private",
+                    "type": ""
+                },
+                {
+                    "name": "_autostart",
+                    "access": "",
+                    "virtual": false,
+                    "description": "private",
+                    "type": ""
+                },
+                {
+                    "name": "_maxFailures",
+                    "access": "",
+                    "virtual": false,
+                    "description": "private",
+                    "type": ""
+                },
+                {
+                    "name": "title",
+                    "access": "",
+                    "virtual": false,
+                    "description": "private",
+                    "type": ""
+                }
+            ]
+        }
+    ]
+}
