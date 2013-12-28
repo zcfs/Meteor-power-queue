@@ -1,28 +1,29 @@
 // Client-side reactive version
 reactiveProperty = function(defaultValue) {
   var self = this;
-  var _value = defaultValue;
   var _deps = new Deps.Dependency();
+
+  self.value = defaultValue;
 
   self.get = function() {
     _deps.depend();
-    return _value;
+    return self.value;
   };
 
   self.set = function(value) {
-    if (_value !== value) {
-      _value = value;
+    if (self.value !== value) {
+      self.value = value;
       _deps.changed();
     }
   };
 
   self.dec = function(by) {
-    _value -= by || 1;
+    self.value -= by || 1;
     _deps.changed();
   };
 
   self.inc = function(by) {
-    _value += by || 1;
+    self.value += by || 1;
     _deps.changed();
   };
 

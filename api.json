@@ -70,90 +70,54 @@
                 ],
                 "examples": []
             },
-            "properties": [
+            "functions": [
                 {
-                    "name": "activeQueue",
+                    "name": "length",
                     "access": "",
                     "virtual": false,
-                    "description": "private",
-                    "type": ""
+                    "description": "",
+                    "parameters": [],
+                    "examples": [],
+                    "returns": {
+                        "type": "number",
+                        "description": "Number of tasks left in queue to be processed"
+                    }
                 },
                 {
-                    "name": "invocations",
+                    "name": "progress",
                     "access": "",
                     "virtual": false,
-                    "description": "private",
-                    "type": ""
+                    "description": "",
+                    "parameters": [],
+                    "examples": [],
+                    "returns": {
+                        "type": "number",
+                        "description": "0 .. 100 % Indicates the status of the queue"
+                    }
                 },
                 {
-                    "name": "_maxProcessing",
+                    "name": "usage",
                     "access": "",
                     "virtual": false,
-                    "description": "private",
-                    "type": ""
+                    "description": "",
+                    "parameters": [],
+                    "examples": [],
+                    "returns": {
+                        "type": "number",
+                        "description": "0 .. 100 % Indicates ressource usage of the queue"
+                    }
                 },
                 {
-                    "name": "_isProcessing",
+                    "name": "total",
                     "access": "",
                     "virtual": false,
-                    "description": "private",
-                    "type": ""
-                },
-                {
-                    "name": "_paused",
-                    "access": "",
-                    "virtual": false,
-                    "description": "private",
-                    "type": ""
-                },
-                {
-                    "name": "_running",
-                    "access": "",
-                    "virtual": false,
-                    "description": "private",
-                    "type": ""
-                },
-                {
-                    "name": "_errors",
-                    "access": "",
-                    "virtual": false,
-                    "description": "private",
-                    "type": ""
-                },
-                {
-                    "name": "_failures",
-                    "access": "",
-                    "virtual": false,
-                    "description": "private",
-                    "type": ""
-                },
-                {
-                    "name": "_maxLength",
-                    "access": "",
-                    "virtual": false,
-                    "description": "private",
-                    "type": ""
-                },
-                {
-                    "name": "_autostart",
-                    "access": "",
-                    "virtual": false,
-                    "description": "private",
-                    "type": ""
-                },
-                {
-                    "name": "_maxFailures",
-                    "access": "",
-                    "virtual": false,
-                    "description": "private",
-                    "type": ""
-                },
-                {
-                    "name": "title",
-                    "access": "",
-                    "virtual": false,
-                    "description": "private",
-                    "type": ""
+                    "description": "",
+                    "parameters": [],
+                    "examples": [],
+                    "returns": {
+                        "type": "number",
+                        "description": "The total number of tasks added to this queue"
+                    }
                 }
             ]
         }
