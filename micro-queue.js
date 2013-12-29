@@ -4,10 +4,9 @@
 microQueue = function(lifo) {
   var self = this, first = 0, last = -1, list = [];
 
-  _length = new reactiveProperty(0);
+  var _length = new reactiveProperty(0);
 
   self.length = _length.get;
-
 
   self.add = function(value) {
     list[++last] = value;
@@ -37,4 +36,4 @@ microQueue = function(lifo) {
     _length.set(0);
     list = [];
   };
-}
+};
