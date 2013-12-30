@@ -71,11 +71,11 @@ The total number of tasks added to this queue
 
 > ```self.total = _maxLength.get;``` [power-queue.js:98](power-queue.js#L98)
 
----
+-
 If the task handler throws an error then add it to the queue again
 we allow this for a max of _maxFailures
 
----
+-
 This could be overwritten the data contains the task data and addTask
 is a helper for adding the task to the queue
 try again: addTask(data);
