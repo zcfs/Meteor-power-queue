@@ -8,24 +8,27 @@ __Arguments__
 
 * __defaultValue__  *{any}*
 Set the default value for the reactive property
-[Source: reactive-property.js:13](reactive-property.js#L13)
-> 13| reactiveProperty = function(defaultValue) { ...
 This api should only be in the internal.api.md
 
+> reactiveProperty = function(defaultValue) { ...
+> [Source: reactive-property.js:13](reactive-property.js#L13)
+
 ##reactiveProperty.value    *Anywhere*
-[Source: reactive-property.js:21](reactive-property.js#L21)
-> 21| self.value = defaultValue;
 This contains the non reactive value, should only be used as a getter for
 internal use
 
+> self.value = defaultValue;
+> [Source: reactive-property.js:21](reactive-property.js#L21)
+
 ##reactiveProperty.get()    *Anywhere*
-[Source: reactive-property.js:31](reactive-property.js#L31)
-> 31| self.get = function() { ...
 Usage:
 ```js
  var foo = new reactiveProperty('bar');
  foo.get(); // equals "bar"
 ```
+
+> self.get = function() { ...
+> [Source: reactive-property.js:31](reactive-property.js#L31)
 
 
 ---
@@ -57,51 +60,58 @@ Limit of simultanous running tasks
 Limit retries of failed tasks
   * __text__  (Default = ' ')  *{ number | string }*
 Hmm, comment
-[Source: power-queue.js:22](power-queue.js#L22)
-> 22| PowerQueue = function(options) { ...
 After text
 
+> PowerQueue = function(options) { ...
+> [Source: power-queue.js:22](power-queue.js#L22)
+
 ##PowerQueue.onEnded    *Anywhere*
-[Source: power-queue.js:64](power-queue.js#L64)
-> 64| self.onEnded = options && options.onEnded || function() { ...
 Is called when queue is ended
 
+> self.onEnded = options && options.onEnded || function() { ...
+> [Source: power-queue.js:64](power-queue.js#L64)
+
 ##PowerQueue.onAutostart    *Anywhere*
-[Source: power-queue.js:69](power-queue.js#L69)
-> 69| self.onAutostart = options && options.onAutostart || function() { ...
 Is called when queue is auto started
+
+> self.onAutostart = options && options.onAutostart || function() { ...
+> [Source: power-queue.js:69](power-queue.js#L69)
 
 ##PowerQueue.length()    *Anywhere*
 
 __Returns__  *{number}*  *(is reactive)*
 
 Number of tasks left in queue to be processed
-[Source: power-queue.js:75](power-queue.js#L75)
-> 75| self.length = invocations.length;
+
+> self.length = invocations.length;
+> [Source: power-queue.js:75](power-queue.js#L75)
 
 ##PowerQueue.progress()    *Anywhere*
 
 __Returns__  *{number}*
 
 0 .. 100 % Indicates the status of the queue
-[Source: power-queue.js:80](power-queue.js#L80)
-> 80| self.progress = function() { ...
+
+> self.progress = function() { ...
+> [Source: power-queue.js:80](power-queue.js#L80)
 
 ##PowerQueue.usage()    *Anywhere*
 
 __Returns__  *{number}*
 
 0 .. 100 % Indicates ressource usage of the queue
-[Source: power-queue.js:91](power-queue.js#L91)
-> 91| self.usage = function() { ...
+
+> self.usage = function() { ...
+> [Source: power-queue.js:91](power-queue.js#L91)
 
 ##PowerQueue.total()    *Anywhere*
 
 __Returns__  *{number}*
 
 The total number of tasks added to this queue
-[Source: power-queue.js:98](power-queue.js#L98)
-> 98| self.total = _maxLength.get;
+
+> self.total = _maxLength.get;
+> [Source: power-queue.js:98](power-queue.js#L98)
 
 ---
 If the task handler throws an error then add it to the queue again
