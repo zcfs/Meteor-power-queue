@@ -50,14 +50,9 @@ the `PowerQueue` eg.: a queue that is persisted into a database etc.
 
 > ```microQueue = function(lifo) { ...``` [micro-queue.js:12](micro-queue.js#L12)
 
-## <a name="_length"></a>_length {reactiveProperty} &nbsp;&nbsp;<sub><i>Anywhere</i></sub> ##
-*This property is private*
-
-> ```var _length = new reactiveProperty(0);``` [micro-queue.js:15](micro-queue.js#L15)
-
 ## <a name="microQueue.length"></a>microQueue.length()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ##
 
-> ```self.length = _length.get;``` [micro-queue.js:21](micro-queue.js#L21)
+> ```self.length = _length.get;``` [micro-queue.js:22](micro-queue.js#L22)
 
 ## <a name="microQueue.add"></a>microQueue.add(value)&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ##
 
@@ -68,19 +63,19 @@ the `PowerQueue` eg.: a queue that is persisted into a database etc.
 
 -
 
-> ```self.add = function(value) { ...``` [micro-queue.js:26](micro-queue.js#L26)
+> ```self.add = function(value) { ...``` [micro-queue.js:27](micro-queue.js#L27)
 
 ## <a name="microQueue.get"></a>microQueue.get()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ##
 
 __Returns__  *{any}*
 The value that was next in line
 
-> ```self.get = function() { ...``` [micro-queue.js:34](micro-queue.js#L34)
+> ```self.get = function() { ...``` [micro-queue.js:35](micro-queue.js#L35)
 
 ## <a name="microQueue.reset"></a>microQueue.reset()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ##
 This method will empty all data in the queue.
 
-> ```self.reset = function() { ...``` [micro-queue.js:54](micro-queue.js#L54)
+> ```self.reset = function() { ...``` [micro-queue.js:55](micro-queue.js#L55)
 
 
 ---

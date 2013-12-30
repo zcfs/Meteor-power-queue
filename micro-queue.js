@@ -12,7 +12,8 @@
 microQueue = function(lifo) {
   var self = this, first = 0, last = -1, list = [];
 
-  /* @type {reactiveProperty} */ var _length = new reactiveProperty(0);
+  // The private reactive length property
+  var _length = new reactiveProperty(0);
 
   /** @method microQueue.length
     * @reactive
