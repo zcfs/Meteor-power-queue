@@ -10,13 +10,7 @@ Testing internal docs...
   
 Set the default value for the reactive property
 
----
-
-*******
-
-___
-
-- - -
+-
 This api should only be in the internal.api.md
 
 > ```reactiveProperty = function(defaultValue) { ...``` [reactive-property.js:13](reactive-property.js#L13)
@@ -68,13 +62,7 @@ Limit retries of failed tasks
     - __text__ *{ number | string }*    (Default = ' ')
 Hmm, comment
 
----
-
-*******
-
-___
-
-- - -
+-
 After text
 
 > ```PowerQueue = function(options) { ...``` [power-queue.js:22](power-queue.js#L22)

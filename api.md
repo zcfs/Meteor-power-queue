@@ -28,13 +28,7 @@ Limit retries of failed tasks
     - __text__ *{ number | string }*    (Default = ' ')
 Hmm, comment
 
----
-
-*******
-
-___
-
-- - -
+-
 After text
 
 > ```PowerQueue = function(options) { ...``` [power-queue.js:22](power-queue.js#L22)
