@@ -28,26 +28,26 @@ Limit retries of failed tasks
 Hmm, comment
 After text
 
-> [```js
-> PowerQueue = function(options) { ...
-> ```](power-queue.js#L22)
 > [Source: power-queue.js:22](power-queue.js#L22)
+> ```js
+> PowerQueue = function(options) { ...
+> ```
 
 ##PowerQueue.onEnded    *Anywhere*
 Is called when queue is ended
 
-> [```js
-> self.onEnded = options && options.onEnded || function() { ...
-> ```](power-queue.js#L64)
 > [Source: power-queue.js:64](power-queue.js#L64)
+> ```js
+> self.onEnded = options && options.onEnded || function() { ...
+> ```
 
 ##PowerQueue.onAutostart    *Anywhere*
 Is called when queue is auto started
 
-> [```js
-> self.onAutostart = options && options.onAutostart || function() { ...
-> ```](power-queue.js#L69)
 > [Source: power-queue.js:69](power-queue.js#L69)
+> ```js
+> self.onAutostart = options && options.onAutostart || function() { ...
+> ```
 
 ##PowerQueue.length()    *Anywhere*
 
@@ -55,10 +55,10 @@ __Returns__  *{number}*  *(is reactive)*
 
 Number of tasks left in queue to be processed
 
-> [```js
-> self.length = invocations.length;
-> ```](power-queue.js#L75)
 > [Source: power-queue.js:75](power-queue.js#L75)
+> ```js
+> self.length = invocations.length;
+> ```
 
 ##PowerQueue.progress()    *Anywhere*
 
@@ -66,10 +66,10 @@ __Returns__  *{number}*
 
 0 .. 100 % Indicates the status of the queue
 
-> [```js
-> self.progress = function() { ...
-> ```](power-queue.js#L80)
 > [Source: power-queue.js:80](power-queue.js#L80)
+> ```js
+> self.progress = function() { ...
+> ```
 
 ##PowerQueue.usage()    *Anywhere*
 
@@ -77,10 +77,10 @@ __Returns__  *{number}*
 
 0 .. 100 % Indicates ressource usage of the queue
 
-> [```js
-> self.usage = function() { ...
-> ```](power-queue.js#L91)
 > [Source: power-queue.js:91](power-queue.js#L91)
+> ```js
+> self.usage = function() { ...
+> ```
 
 ##PowerQueue.total()    *Anywhere*
 
@@ -88,10 +88,10 @@ __Returns__  *{number}*
 
 The total number of tasks added to this queue
 
-> [```js
-> self.total = _maxLength.get;
-> ```](power-queue.js#L98)
 > [Source: power-queue.js:98](power-queue.js#L98)
+> ```js
+> self.total = _maxLength.get;
+> ```
 
 ---
 If the task handler throws an error then add it to the queue again
