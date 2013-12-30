@@ -28,10 +28,10 @@ Limit retries of failed tasks
 Hmm, comment
 After text
 
-##powerqueue.onEnded    *Anywhere*
+##PowerQueue.onEnded    *Anywhere*
 Is called when queue is ended
 
-##powerqueue.onAutostart    *Anywhere*
+##PowerQueue.onAutostart    *Anywhere*
 Is called when queue is auto started
 
 ##PowerQueue.length()    *Anywhere*

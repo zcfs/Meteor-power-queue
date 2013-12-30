@@ -10,6 +10,17 @@ __Arguments__
 Set the default value for the reactive property
 This api should only be in the internal.api.md
 
+##reactiveProperty.value    *Anywhere*
+This contains the non reactive value, should only be used as a getter for
+internal use
+
+##reactiveProperty.get()    *Anywhere*
+Usage:
+```js
+ var foo = new reactiveProperty('bar');
+ foo.get(); // equals "bar"
+```
+
 
 ---
 #PowerQueue
@@ -42,10 +53,10 @@ Limit retries of failed tasks
 Hmm, comment
 After text
 
-##powerqueue.onEnded    *Anywhere*
+##PowerQueue.onEnded    *Anywhere*
 Is called when queue is ended
 
-##powerqueue.onAutostart    *Anywhere*
+##PowerQueue.onAutostart    *Anywhere*
 Is called when queue is auto started
 
 ##PowerQueue.length()    *Anywhere*

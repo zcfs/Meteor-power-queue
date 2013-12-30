@@ -14,8 +14,20 @@ reactiveProperty = function(defaultValue) {
   var self = this;
   var _deps = new Deps.Dependency();
 
+  /** @property reactiveProperty.value
+    * This contains the non reactive value, should only be used as a getter for
+    * internal use
+    */
   self.value = defaultValue;
 
+  /**
+    * @method reactiveProperty.get
+    * Usage:
+    * ```js
+    *   var foo = new reactiveProperty('bar');
+    *   foo.get(); // equals "bar"
+    * ```
+    */
   self.get = function() {
     _deps.depend();
     return self.value;
