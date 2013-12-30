@@ -52,6 +52,9 @@ the `PowerQueue` eg.: a queue that is persisted into a database etc.
 
 ## <a name="microQueue.length"></a>microQueue.length()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ##
 
+__Returns__  *{number}*  <u>is reactive</u>
+Length / number of items in queue
+
 > ```self.length = _length.get;``` [micro-queue.js:22](micro-queue.js#L22)
 
 ## <a name="microQueue.add"></a>microQueue.add(value)&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ##
@@ -59,7 +62,7 @@ the `PowerQueue` eg.: a queue that is persisted into a database etc.
 <u><b>Arguments</b></u>
 
 * __value__ *{any}*
-  The value to add to the queue
+  The item to add to the queue
 
 -
 
@@ -68,7 +71,7 @@ the `PowerQueue` eg.: a queue that is persisted into a database etc.
 ## <a name="microQueue.get"></a>microQueue.get()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ##
 
 __Returns__  *{any}*
-The value that was next in line
+The item that was next in line
 
 > ```self.get = function() { ...``` [micro-queue.js:35](micro-queue.js#L35)
 

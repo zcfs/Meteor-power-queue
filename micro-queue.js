@@ -17,20 +17,20 @@ microQueue = function(lifo) {
 
   /** @method microQueue.length
     * @reactive
-    * @type {reactiveProperty}
+    * @returns {number} Length / number of items in queue
     */
   self.length = _length.get;
 
-  /** @method microQueue.add Add value to the queue
-    * @param {any} value The value to add to the queue
+  /** @method microQueue.add Add item to the queue
+    * @param {any} value The item to add to the queue
     */
   self.add = function(value) {
     list[++last] = value;
     _length.inc();
   };
 
-  /** @method microQueue.get Get next value from queue
-    * @return {any} The value that was next in line
+  /** @method microQueue.get Get next tiem from queue
+    * @return {any} The item that was next in line
     */
   self.get = function() {
     var value;
