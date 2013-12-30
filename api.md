@@ -196,18 +196,6 @@ callback to mark an error or end of current task
 
 > ```self.next = function(err) { ...``` [power-queue.js:211](power-queue.js#L211)
 
-## <a name="PowerQueue.runTask"></a>PowerQueue.runTask(invocation)&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ##
-*This method is private*
-
-__Arguments__
-
-* __invocation__ *{object}*  
-The object stored in the micro-queue
-
--
-
-> ```self.runTask = function(invocation) { ...``` [power-queue.js:247](power-queue.js#L247)
-
 -
 If the task handler throws an error then add it to the queue again
 we allow this for a max of _maxFailures
