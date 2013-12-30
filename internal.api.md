@@ -4,7 +4,6 @@ Does `markdown` __work__ here?
 * Okay
 * Yep
 
----
 ##new PowerQueue(options)    *Anywhere*
 Creates an instance of a power queue 
 [Check out demo](http://power-queue-test.meteor.com/)
@@ -27,34 +26,32 @@ Limit of simultanous running tasks
 Limit retries of failed tasks
   * __text__  (Default = ' ')  *{ number | string }*
 Hmm, comment
-
----
 After text
+
 ##powerqueue.onEnded    *Anywhere*
 Is called when queue is ended
+
 ##powerqueue.onAutostart    *Anywhere*
 Is called when queue is auto started
+
 ##PowerQueue.length()    *Anywhere*
 
 __Returns__  *{number}*  *(is reactive)*
 
 Number of tasks left in queue to be processed
 
----
 ##PowerQueue.progress()    *Anywhere*
 
 __Returns__  *{number}*
 
 0 .. 100 % Indicates the status of the queue
 
----
 ##PowerQueue.usage()    *Anywhere*
 
 __Returns__  *{number}*
 
 0 .. 100 % Indicates ressource usage of the queue
 
----
 ##PowerQueue.total()    *Anywhere*
 
 __Returns__  *{number}*
@@ -69,5 +66,3 @@ we allow this for a max of _maxFailures
 This could be overwritten the data contains the task data and addTask
 is a helper for adding the task to the queue
 try again: addTask(data);
-
----
