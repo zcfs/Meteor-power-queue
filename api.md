@@ -4,12 +4,11 @@ Does `markdown` __work__ here?
 * Okay
 * Yep
 
-##new PowerQueue(options)    *Anywhere*
+####new PowerQueue(options)    *Anywhere*
 Creates an instance of a power queue 
 [Check out demo](http://power-queue-test.meteor.com/)
-<dl>
-<dt>Arguments</dt>
-<dd>* __options__  (Optional)  *{object}*
+#####Arguments
+* __options__  (Optional)  *{object}*
 Settings
   * __filo__  (Default = false)  *{boolean}*
 Make it a first in last out queue
@@ -25,63 +24,57 @@ Limit of simultanous running tasks
 Limit retries of failed tasks
   * __text__  (Default = ' ')  *{ number | string }*
 Hmm, comment
-</dd>
-</dl>
 After text
 
 > ```PowerQueue = function(options) { ...``` [power-queue.js:22](power-queue.js#L22)
 
-##PowerQueue.onEnded    *Anywhere*
+####PowerQueue.onEnded    *Anywhere*
 Is called when queue is ended
 
 > ```self.onEnded = options && options.onEnded || function() { ...``` [power-queue.js:64](power-queue.js#L64)
 
-##PowerQueue.onAutostart    *Anywhere*
+####PowerQueue.onAutostart    *Anywhere*
 Is called when queue is auto started
 
 > ```self.onAutostart = options && options.onAutostart || function() { ...``` [power-queue.js:69](power-queue.js#L69)
 
-##PowerQueue.length()    *Anywhere*
-<dl>
+####PowerQueue.length()    *Anywhere*
 
-<div style="border-bottom: 1px solid #eee; width: 50%;"></div>
-__Returns__  *{number}*  *(is reactive)*
+<div style="border-bottom: 1px solid #eee; width: 50%;">Test</div>
+#####Returns
+  *{number}*  *(is reactive)*
 
 Number of tasks left in queue to be processed
-</dl>
 
 > ```self.length = invocations.length;``` [power-queue.js:75](power-queue.js#L75)
 
-##PowerQueue.progress()    *Anywhere*
-<dl>
+####PowerQueue.progress()    *Anywhere*
 
-<div style="border-bottom: 1px solid #eee; width: 50%;"></div>
-__Returns__  *{number}*
+<div style="border-bottom: 1px solid #eee; width: 50%;">Test</div>
+#####Returns
+  *{number}*
 
 0 .. 100 % Indicates the status of the queue
-</dl>
 
 > ```self.progress = function() { ...``` [power-queue.js:80](power-queue.js#L80)
 
-##PowerQueue.usage()    *Anywhere*
-<dl>
+####PowerQueue.usage()    *Anywhere*
 
-<div style="border-bottom: 1px solid #eee; width: 50%;"></div>
-__Returns__  *{number}*
+<div style="border-bottom: 1px solid #eee; width: 50%;">Test</div>
+#####Returns
+  *{number}*
 
 0 .. 100 % Indicates ressource usage of the queue
-</dl>
 
 > ```self.usage = function() { ...``` [power-queue.js:91](power-queue.js#L91)
 
-##PowerQueue.total()    *Anywhere*
-<dl>
+####PowerQueue.total()    *Anywhere*
 
-<div style="border-bottom: 1px solid #eee; width: 50%;"></div>
-__Returns__  *{number}*
+<div style="border-bottom: 1px solid #eee; width: 50%;">Test</div>
+#####Returns
+  *{number}*
 
 The total number of tasks added to this queue
-</dl>
 
 > ```self.total = _maxLength.get;``` [power-queue.js:98](power-queue.js#L98)
 
