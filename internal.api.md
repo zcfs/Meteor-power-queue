@@ -10,18 +10,18 @@ __Arguments__
 Set the default value for the reactive property
 This api should only be in the internal.api.md
 
-> ```js
+> [```js
 > reactiveProperty = function(defaultValue) { ...
-> ```
+> ```](reactive-property.js#L13)
 > [Source: reactive-property.js:13](reactive-property.js#L13)
 
 ##reactiveProperty.value    *Anywhere*
 This contains the non reactive value, should only be used as a getter for
 internal use
 
-> ```js
+> [```js
 > self.value = defaultValue;
-> ```
+> ```](reactive-property.js#L21)
 > [Source: reactive-property.js:21](reactive-property.js#L21)
 
 ##reactiveProperty.get()    *Anywhere*
@@ -31,9 +31,9 @@ Usage:
  foo.get(); // equals "bar"
 ```
 
-> ```js
+> [```js
 > self.get = function() { ...
-> ```
+> ```](reactive-property.js#L31)
 > [Source: reactive-property.js:31](reactive-property.js#L31)
 
 
@@ -68,25 +68,25 @@ Limit retries of failed tasks
 Hmm, comment
 After text
 
-> ```js
+> [```js
 > PowerQueue = function(options) { ...
-> ```
+> ```](power-queue.js#L22)
 > [Source: power-queue.js:22](power-queue.js#L22)
 
 ##PowerQueue.onEnded    *Anywhere*
 Is called when queue is ended
 
-> ```js
+> [```js
 > self.onEnded = options && options.onEnded || function() { ...
-> ```
+> ```](power-queue.js#L64)
 > [Source: power-queue.js:64](power-queue.js#L64)
 
 ##PowerQueue.onAutostart    *Anywhere*
 Is called when queue is auto started
 
-> ```js
+> [```js
 > self.onAutostart = options && options.onAutostart || function() { ...
-> ```
+> ```](power-queue.js#L69)
 > [Source: power-queue.js:69](power-queue.js#L69)
 
 ##PowerQueue.length()    *Anywhere*
@@ -95,9 +95,9 @@ __Returns__  *{number}*  *(is reactive)*
 
 Number of tasks left in queue to be processed
 
-> ```js
+> [```js
 > self.length = invocations.length;
-> ```
+> ```](power-queue.js#L75)
 > [Source: power-queue.js:75](power-queue.js#L75)
 
 ##PowerQueue.progress()    *Anywhere*
@@ -106,9 +106,9 @@ __Returns__  *{number}*
 
 0 .. 100 % Indicates the status of the queue
 
-> ```js
+> [```js
 > self.progress = function() { ...
-> ```
+> ```](power-queue.js#L80)
 > [Source: power-queue.js:80](power-queue.js#L80)
 
 ##PowerQueue.usage()    *Anywhere*
@@ -117,9 +117,9 @@ __Returns__  *{number}*
 
 0 .. 100 % Indicates ressource usage of the queue
 
-> ```js
+> [```js
 > self.usage = function() { ...
-> ```
+> ```](power-queue.js#L91)
 > [Source: power-queue.js:91](power-queue.js#L91)
 
 ##PowerQueue.total()    *Anywhere*
@@ -128,9 +128,9 @@ __Returns__  *{number}*
 
 The total number of tasks added to this queue
 
-> ```js
+> [```js
 > self.total = _maxLength.get;
-> ```
+> ```](power-queue.js#L98)
 > [Source: power-queue.js:98](power-queue.js#L98)
 
 ---
