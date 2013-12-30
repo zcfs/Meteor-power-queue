@@ -4,9 +4,11 @@ Does `markdown` __work__ here?
 * Okay
 * Yep
 ---
-##new PowerQueue(options)    *Anywhere*
+
+###new PowerQueue(options)    *Anywhere*
 Creates an instance of a power queue 
 [Check out demo](http://power-queue-test.meteor.com/)
+
 __Arguments__
 
 * __options__  *{object}*
@@ -27,26 +29,32 @@ Limit retries of failed tasks
 Hmm, comment
 ---
 After text
-##powerqueue.onEnded    *Anywhere*
+
+###powerqueue.onEnded    *Anywhere*
 Is called when queue is ended
-##powerqueue.onAutostart    *Anywhere*
+
+###powerqueue.onAutostart    *Anywhere*
 Is called when queue is auto started
-##PowerQueue.length()    *Anywhere*
+
+###PowerQueue.length()    *Anywhere*
 
 __Returns__  *{number}*  *(is reactive)*
 Number of tasks left in queue to be processed
 ---
-##PowerQueue.progress()    *Anywhere*
+
+###PowerQueue.progress()    *Anywhere*
 
 __Returns__  *{number}*
 0 .. 100 % Indicates the status of the queue
 ---
-##PowerQueue.usage()    *Anywhere*
+
+###PowerQueue.usage()    *Anywhere*
 
 __Returns__  *{number}*
 0 .. 100 % Indicates ressource usage of the queue
 ---
-##PowerQueue.total()    *Anywhere*
+
+###PowerQueue.total()    *Anywhere*
 
 __Returns__  *{number}*
 The total number of tasks added to this queue
