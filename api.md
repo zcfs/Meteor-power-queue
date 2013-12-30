@@ -10,25 +10,30 @@ Creates an instance of a power queue
 
 <u><b>Arguments</b></u>
 
-* __options__  (Optional)  *{object}*
+* __options__ *{object}*
+    (Optional)
 Settings
-    - __filo__  (Default = false)  *{boolean}*
+    - __filo__ *{boolean}*    (Default = false)
 Make it a first in last out queue
-    - __isPaused__  (Default = false)  *{boolean}*
+    - __isPaused__ *{boolean}*    (Default = false)
 Set queue paused
-    - __autostart__  (Default = true)  *{boolean}*
+    - __autostart__ *{boolean}*    (Default = true)
 May adding a task start the queue
-    - __name__  (Default = "Queue")  *{string}*
+    - __name__ *{string}*    (Default = "Queue")
 Name of the queue
-    - __maxProcessing__  (Default = 1)  *{number}*
+    - __maxProcessing__ *{number}*    (Default = 1)
 Limit of simultanous running tasks
-    - __maxFailures__  (Default = 5)  *{number}*
+    - __maxFailures__ *{number}*    (Default = 5)
 Limit retries of failed tasks
-    - __text__  (Default = ' ')  *{ number | string }*
+    - __text__ *{ number | string }*    (Default = ' ')
 Hmm, comment
+
 ---
+
 *******
+
 ___
+
 - - -
 After text
 
