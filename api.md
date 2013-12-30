@@ -27,21 +27,21 @@ Limit retries of failed tasks
   * __text__  (Default = ' ')  *{ number | string }*
 Hmm, comment
 [Source: api.md:22](api.mdL22)
-```prettyprint js linenumber 22
+```js linenumber 22
 PowerQueue = function(options) {
 ```
 After text
 
 ##PowerQueue.onEnded    *Anywhere*
 [Source: api.md:64](api.mdL64)
-```prettyprint js linenumber 64
+```js linenumber 64
 self.onEnded = options && options.onEnded || function() { console.log(title + 
 ```
 Is called when queue is ended
 
 ##PowerQueue.onAutostart    *Anywhere*
 [Source: api.md:69](api.mdL69)
-```prettyprint js linenumber 69
+```js linenumber 69
 self.onAutostart = options && options.onAutostart || function() { console.log(title + 
 ```
 Is called when queue is auto started
@@ -52,7 +52,7 @@ __Returns__  *{number}*  *(is reactive)*
 
 Number of tasks left in queue to be processed
 [Source: api.md:75](api.mdL75)
-```prettyprint js linenumber 75
+```js linenumber 75
 self.length = invocations.length;
 ```
 
@@ -62,7 +62,7 @@ __Returns__  *{number}*
 
 0 .. 100 % Indicates the status of the queue
 [Source: api.md:80](api.mdL80)
-```prettyprint js linenumber 80
+```js linenumber 80
 self.progress = function() {
 ```
 
@@ -72,7 +72,7 @@ __Returns__  *{number}*
 
 0 .. 100 % Indicates ressource usage of the queue
 [Source: api.md:91](api.mdL91)
-```prettyprint js linenumber 91
+```js linenumber 91
 self.usage = function() {
 ```
 
@@ -82,7 +82,7 @@ __Returns__  *{number}*
 
 The total number of tasks added to this queue
 [Source: api.md:98](api.mdL98)
-```prettyprint js linenumber 98
+```js linenumber 98
 self.total = _maxLength.get;
 ```
 

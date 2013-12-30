@@ -9,14 +9,14 @@ __Arguments__
 * __defaultValue__  *{any}*
 Set the default value for the reactive property
 [Source: internal.api.md:13](internal.api.mdL13)
-```prettyprint js linenumber 13
+```js linenumber 13
 reactiveProperty = function(defaultValue) {
 ```
 This api should only be in the internal.api.md
 
 ##reactiveProperty.value    *Anywhere*
 [Source: internal.api.md:21](internal.api.mdL21)
-```prettyprint js linenumber 21
+```js linenumber 21
 self.value = defaultValue;
 ```
 This contains the non reactive value, should only be used as a getter for
@@ -24,7 +24,7 @@ internal use
 
 ##reactiveProperty.get()    *Anywhere*
 [Source: internal.api.md:31](internal.api.mdL31)
-```prettyprint js linenumber 31
+```js linenumber 31
 self.get = function() {
 ```
 Usage:
@@ -64,21 +64,21 @@ Limit retries of failed tasks
   * __text__  (Default = ' ')  *{ number | string }*
 Hmm, comment
 [Source: internal.api.md:22](internal.api.mdL22)
-```prettyprint js linenumber 22
+```js linenumber 22
 PowerQueue = function(options) {
 ```
 After text
 
 ##PowerQueue.onEnded    *Anywhere*
 [Source: internal.api.md:64](internal.api.mdL64)
-```prettyprint js linenumber 64
+```js linenumber 64
 self.onEnded = options && options.onEnded || function() { console.log(title + 
 ```
 Is called when queue is ended
 
 ##PowerQueue.onAutostart    *Anywhere*
 [Source: internal.api.md:69](internal.api.mdL69)
-```prettyprint js linenumber 69
+```js linenumber 69
 self.onAutostart = options && options.onAutostart || function() { console.log(title + 
 ```
 Is called when queue is auto started
@@ -89,7 +89,7 @@ __Returns__  *{number}*  *(is reactive)*
 
 Number of tasks left in queue to be processed
 [Source: internal.api.md:75](internal.api.mdL75)
-```prettyprint js linenumber 75
+```js linenumber 75
 self.length = invocations.length;
 ```
 
@@ -99,7 +99,7 @@ __Returns__  *{number}*
 
 0 .. 100 % Indicates the status of the queue
 [Source: internal.api.md:80](internal.api.mdL80)
-```prettyprint js linenumber 80
+```js linenumber 80
 self.progress = function() {
 ```
 
@@ -109,7 +109,7 @@ __Returns__  *{number}*
 
 0 .. 100 % Indicates ressource usage of the queue
 [Source: internal.api.md:91](internal.api.mdL91)
-```prettyprint js linenumber 91
+```js linenumber 91
 self.usage = function() {
 ```
 
@@ -119,7 +119,7 @@ __Returns__  *{number}*
 
 The total number of tasks added to this queue
 [Source: internal.api.md:98](internal.api.mdL98)
-```prettyprint js linenumber 98
+```js linenumber 98
 self.total = _maxLength.get;
 ```
 
