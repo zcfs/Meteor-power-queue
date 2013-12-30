@@ -216,6 +216,10 @@ PowerQueue = function(options) {
   self.pause = function() {
     _paused.set(true);
   };
+  
+  self.resume = function() {
+    _paused.set(false);
+  };
 
   self.run = function() {
     //not paused and already running or queue empty
