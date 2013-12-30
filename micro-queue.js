@@ -8,6 +8,18 @@
   * The interface is very basic and consists of:
   * `add`, `get`, `reset` Making it possible to write a custom micro-queue for
   * the `PowerQueue` eg.: a queue that is persisted into a database etc.
+  *
+  * Usage:
+```js
+  var foo = new microQueue(); // Basic fifo queue
+  foo.add(1);
+  foo.add(2);
+  foo.add(3);
+  for (var i = 0; i < foo.length(); i++) {
+    console.log(foo.get());
+  }
+```
+  * The result should be: "1, 2, 3"
   */
 microQueue = function(lifo) {
   var self = this, first = 0, last = -1, list = [];
