@@ -227,6 +227,7 @@ PowerQueue = function(options) {
   
   self.resume = function() {
     _paused.set(false);
+    self.next(null);
   };
 
   self.run = function() {
