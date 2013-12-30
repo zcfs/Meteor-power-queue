@@ -7,7 +7,9 @@ Does `markdown` __work__ here?
 ####new PowerQueue(options)    *Anywhere*
 Creates an instance of a power queue 
 [Check out demo](http://power-queue-test.meteor.com/)
-#####Arguments
+
+<u><b>Arguments</b></u>
+
 * __options__  (Optional)  *{object}*
 Settings
   * __filo__  (Default = false)  *{boolean}*
@@ -24,6 +26,7 @@ Limit of simultanous running tasks
 Limit retries of failed tasks
   * __text__  (Default = ' ')  *{ number | string }*
 Hmm, comment
+>- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 After text
 
 > ```PowerQueue = function(options) { ...``` [power-queue.js:22](power-queue.js#L22)
@@ -40,9 +43,7 @@ Is called when queue is auto started
 
 ####PowerQueue.length()    *Anywhere*
 
-<div style="border-bottom:1px solid red;"></div>
-#####Returns
-  *{number}*  *(is reactive)*
+__Returns__  *{number}*  *(is reactive)*
 
 Number of tasks left in queue to be processed
 
@@ -50,9 +51,7 @@ Number of tasks left in queue to be processed
 
 ####PowerQueue.progress()    *Anywhere*
 
-<div style="border-bottom:1px solid red;"></div>
-#####Returns
-  *{number}*
+__Returns__  *{number}*
 
 0 .. 100 % Indicates the status of the queue
 
@@ -60,9 +59,7 @@ Number of tasks left in queue to be processed
 
 ####PowerQueue.usage()    *Anywhere*
 
-<div style="border-bottom:1px solid red;"></div>
-#####Returns
-  *{number}*
+__Returns__  *{number}*
 
 0 .. 100 % Indicates ressource usage of the queue
 
@@ -70,9 +67,7 @@ Number of tasks left in queue to be processed
 
 ####PowerQueue.total()    *Anywhere*
 
-<div style="border-bottom:1px solid red;"></div>
-#####Returns
-  *{number}*
+__Returns__  *{number}*
 
 The total number of tasks added to this queue
 
