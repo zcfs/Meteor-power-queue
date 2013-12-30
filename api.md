@@ -7,10 +7,9 @@ Does `markdown` __work__ here?
 ##new PowerQueue(options)    *Anywhere*
 Creates an instance of a power queue 
 [Check out demo](http://power-queue-test.meteor.com/)
-
-__Arguments__
-
-* __options__  (Optional)  *{object}*
+<dl>
+<dt>Arguments</dt>
+<dd>* __options__  (Optional)  *{object}*
 Settings
   * __filo__  (Default = false)  *{boolean}*
 Make it a first in last out queue
@@ -26,6 +25,8 @@ Limit of simultanous running tasks
 Limit retries of failed tasks
   * __text__  (Default = ' ')  *{ number | string }*
 Hmm, comment
+</dd>
+</dl>
 After text
 
 > ```PowerQueue = function(options) { ...``` [power-queue.js:22](power-queue.js#L22)
@@ -41,38 +42,46 @@ Is called when queue is auto started
 > ```self.onAutostart = options && options.onAutostart || function() { ...``` [power-queue.js:69](power-queue.js#L69)
 
 ##PowerQueue.length()    *Anywhere*
+<dl>
 
-<div style="border-bottom: 1px thin black; width: 50%;"></div>
+<div style="border-bottom: 1px solid #eee; width: 50%;"></div>
 __Returns__  *{number}*  *(is reactive)*
 
 Number of tasks left in queue to be processed
+</dl>
 
 > ```self.length = invocations.length;``` [power-queue.js:75](power-queue.js#L75)
 
 ##PowerQueue.progress()    *Anywhere*
+<dl>
 
-<div style="border-bottom: 1px thin black; width: 50%;"></div>
+<div style="border-bottom: 1px solid #eee; width: 50%;"></div>
 __Returns__  *{number}*
 
 0 .. 100 % Indicates the status of the queue
+</dl>
 
 > ```self.progress = function() { ...``` [power-queue.js:80](power-queue.js#L80)
 
 ##PowerQueue.usage()    *Anywhere*
+<dl>
 
-<div style="border-bottom: 1px thin black; width: 50%;"></div>
+<div style="border-bottom: 1px solid #eee; width: 50%;"></div>
 __Returns__  *{number}*
 
 0 .. 100 % Indicates ressource usage of the queue
+</dl>
 
 > ```self.usage = function() { ...``` [power-queue.js:91](power-queue.js#L91)
 
 ##PowerQueue.total()    *Anywhere*
+<dl>
 
-<div style="border-bottom: 1px thin black; width: 50%;"></div>
+<div style="border-bottom: 1px solid #eee; width: 50%;"></div>
 __Returns__  *{number}*
 
 The total number of tasks added to this queue
+</dl>
 
 > ```self.total = _maxLength.get;``` [power-queue.js:98](power-queue.js#L98)
 
