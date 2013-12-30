@@ -69,7 +69,7 @@ Is called when queue is auto started
 
 ####PowerQueue.length()    *Anywhere*
 
-<div style="border-bottom: 1px solid #eee; width: 50%;">Test</div>
+<div id="test" class="test" style="border-bottom: 1px solid #eee; width: 50%;">Test</div>
 #####Returns
   *{number}*  *(is reactive)*
 
@@ -79,7 +79,7 @@ Number of tasks left in queue to be processed
 
 ####PowerQueue.progress()    *Anywhere*
 
-<div style="border-bottom: 1px solid #eee; width: 50%;">Test</div>
+<div id="test" class="test" style="border-bottom: 1px solid #eee; width: 50%;">Test</div>
 #####Returns
   *{number}*
 
@@ -89,7 +89,7 @@ Number of tasks left in queue to be processed
 
 ####PowerQueue.usage()    *Anywhere*
 
-<div style="border-bottom: 1px solid #eee; width: 50%;">Test</div>
+<div id="test" class="test" style="border-bottom: 1px solid #eee; width: 50%;">Test</div>
 #####Returns
   *{number}*
 
@@ -99,7 +99,7 @@ Number of tasks left in queue to be processed
 
 ####PowerQueue.total()    *Anywhere*
 
-<div style="border-bottom: 1px solid #eee; width: 50%;">Test</div>
+<div id="test" class="test" style="border-bottom: 1px solid #eee; width: 50%;">Test</div>
 #####Returns
   *{number}*
 
