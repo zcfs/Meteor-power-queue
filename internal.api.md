@@ -14,7 +14,7 @@ This api should only be in the internal.api.md
 
 > ```reactiveProperty = function(defaultValue) { ...``` [reactive-property.js:13](reactive-property.js#L13)
 
-## <a name="reactiveProperty.value"></a>reactiveProperty.value&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ##
+## <a name="reactiveProperty.value"></a>reactiveProperty.value {any}&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ##
 This contains the non reactive value, should only be used as a getter for
 internal use
 
@@ -28,6 +28,59 @@ Usage:
 ```
 
 > ```self.get = function() { ...``` [reactive-property.js:31](reactive-property.js#L31)
+
+
+---
+
+## <a name="microQueue"></a>new microQueue([lifo=false])&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ##
+A basic lifo or fifo queue
+This is better than a simple array with pop/shift because shift is O(n)
+and can become slow with a large array.
+
+<u><b>Arguments</b></u>
+
+* __lifo__ *{boolean}*
+  Set true for `lifo`, default is `fifo`
+
+-
+This queue was build as the spinal basis for the [`PowerQueue`](#PowerQueue)
+The interface is very basic and consists of:
+`add`, `get`, `reset` Making it possible to write a custom micro-queue for
+the `PowerQueue` eg.: a queue that is persisted into a database etc.
+
+> ```microQueue = function(lifo) { ...``` [micro-queue.js:12](micro-queue.js#L12)
+
+## <a name="_length"></a>_length {reactiveProperty} &nbsp;&nbsp;<sub><i>Anywhere</i></sub> ##
+*This property is private*
+
+> ```var _length = new reactiveProperty(0);``` [micro-queue.js:15](micro-queue.js#L15)
+
+## <a name="microQueue.length"></a>microQueue.length()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ##
+
+> ```self.length = _length.get;``` [micro-queue.js:21](micro-queue.js#L21)
+
+## <a name="microQueue.add"></a>microQueue.add(value)&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ##
+
+<u><b>Arguments</b></u>
+
+* __value__ *{any}*
+  The value to add to the queue
+
+-
+
+> ```self.add = function(value) { ...``` [micro-queue.js:26](micro-queue.js#L26)
+
+## <a name="microQueue.get"></a>microQueue.get()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ##
+
+__Returns__  *{any}*
+The value that was next in line
+
+> ```self.get = function() { ...``` [micro-queue.js:34](micro-queue.js#L34)
+
+## <a name="microQueue.reset"></a>microQueue.reset()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ##
+This method will empty all data in the queue.
+
+> ```self.reset = function() { ...``` [micro-queue.js:54](micro-queue.js#L54)
 
 
 ---
