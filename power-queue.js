@@ -130,10 +130,10 @@ PowerQueue = function(options) {
     * @returns {number} Maximum number of simultaneous processing tasks
     *
     * Example:
-    * ```js
-    *   foo.maxProcessing();    // Works as a getter and returns the current value
-    *   foo.maxProcessing(20);  // This sets the value to 20
-    * ```
+    ```js
+      foo.maxProcessing();    // Works as a getter and returns the current value
+      foo.maxProcessing(20);  // This sets the value to 20
+    ```
     */
   self.maxProcessing = _maxProcessing.getset;
 
@@ -143,10 +143,10 @@ PowerQueue = function(options) {
     * @returns {boolean} If adding a task may trigger the queue to start
     *
     * Example:
-    * ```js
-    *   foo.autostart();    // Works as a getter and returns the current value
-    *   foo.autostart(true);  // This sets the value to true
-    * ```
+    ```js
+      foo.autostart();    // Works as a getter and returns the current value
+      foo.autostart(true);  // This sets the value to true
+    ```
     */
   self.autostart = _autostart.getset;
 
@@ -156,10 +156,10 @@ PowerQueue = function(options) {
     * @returns {number} The maximum for failures pr. task before triggering an error
     *
     * Example:
-    * ```js
-    *   foo.maxFailures();    // Works as a getter and returns the current value
-    *   foo.maxFailures(10);  // This sets the value to 10
-    * ```
+    ```js
+      foo.maxFailures();    // Works as a getter and returns the current value
+      foo.maxFailures(10);  // This sets the value to 10
+    ```
     */
   self.maxFailures = _maxFailures.getset;
 
@@ -168,6 +168,7 @@ PowerQueue = function(options) {
     * * stop the queue
     * * paused to false
     * * Discart all queue data
+    *
     * > NOTE: At the moment if the queue has processing tasks they can change
     * > the `errors` and `failures` counters. This could change in the future or
     * > be prevented by creating a whole new instance of the `PowerQueue`
@@ -277,21 +278,21 @@ PowerQueue = function(options) {
     * @param {number} failures Number of failures on this task
     *
     * Default task handler expects functions as data:
-    * ```js
-    *   self.taskHandler = function(data, next, failures) {
-    *     // This default task handler expects invocation to be a function to run
-    *     if (typeof data !== 'function') {
-    *       throw new Error('Default task handler expects a function');
-    *     }
-    *     try {
-    *       // Have the function call next
-    *       data(next, failures);
-    *     } catch(err) {
-    *       // Throw to fail this task
-    *       next('Default task handler could not run task, Error: ' + err.message);
-    *     }
-    *   };
-    * ```
+    ```js
+      self.taskHandler = function(data, next, failures) {
+        // This default task handler expects invocation to be a function to run
+        if (typeof data !== 'function') {
+          throw new Error('Default task handler expects a function');
+        }
+        try {
+          // Have the function call next
+          data(next, failures);
+        } catch(err) {
+          // Throw to fail this task
+          next('Default task handler could not run task, Error: ' + err.message);
+        }
+      };
+    ```
     */
 
     // Can be overwrittin by the user
@@ -315,17 +316,17 @@ PowerQueue = function(options) {
     * @param {number} failures Number of failures on this task
     *
     * The default callback:
-    * ```js
-    *   var foo = new PowerQueue();
-    *
-    *   // Overwrite the default action
-    *   foo.errorHandler = function(data, addTask, failures) {
-    *     // This could be overwritten the data contains the task data and addTask
-    *     // is a helper for adding the task to the queue
-    *     // try again: addTask(data);
-    *     // console.log('Terminate at ' + failures + ' failures');
-    *   };
-    * ```
+    ```js
+      var foo = new PowerQueue();
+
+      // Overwrite the default action
+      foo.errorHandler = function(data, addTask, failures) {
+        // This could be overwritten the data contains the task data and addTask
+        // is a helper for adding the task to the queue
+        // try again: addTask(data);
+        // console.log('Terminate at ' + failures + ' failures');
+      };
+    ```
     */
   self.errorHandler = function(data, addTask, failures) {
     // This could be overwritten the data contains the task data and addTask

@@ -216,8 +216,8 @@ __Returns__  *{number}*  __(is reactive)__
 Maximum number of simultaneous processing tasks
 Example:
 ```js
- foo.maxProcessing();    // Works as a getter and returns the current value
- foo.maxProcessing(20);  // This sets the value to 20
+foo.maxProcessing();    // Works as a getter and returns the current value
+foo.maxProcessing(20);  // This sets the value to 20
 ```
 
 > ```self.maxProcessing = _maxProcessing.getset;``` [power-queue.js:138](power-queue.js#L138)
@@ -235,8 +235,8 @@ __Returns__  *{boolean}*  __(is reactive)__
 If adding a task may trigger the queue to start
 Example:
 ```js
- foo.autostart();    // Works as a getter and returns the current value
- foo.autostart(true);  // This sets the value to true
+foo.autostart();    // Works as a getter and returns the current value
+foo.autostart(true);  // This sets the value to true
 ```
 
 > ```self.autostart = _autostart.getset;``` [power-queue.js:151](power-queue.js#L151)
@@ -254,8 +254,8 @@ __Returns__  *{number}*  __(is reactive)__
 The maximum for failures pr. task before triggering an error
 Example:
 ```js
- foo.maxFailures();    // Works as a getter and returns the current value
- foo.maxFailures(10);  // This sets the value to 10
+foo.maxFailures();    // Works as a getter and returns the current value
+foo.maxFailures(10);  // This sets the value to 10
 ```
 
 > ```self.maxFailures = _maxFailures.getset;``` [power-queue.js:164](power-queue.js#L164)
@@ -269,7 +269,7 @@ Discart all queue data
 > the `errors` and `failures` counters. This could change in the future or
 > be prevented by creating a whole new instance of the `PowerQueue`
 
-> ```self.reset = function() { ...``` [power-queue.js:175](power-queue.js#L175)
+> ```self.reset = function() { ...``` [power-queue.js:176](power-queue.js#L176)
 
 ## <a name="PowerQueue.add"></a>PowerQueue.add(data, [failures])&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ##
 
@@ -282,7 +282,7 @@ Internally used to Pass on number of failures.
 
 -
 
-> ```self.add = function(data, failures) { ...``` [power-queue.js:189](power-queue.js#L189)
+> ```self.add = function(data, failures) { ...``` [power-queue.js:190](power-queue.js#L190)
 
 ## <a name="PowerQueue.next"></a>PowerQueue.next([err])&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ##
 
@@ -298,7 +298,7 @@ Error message if task failed
 `next` is handed into the [taskHandler](PowerQueue.taskHandler) as a
 callback to mark an error or end of current task
 
-> ```self.next = function(err) { ...``` [power-queue.js:210](power-queue.js#L210)
+> ```self.next = function(err) { ...``` [power-queue.js:211](power-queue.js#L211)
 
 ## <a name="PowerQueue.runTask"></a>PowerQueue.runTask(invocation)&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ##
 *This method is private*
@@ -310,7 +310,7 @@ The object stored in the micro-queue
 
 -
 
-> ```self.runTask = function(invocation) { ...``` [power-queue.js:246](power-queue.js#L246)
+> ```self.runTask = function(invocation) { ...``` [power-queue.js:247](power-queue.js#L247)
 
 -
 If the task handler throws an error then add it to the queue again
@@ -330,22 +330,22 @@ Number of failures on this task
 -
 Default task handler expects functions as data:
 ```js
- self.taskHandler = function(data, next, failures) {
-  *     // This default task handler expects invocation to be a function to run
-  *     if (typeof data !== 'function') {
-  *       throw new Error('Default task handler expects a function');
-  *     }
-  *     try {
-  *       // Have the function call next
-  *       data(next, failures);
-  *     } catch(err) {
-  *       // Throw to fail this task
-  *       next('Default task handler could not run task, Error: ' + err.message);
-  *     }
-  *   };
+self.taskHandler = function(data, next, failures) {
+      // This default task handler expects invocation to be a function to run
+      if (typeof data !== 'function') {
+        throw new Error('Default task handler expects a function');
+      }
+      try {
+        // Have the function call next
+        data(next, failures);
+      } catch(err) {
+        // Throw to fail this task
+        next('Default task handler could not run task, Error: ' + err.message);
+      }
+    };
 ```
 
-> ```self.taskHandler = function(data, next, failures) { ...``` [power-queue.js:298](power-queue.js#L298)
+> ```self.taskHandler = function(data, next, failures) { ...``` [power-queue.js:299](power-queue.js#L299)
 
 ## <a name="PowerQueue.errorHandler"></a>PowerQueue.errorHandler&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ##
 
@@ -361,17 +361,17 @@ Number of failures on this task
 -
 The default callback:
 ```js
- var foo = new PowerQueue();
- // Overwrite the default action
- foo.errorHandler = function(data, addTask, failures) {
-  *     // This could be overwritten the data contains the task data and addTask
-  *     // is a helper for adding the task to the queue
-  *     // try again: addTask(data);
-  *     // console.log('Terminate at ' + failures + ' failures');
-  *   };
+var foo = new PowerQueue();
+// Overwrite the default action
+foo.errorHandler = function(data, addTask, failures) {
+      // This could be overwritten the data contains the task data and addTask
+      // is a helper for adding the task to the queue
+      // try again: addTask(data);
+      // console.log('Terminate at ' + failures + ' failures');
+    };
 ```
 
-> ```self.errorHandler = function(data, addTask, failures) { ...``` [power-queue.js:330](power-queue.js#L330)
+> ```self.errorHandler = function(data, addTask, failures) { ...``` [power-queue.js:331](power-queue.js#L331)
 
 -
 This could be overwritten the data contains the task data and addTask
@@ -380,15 +380,15 @@ try again: addTask(data);
 
 ## <a name="PowerQueue.pause"></a>PowerQueue.pause()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ##
 
-> ```self.pause = function() { ...``` [power-queue.js:339](power-queue.js#L339)
+> ```self.pause = function() { ...``` [power-queue.js:340](power-queue.js#L340)
 
 ## <a name="PowerQueue.resume"></a>PowerQueue.resume()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ##
 > This will not start a stopped queue
 
-> ```self.resume = function() { ...``` [power-queue.js:346](power-queue.js#L346)
+> ```self.resume = function() { ...``` [power-queue.js:347](power-queue.js#L347)
 
 ## <a name="PowerQueue.run"></a>PowerQueue.run()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ##
 > Using this command will resume a paused queue and will
 > start a stopped queue.
 
-> ```self.run = function() { ...``` [power-queue.js:355](power-queue.js#L355)
+> ```self.run = function() { ...``` [power-queue.js:356](power-queue.js#L356)
