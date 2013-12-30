@@ -9,7 +9,7 @@ It is a work in progress. Pushes and PRs can go to the master branch.
 
 #API
 All getters and setters are reactive.
-[API Documentation](http://collectionfs.github.io/Meteor-powerqueue)
+[API Documentation](api.md)
 
 ##Helpers / Getters / Setters:
 * PowerQueue.length - Number of tasks in queue
@@ -96,8 +96,8 @@ This is a very rough example of how to make custom task handling,
 ```
 
 #Contribute
-We try to follow the jsdoc3 *(still under evaluation)*
+[API Complete Documentation](internal.api.md)
 Update docs, `npm install docmeteor`
 ```bash
-$ docmeteor -m 'updated foo documentation'
+$ docmeteor
 ```
