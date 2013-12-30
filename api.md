@@ -28,19 +28,25 @@ Limit retries of failed tasks
 Hmm, comment
 After text
 
+> ```js
 > PowerQueue = function(options) { ...
+> ```
 > [Source: power-queue.js:22](power-queue.js#L22)
 
 ##PowerQueue.onEnded    *Anywhere*
 Is called when queue is ended
 
+> ```js
 > self.onEnded = options && options.onEnded || function() { ...
+> ```
 > [Source: power-queue.js:64](power-queue.js#L64)
 
 ##PowerQueue.onAutostart    *Anywhere*
 Is called when queue is auto started
 
+> ```js
 > self.onAutostart = options && options.onAutostart || function() { ...
+> ```
 > [Source: power-queue.js:69](power-queue.js#L69)
 
 ##PowerQueue.length()    *Anywhere*
@@ -49,7 +55,9 @@ __Returns__  *{number}*  *(is reactive)*
 
 Number of tasks left in queue to be processed
 
+> ```js
 > self.length = invocations.length;
+> ```
 > [Source: power-queue.js:75](power-queue.js#L75)
 
 ##PowerQueue.progress()    *Anywhere*
@@ -58,7 +66,9 @@ __Returns__  *{number}*
 
 0 .. 100 % Indicates the status of the queue
 
+> ```js
 > self.progress = function() { ...
+> ```
 > [Source: power-queue.js:80](power-queue.js#L80)
 
 ##PowerQueue.usage()    *Anywhere*
@@ -67,7 +77,9 @@ __Returns__  *{number}*
 
 0 .. 100 % Indicates ressource usage of the queue
 
+> ```js
 > self.usage = function() { ...
+> ```
 > [Source: power-queue.js:91](power-queue.js#L91)
 
 ##PowerQueue.total()    *Anywhere*
@@ -76,7 +88,9 @@ __Returns__  *{number}*
 
 The total number of tasks added to this queue
 
+> ```js
 > self.total = _maxLength.get;
+> ```
 > [Source: power-queue.js:98](power-queue.js#L98)
 
 ---
