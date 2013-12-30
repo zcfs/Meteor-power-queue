@@ -3,6 +3,7 @@ This package contains a small api
 Does `markdown` __work__ here?
 * Okay
 * Yep
+
 ---
 
 ---
@@ -73,8 +74,10 @@ The total number of tasks added to this queue
 ---
 If the task handler throws an error then add it to the queue again
 we allow this for a max of _maxFailures
+
 ---
 This could be overwritten the data contains the task data and addTask
 is a helper for adding the task to the queue
 try again: addTask(data);
+
 ---
