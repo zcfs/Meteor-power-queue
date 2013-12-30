@@ -1,4 +1,15 @@
+// #Reactive Property
 // Client-side reactive version
+// Testing internal docs...
+//
+
+
+/**
+  * @constructor
+  * @param {any} defaultValue Set the default value for the reactive property
+  *
+  * This api should only be in the internal.api.md
+  */
 reactiveProperty = function(defaultValue) {
   var self = this;
   var _deps = new Deps.Dependency();

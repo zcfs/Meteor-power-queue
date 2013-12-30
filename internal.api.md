@@ -1,3 +1,17 @@
+#Reactive Property
+Client-side reactive version
+Testing internal docs...
+
+##new reactiveProperty(defaultValue)    *Anywhere*
+
+__Arguments__
+
+* __defaultValue__  *{any}*
+Set the default value for the reactive property
+This api should only be in the internal.api.md
+
+
+---
 #PowerQueue
 This package contains a small api
 Does `markdown` __work__ here?
