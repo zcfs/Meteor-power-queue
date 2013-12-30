@@ -2,25 +2,24 @@
 Client-side reactive version
 Testing internal docs...
 
-####new reactiveProperty(defaultValue)    *Anywhere*
+##new reactiveProperty(defaultValue)    *Anywhere*
 
 <u><b>Arguments</b></u>
 
 * __defaultValue__  *{any}*
 Set the default value for the reactive property
-
->- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+---
 This api should only be in the internal.api.md
 
 > ```reactiveProperty = function(defaultValue) { ...``` [reactive-property.js:13](reactive-property.js#L13)
 
-####reactiveProperty.value    *Anywhere*
+##reactiveProperty.value    *Anywhere*
 This contains the non reactive value, should only be used as a getter for
 internal use
 
 > ```self.value = defaultValue;``` [reactive-property.js:21](reactive-property.js#L21)
 
-####reactiveProperty.get()    *Anywhere*
+##reactiveProperty.get()    *Anywhere*
 Usage:
 ```js
  var foo = new reactiveProperty('bar');
@@ -37,7 +36,7 @@ Does `markdown` __work__ here?
 * Okay
 * Yep
 
-####new PowerQueue(options)    *Anywhere*
+##new PowerQueue(options)    *Anywhere*
 Creates an instance of a power queue 
 [Check out demo](http://power-queue-test.meteor.com/)
 
@@ -59,23 +58,22 @@ Limit of simultanous running tasks
 Limit retries of failed tasks
   * __text__  (Default = ' ')  *{ number | string }*
 Hmm, comment
-
->- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+---
 After text
 
 > ```PowerQueue = function(options) { ...``` [power-queue.js:22](power-queue.js#L22)
 
-####PowerQueue.onEnded    *Anywhere*
+##PowerQueue.onEnded    *Anywhere*
 Is called when queue is ended
 
 > ```self.onEnded = options && options.onEnded || function() { ...``` [power-queue.js:64](power-queue.js#L64)
 
-####PowerQueue.onAutostart    *Anywhere*
+##PowerQueue.onAutostart    *Anywhere*
 Is called when queue is auto started
 
 > ```self.onAutostart = options && options.onAutostart || function() { ...``` [power-queue.js:69](power-queue.js#L69)
 
-####PowerQueue.length()    *Anywhere*
+##PowerQueue.length()    *Anywhere*
 
 __Returns__  *{number}*  *(is reactive)*
 
@@ -83,7 +81,7 @@ Number of tasks left in queue to be processed
 
 > ```self.length = invocations.length;``` [power-queue.js:75](power-queue.js#L75)
 
-####PowerQueue.progress()    *Anywhere*
+##PowerQueue.progress()    *Anywhere*
 
 __Returns__  *{number}*
 
@@ -91,7 +89,7 @@ __Returns__  *{number}*
 
 > ```self.progress = function() { ...``` [power-queue.js:80](power-queue.js#L80)
 
-####PowerQueue.usage()    *Anywhere*
+##PowerQueue.usage()    *Anywhere*
 
 __Returns__  *{number}*
 
@@ -99,7 +97,7 @@ __Returns__  *{number}*
 
 > ```self.usage = function() { ...``` [power-queue.js:91](power-queue.js#L91)
 
-####PowerQueue.total()    *Anywhere*
+##PowerQueue.total()    *Anywhere*
 
 __Returns__  *{number}*
 
