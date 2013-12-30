@@ -8,6 +8,7 @@ Testing internal docs...
 
 * __defaultValue__  *{any}*
 Set the default value for the reactive property
+
 >- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 This api should only be in the internal.api.md
 
@@ -58,6 +59,7 @@ Limit of simultanous running tasks
 Limit retries of failed tasks
   * __text__  (Default = ' ')  *{ number | string }*
 Hmm, comment
+
 >- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 After text
 
