@@ -2,7 +2,7 @@
 Client-side reactive version
 Testing internal docs...
 
-## new reactiveProperty(defaultValue)&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ## {#link: reactiveProperty}
+## <a name="reactiveProperty"></a>new reactiveProperty(defaultValue)&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ##
 
 <u><b>Arguments</b></u>
 
@@ -14,13 +14,13 @@ This api should only be in the internal.api.md
 
 > ```reactiveProperty = function(defaultValue) { ...``` [reactive-property.js:13](reactive-property.js#L13)
 
-## reactiveProperty.value&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ## {#link: reactiveProperty.value}
+## <a name="reactiveProperty.value"></a>reactiveProperty.value&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ##
 This contains the non reactive value, should only be used as a getter for
 internal use
 
 > ```self.value = defaultValue;``` [reactive-property.js:21](reactive-property.js#L21)
 
-## reactiveProperty.get()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ## {#link: reactiveProperty.get}
+## <a name="reactiveProperty.get"></a>reactiveProperty.get()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ##
 Usage:
 ```js
  var foo = new reactiveProperty('bar');
@@ -37,7 +37,7 @@ Does `markdown` __work__ here?
 * Okay
 * Yep
 
-## new PowerQueue([options])&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ## {#link: PowerQueue}
+## <a name="PowerQueue"></a>new PowerQueue([options])&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ##
 Creates an instance of a power queue 
 [Check out demo](http://power-queue-test.meteor.com/)
 
@@ -65,38 +65,38 @@ After text
 
 > ```PowerQueue = function(options) { ...``` [power-queue.js:22](power-queue.js#L22)
 
-## PowerQueue.onEnded&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ## {#link: PowerQueue.onEnded}
+## <a name="PowerQueue.onEnded"></a>PowerQueue.onEnded&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ##
 Is called when queue is ended
 
 > ```self.onEnded = options && options.onEnded || function() { ...``` [power-queue.js:64](power-queue.js#L64)
 
-## PowerQueue.onAutostart&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ## {#link: PowerQueue.onAutostart}
+## <a name="PowerQueue.onAutostart"></a>PowerQueue.onAutostart&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ##
 Is called when queue is auto started
 
 > ```self.onAutostart = options && options.onAutostart || function() { ...``` [power-queue.js:69](power-queue.js#L69)
 
-## PowerQueue.length()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ## {#link: PowerQueue.length}
+## <a name="PowerQueue.length"></a>PowerQueue.length()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ##
 
 __Returns__  *{number}*  <u>is reactive</u>
 Number of tasks left in queue to be processed
 
 > ```self.length = invocations.length;``` [power-queue.js:75](power-queue.js#L75)
 
-## PowerQueue.progress()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ## {#link: PowerQueue.progress}
+## <a name="PowerQueue.progress"></a>PowerQueue.progress()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ##
 
 __Returns__  *{number}*
 0 .. 100 % Indicates the status of the queue
 
 > ```self.progress = function() { ...``` [power-queue.js:80](power-queue.js#L80)
 
-## PowerQueue.usage()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ## {#link: PowerQueue.usage}
+## <a name="PowerQueue.usage"></a>PowerQueue.usage()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ##
 
 __Returns__  *{number}*
 0 .. 100 % Indicates ressource usage of the queue
 
 > ```self.usage = function() { ...``` [power-queue.js:91](power-queue.js#L91)
 
-## PowerQueue.total()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ## {#link: PowerQueue.total}
+## <a name="PowerQueue.total"></a>PowerQueue.total()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ##
 
 __Returns__  *{number}*
 The total number of tasks added to this queue
