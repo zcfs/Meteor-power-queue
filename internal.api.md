@@ -10,13 +10,13 @@ __Arguments__
 Set the default value for the reactive property
 This api should only be in the internal.api.md
 
-> ```> reactiveProperty = function(defaultValue) { ...> ``` > [reactive-property.js:13](reactive-property.js#L13)
+> ```reactiveProperty = function(defaultValue) { ...``` [reactive-property.js:13](reactive-property.js#L13)
 
 ##reactiveProperty.value    *Anywhere*
 This contains the non reactive value, should only be used as a getter for
 internal use
 
-> ```> self.value = defaultValue;> ``` > [reactive-property.js:21](reactive-property.js#L21)
+> ```self.value = defaultValue;``` [reactive-property.js:21](reactive-property.js#L21)
 
 ##reactiveProperty.get()    *Anywhere*
 Usage:
@@ -25,7 +25,7 @@ Usage:
  foo.get(); // equals "bar"
 ```
 
-> ```> self.get = function() { ...> ``` > [reactive-property.js:31](reactive-property.js#L31)
+> ```self.get = function() { ...``` [reactive-property.js:31](reactive-property.js#L31)
 
 
 ---
@@ -59,53 +59,53 @@ Limit retries of failed tasks
 Hmm, comment
 After text
 
-> ```> PowerQueue = function(options) { ...> ``` > [power-queue.js:22](power-queue.js#L22)
+> ```PowerQueue = function(options) { ...``` [power-queue.js:22](power-queue.js#L22)
 
 ##PowerQueue.onEnded    *Anywhere*
 Is called when queue is ended
 
-> ```> self.onEnded = options && options.onEnded || function() { ...> ``` > [power-queue.js:64](power-queue.js#L64)
+> ```self.onEnded = options && options.onEnded || function() { ...``` [power-queue.js:64](power-queue.js#L64)
 
 ##PowerQueue.onAutostart    *Anywhere*
 Is called when queue is auto started
 
-> ```> self.onAutostart = options && options.onAutostart || function() { ...> ``` > [power-queue.js:69](power-queue.js#L69)
+> ```self.onAutostart = options && options.onAutostart || function() { ...``` [power-queue.js:69](power-queue.js#L69)
 
 ##PowerQueue.length()    *Anywhere*
 
-<hr/>
+<div style="border-bottom: 1px thin black; width: 50%;"></div>
 __Returns__  *{number}*  *(is reactive)*
 
 Number of tasks left in queue to be processed
 
-> ```> self.length = invocations.length;> ``` > [power-queue.js:75](power-queue.js#L75)
+> ```self.length = invocations.length;``` [power-queue.js:75](power-queue.js#L75)
 
 ##PowerQueue.progress()    *Anywhere*
 
-<hr/>
+<div style="border-bottom: 1px thin black; width: 50%;"></div>
 __Returns__  *{number}*
 
 0 .. 100 % Indicates the status of the queue
 
-> ```> self.progress = function() { ...> ``` > [power-queue.js:80](power-queue.js#L80)
+> ```self.progress = function() { ...``` [power-queue.js:80](power-queue.js#L80)
 
 ##PowerQueue.usage()    *Anywhere*
 
-<hr/>
+<div style="border-bottom: 1px thin black; width: 50%;"></div>
 __Returns__  *{number}*
 
 0 .. 100 % Indicates ressource usage of the queue
 
-> ```> self.usage = function() { ...> ``` > [power-queue.js:91](power-queue.js#L91)
+> ```self.usage = function() { ...``` [power-queue.js:91](power-queue.js#L91)
 
 ##PowerQueue.total()    *Anywhere*
 
-<hr/>
+<div style="border-bottom: 1px thin black; width: 50%;"></div>
 __Returns__  *{number}*
 
 The total number of tasks added to this queue
 
-> ```> self.total = _maxLength.get;> ``` > [power-queue.js:98](power-queue.js#L98)
+> ```self.total = _maxLength.get;``` [power-queue.js:98](power-queue.js#L98)
 
 ---
 If the task handler throws an error then add it to the queue again
