@@ -27,23 +27,17 @@ Limit retries of failed tasks
   * __text__  (Default = ' ')  *{ number | string }*
 Hmm, comment
 [Source: power-queue.js:22](power-queue.js#L22)
-```js#22
-PowerQueue = function(options) {
-```
+> 22| PowerQueue = function(options) { ...
 After text
 
 ##PowerQueue.onEnded    *Anywhere*
 [Source: power-queue.js:64](power-queue.js#L64)
-```js#64
-self.onEnded = options && options.onEnded || function() { console.log(title + 
-```
+> 64| self.onEnded = options && options.onEnded || function() { ...
 Is called when queue is ended
 
 ##PowerQueue.onAutostart    *Anywhere*
 [Source: power-queue.js:69](power-queue.js#L69)
-```js#69
-self.onAutostart = options && options.onAutostart || function() { console.log(title + 
-```
+> 69| self.onAutostart = options && options.onAutostart || function() { ...
 Is called when queue is auto started
 
 ##PowerQueue.length()    *Anywhere*
@@ -52,9 +46,7 @@ __Returns__  *{number}*  *(is reactive)*
 
 Number of tasks left in queue to be processed
 [Source: power-queue.js:75](power-queue.js#L75)
-```js#75
-self.length = invocations.length;
-```
+> 75| self.length = invocations.length;
 
 ##PowerQueue.progress()    *Anywhere*
 
@@ -62,9 +54,7 @@ __Returns__  *{number}*
 
 0 .. 100 % Indicates the status of the queue
 [Source: power-queue.js:80](power-queue.js#L80)
-```js#80
-self.progress = function() {
-```
+> 80| self.progress = function() { ...
 
 ##PowerQueue.usage()    *Anywhere*
 
@@ -72,9 +62,7 @@ __Returns__  *{number}*
 
 0 .. 100 % Indicates ressource usage of the queue
 [Source: power-queue.js:91](power-queue.js#L91)
-```js#91
-self.usage = function() {
-```
+> 91| self.usage = function() { ...
 
 ##PowerQueue.total()    *Anywhere*
 
@@ -82,9 +70,7 @@ __Returns__  *{number}*
 
 The total number of tasks added to this queue
 [Source: power-queue.js:98](power-queue.js#L98)
-```js#98
-self.total = _maxLength.get;
-```
+> 98| self.total = _maxLength.get;
 
 ---
 If the task handler throws an error then add it to the queue again
