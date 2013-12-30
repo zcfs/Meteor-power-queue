@@ -1,7 +1,14 @@
+// #PowerQueue
+// This package contains a small api
+// Does `markdown` __work__ here?
+//  * Okay
+//  * Yep
+
 /**
   * Creates an instance of a power queue // Testing inline comment
-  * [Check out demo]{@link http://power-queue-test.meteor.com/}
+  * [Check out demo](http://power-queue-test.meteor.com/)
   * @constructor
+  * @self powerqueue
   * @param {object} [options] Settings
   * @param {boolean} [options.filo=false] Make it a first in last out queue
   * @param {boolean} [options.isPaused=false] Set queue paused
@@ -10,9 +17,10 @@
   * @param {number} [options.maxProcessing=1] Limit of simultanous running tasks
   * @param {number} [options.maxFailures = 5] Limit retries of failed tasks
   * @param { number | string } [options.text = ' '] Hmm, comment
+  * After text
   */
 PowerQueue = function(options) {
-  var self = this;
+  var self = this; var test = 5;
 
   // Allow user to use another micro-queue #3
   var activeQueue = options && options.queue || microQueue;
