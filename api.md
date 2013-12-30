@@ -28,7 +28,7 @@ Limit retries of failed tasks
 Hmm, comment
 After text
 
-##PowerQueue.onEnded    *Anywhere*
+##PowerQueue.onEnded##    *Anywhere*
 Is called when queue is ended
 
 ##PowerQueue.onAutostart    *Anywhere*
