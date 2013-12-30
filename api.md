@@ -12,21 +12,21 @@ Creates an instance of a power queue
 
 __Arguments__
 
-* __options__  *{object}*
+* __options__  (Optional)  *{object}*
 Settings
-  * __filo__  *{boolean}*
+  * __filo__  (Optional = false)  *{boolean}*
 Make it a first in last out queue
-  * __isPaused__  *{boolean}*
+  * __isPaused__  (Optional = false)  *{boolean}*
 Set queue paused
-  * __autostart__  *{boolean}*
+  * __autostart__  (Optional = true)  *{boolean}*
 May adding a task start the queue
-  * __name__  *{string}*
+  * __name__  (Optional = "Queue")  *{string}*
 Name of the queue
-  * __maxProcessing__  *{number}*
+  * __maxProcessing__  (Optional = 1)  *{number}*
 Limit of simultanous running tasks
-  * __maxFailures__  *{number}*
+  * __maxFailures__  (Optional = 5)  *{number}*
 Limit retries of failed tasks
-  * __text__  *{ number | string }*
+  * __text__  (Optional = ' ')  *{ number | string }*
 Hmm, comment
 
 ---
