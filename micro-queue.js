@@ -1,7 +1,7 @@
 /** A basic lifo or fifo queue
   * This is better than a simple array with pop/shift because shift is O(n)
   * and can become slow with a large array.
-  * @method microQueue
+  * @method MicroQueue
   * @constructor
   * @param {boolean} [lifo=false] Set true for `lifo`, default is `fifo`
   * This queue was build as the spinal basis for the [`PowerQueue`](#PowerQueue)
@@ -11,7 +11,7 @@
   *
   * Usage:
 ```js
-  var foo = new microQueue(); // Basic fifo queue
+  var foo = new MicroQueue(); // Basic fifo queue
   foo.add(1);
   foo.add(2);
   foo.add(3);
@@ -21,19 +21,19 @@
 ```
   * The result should be: "1, 2, 3"
   */
-microQueue = function(lifo) {
+MicroQueue = function(lifo) {
   var self = this, first = 0, last = -1, list = [];
 
   // The private reactive length property
-  var _length = new reactiveProperty(0);
+  var _length = new ReactiveProperty(0);
 
-  /** @method microQueue.length
+  /** @method MicroQueue.length
     * @reactive
     * @returns {number} Length / number of items in queue
     */
   self.length = _length.get;
 
-  /** @method microQueue.add Add item to the queue
+  /** @method MicroQueue.add Add item to the queue
     * @param {any} value The item to add to the queue
     */
   self.add = function(value) {
@@ -41,7 +41,7 @@ microQueue = function(lifo) {
     _length.inc();
   };
 
-  /** @method microQueue.get Get next tiem from queue
+  /** @method MicroQueue.get Get next tiem from queue
     * @return {any} The item that was next in line
     */
   self.get = function() {
@@ -61,7 +61,7 @@ microQueue = function(lifo) {
     return value;
   };
 
-  /** @method microQueue.reset Reset the queue
+  /** @method MicroQueue.reset Reset the queue
     * This method will empty all data in the queue.
     */
   self.reset = function() {

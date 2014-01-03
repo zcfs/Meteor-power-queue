@@ -15,37 +15,37 @@ PowerQueue = function(options) {
   var self = this; var test = 5;
 
   // Allow user to use another micro-queue #3
-  var activeQueue = options && options.queue || microQueue;
+  var ActiveQueue = options && options.queue || MicroQueue;
 
   // Default is fifo lilo
-  var invocations = new activeQueue(options && options.filo || options && options.lifo);
+  var invocations = new ActiveQueue(options && options.filo || options && options.lifo);
 
   // Max number of simultanious tasks being processed
-  var _maxProcessing = new reactiveProperty(options && options.maxProcessing || 1);
+  var _maxProcessing = new ReactiveProperty(options && options.maxProcessing || 1);
 
   // Reactive number of tasks being processed
-  var _isProcessing = new reactiveProperty(0);
+  var _isProcessing = new ReactiveProperty(0);
 
   // Boolean indicating if queue is paused or not
-  var _paused = new reactiveProperty(options && options.isPaused || false);
+  var _paused = new ReactiveProperty(options && options.isPaused || false);
 
   // Boolean indicator for queue status active / running (can still be paused)
-  var _running = new reactiveProperty(false);
+  var _running = new ReactiveProperty(false);
 
   // Counter for errors, errors are triggered if maxFailures is exeeded
-  var _errors = new reactiveProperty(0);
+  var _errors = new ReactiveProperty(0);
 
   // Counter for task failures, contains error count
-  var _failures = new reactiveProperty(0);
+  var _failures = new ReactiveProperty(0);
 
   // Count of all added tasks
-  var _maxLength = new reactiveProperty(0);
+  var _maxLength = new ReactiveProperty(0);
 
   // Boolean indicate whether or not a "add" task is allowed to start the queue
-  var _autostart = new reactiveProperty((options && options.autostart === false)?false : true);
+  var _autostart = new ReactiveProperty((options && options.autostart === false)?false : true);
 
   // Limit times a task is allowed to fail and be rerun later before triggering an error
-  var _maxFailures = new reactiveProperty(options && options.maxFailures || 5);
+  var _maxFailures = new ReactiveProperty(options && options.maxFailures || 5);
 
   // Name / title of this queue - Not used - should deprecate
   var title = options && options.name || 'Queue';

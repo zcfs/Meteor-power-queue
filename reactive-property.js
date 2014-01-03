@@ -10,21 +10,21 @@
   *
   * This api should only be in the internal.api.md
   */
-reactiveProperty = function(defaultValue) {
+ReactiveProperty = function(defaultValue) {
   var self = this;
   var _deps = new Deps.Dependency();
 
-  /** @property reactiveProperty.value
+  /** @property ReactiveProperty.value
     * This contains the non reactive value, should only be used as a getter for
     * internal use
     */
   self.value = defaultValue;
 
   /**
-    * @method reactiveProperty.get
+    * @method ReactiveProperty.get
     * Usage:
     * ```js
-    *   var foo = new reactiveProperty('bar');
+    *   var foo = new ReactiveProperty('bar');
     *   foo.get(); // equals "bar"
     * ```
     */
