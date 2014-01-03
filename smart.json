@@ -3,7 +3,7 @@
   "description": "PowerQueue is a powerful tool for handling async tasks, throttling etc.",
   "homepage": "https://github.com/CollectionFS/Meteor-powerqueue",
   "author": "CollectionFS core @aldeed & @raix",
-  "version": "0.0.1",
+  "version": "0.9.0",
   "git": "https://github.com/CollectionFS/Meteor-powerqueue.git",
   "packages": {
   }
