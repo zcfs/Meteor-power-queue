@@ -6,7 +6,7 @@
 Client-side reactive version
 Testing internal docs...
 
-#### <a name="reactiveProperty"></a>new reactiveProperty(defaultValue)&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
+#### <a name="ReactiveProperty"></a>new ReactiveProperty(defaultValue)&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
 -
 
 __Arguments__
@@ -17,13 +17,13 @@ Set the default value for the reactive property
 -
 This api should only be in the internal.api.md
 
-> ```reactiveProperty = function(defaultValue) { ...``` [reactive-property.js:13](reactive-property.js#L13)
+> ```ReactiveProperty = function(defaultValue) { ...``` [reactive-property.js:13](reactive-property.js#L13)
 
 -
 
-#### <a name="reactiveProperty.value"></a>*reactiveproperty*.value {any}&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
+#### <a name="ReactiveProperty.value"></a>*reactiveproperty*.value {any}&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
 -
-*This property __value__ is defined in `reactiveProperty`*
+*This property __value__ is defined in `ReactiveProperty`*
 This contains the non reactive value, should only be used as a getter for
 internal use
 
@@ -31,12 +31,12 @@ internal use
 
 -
 
-#### <a name="reactiveProperty.get"></a>*reactiveproperty*.get()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
+#### <a name="ReactiveProperty.get"></a>*reactiveproperty*.get()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
 -
-*This method __get__ is defined in `reactiveProperty`*
+*This method __get__ is defined in `ReactiveProperty`*
 Usage:
 ```js
- var foo = new reactiveProperty('bar');
+ var foo = new ReactiveProperty('bar');
  foo.get(); // equals "bar"
 ```
 
@@ -51,7 +51,7 @@ Usage:
 
 -
 
-#### <a name="microQueue"></a>new microQueue([lifo])&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
+#### <a name="MicroQueue"></a>new MicroQueue([lifo])&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
 ```
 A basic lifo or fifo queue
 This is better than a simple array with pop/shift because shift is O(n)
@@ -71,7 +71,7 @@ The interface is very basic and consists of:
 the `PowerQueue` eg.: a queue that is persisted into a database etc.
 Usage:
 ```js
-var foo = new microQueue(); // Basic fifo queue
+var foo = new MicroQueue(); // Basic fifo queue
 foo.add(1);
 foo.add(2);
 foo.add(3);
@@ -81,13 +81,13 @@ for (var i = 0; i < foo.length(); i++) {
 ```
 The result should be: "1, 2, 3"
 
-> ```microQueue = function(lifo) { ...``` [micro-queue.js:24](micro-queue.js#L24)
+> ```MicroQueue = function(lifo) { ...``` [micro-queue.js:24](micro-queue.js#L24)
 
 -
 
-#### <a name="microQueue.length"></a>*microqueue*.length()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
+#### <a name="MicroQueue.length"></a>*microqueue*.length()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
 -
-*This method __length__ is defined in `microQueue`*
+*This method __length__ is defined in `MicroQueue`*
 
 __Returns__  *{number}*  __(is reactive)__
 Length / number of items in queue
@@ -96,9 +96,9 @@ Length / number of items in queue
 
 -
 
-#### <a name="microQueue.add"></a>*microqueue*.add(value)&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
+#### <a name="MicroQueue.add"></a>*microqueue*.add(value)&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
 -
-*This method __add__ is defined in `microQueue`*
+*This method __add__ is defined in `MicroQueue`*
 
 __Arguments__
 
@@ -111,9 +111,9 @@ The item to add to the queue
 
 -
 
-#### <a name="microQueue.get"></a>*microqueue*.get()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
+#### <a name="MicroQueue.get"></a>*microqueue*.get()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
 -
-*This method __get__ is defined in `microQueue`*
+*This method __get__ is defined in `MicroQueue`*
 
 __Returns__  *{any}*
 The item that was next in line
@@ -122,9 +122,9 @@ The item that was next in line
 
 -
 
-#### <a name="microQueue.reset"></a>*microqueue*.reset()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
+#### <a name="MicroQueue.reset"></a>*microqueue*.reset()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
 -
-*This method __reset__ is defined in `microQueue`*
+*This method __reset__ is defined in `MicroQueue`*
 This method will empty all data in the queue.
 
 > ```self.reset = function() { ...``` [micro-queue.js:67](micro-queue.js#L67)
