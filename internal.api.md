@@ -1,11 +1,13 @@
 > File: ["reactive-property.js"](reactive-property.js)
 > Where: {client|server}
+
 -
 #Reactive Property
 Client-side reactive version
 Testing internal docs...
 
-## <a name="reactiveProperty"></a>new reactiveProperty(defaultValue)&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ##
+#### <a name="reactiveProperty"></a>new reactiveProperty(defaultValue)&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
+-
 
 __Arguments__
 
@@ -17,13 +19,21 @@ This api should only be in the internal.api.md
 
 > ```reactiveProperty = function(defaultValue) { ...``` [reactive-property.js:13](reactive-property.js#L13)
 
-## <a name="reactiveProperty.value"></a>reactiveProperty.value {any}&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ##
+-
+
+#### <a name="reactiveProperty.value"></a>*reactiveproperty*.value {any}&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
+-
+*This property __value__ is defined in `prototype` of `reactiveProperty`*
 This contains the non reactive value, should only be used as a getter for
 internal use
 
 > ```self.value = defaultValue;``` [reactive-property.js:21](reactive-property.js#L21)
 
-## <a name="reactiveProperty.get"></a>reactiveProperty.get()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ##
+-
+
+#### <a name="reactiveProperty.get"></a>*reactiveproperty*.get()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
+-
+*This method __get__ is defined in `prototype` of `reactiveProperty`*
 Usage:
 ```js
  var foo = new reactiveProperty('bar');
@@ -32,16 +42,22 @@ Usage:
 
 > ```self.get = function() { ...``` [reactive-property.js:31](reactive-property.js#L31)
 
+-
+
 
 ---
 > File: ["micro-queue.js"](micro-queue.js)
 > Where: {client|server}
+
 -
 
-## <a name="microQueue"></a>new microQueue([lifo])&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ##
+#### <a name="microQueue"></a>new microQueue([lifo])&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
+```
 A basic lifo or fifo queue
 This is better than a simple array with pop/shift because shift is O(n)
 and can become slow with a large array.
+```
+-
 
 __Arguments__
 
@@ -67,14 +83,22 @@ The result should be: "1, 2, 3"
 
 > ```microQueue = function(lifo) { ...``` [micro-queue.js:24](micro-queue.js#L24)
 
-## <a name="microQueue.length"></a>microQueue.length()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ##
+-
+
+#### <a name="microQueue.length"></a>*microqueue*.length()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
+-
+*This method __length__ is defined in `prototype` of `microQueue`*
 
 __Returns__  *{number}*  __(is reactive)__
 Length / number of items in queue
 
 > ```self.length = _length.get;``` [micro-queue.js:34](micro-queue.js#L34)
 
-## <a name="microQueue.add"></a>microQueue.add(value)&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ##
+-
+
+#### <a name="microQueue.add"></a>*microqueue*.add(value)&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
+-
+*This method __add__ is defined in `prototype` of `microQueue`*
 
 __Arguments__
 
@@ -85,27 +109,41 @@ The item to add to the queue
 
 > ```self.add = function(value) { ...``` [micro-queue.js:39](micro-queue.js#L39)
 
-## <a name="microQueue.get"></a>microQueue.get()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ##
+-
+
+#### <a name="microQueue.get"></a>*microqueue*.get()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
+-
+*This method __get__ is defined in `prototype` of `microQueue`*
 
 __Returns__  *{any}*
 The item that was next in line
 
 > ```self.get = function() { ...``` [micro-queue.js:47](micro-queue.js#L47)
 
-## <a name="microQueue.reset"></a>microQueue.reset()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ##
+-
+
+#### <a name="microQueue.reset"></a>*microqueue*.reset()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
+-
+*This method __reset__ is defined in `prototype` of `microQueue`*
 This method will empty all data in the queue.
 
 > ```self.reset = function() { ...``` [micro-queue.js:67](micro-queue.js#L67)
+
+-
 
 
 ---
 > File: ["power-queue.js"](power-queue.js)
 > Where: {client|server}
+
 -
 
-## <a name="PowerQueue"></a>new PowerQueue([options])&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ##
+#### <a name="PowerQueue"></a>new PowerQueue([options])&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
+```
 Creates an instance of a power queue 
 [Check out demo](http://power-queue-test.meteor.com/)
+```
+-
 
 __Arguments__
 
@@ -128,59 +166,95 @@ Limit retries of failed tasks
 
 > ```PowerQueue = function(options) { ...``` [power-queue.js:14](power-queue.js#L14)
 
-## <a name="PowerQueue.onEnded"></a>PowerQueue.onEnded&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ##
+-
+
+#### <a name="PowerQueue.onEnded"></a>*powerqueue*.onEnded&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
+-
+*This callback __onEnded__ is defined in `prototype` of `PowerQueue`*
 Is called when queue is ended
 
 > ```self.onEnded = options && options.onEnded || function() { ...``` [power-queue.js:56](power-queue.js#L56)
 
-## <a name="PowerQueue.onAutostart"></a>PowerQueue.onAutostart&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ##
+-
+
+#### <a name="PowerQueue.onAutostart"></a>*powerqueue*.onAutostart&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
+-
+*This callback __onAutostart__ is defined in `prototype` of `PowerQueue`*
 Is called when queue is auto started
 
 > ```self.onAutostart = options && options.onAutostart || function() { ...``` [power-queue.js:61](power-queue.js#L61)
 
-## <a name="PowerQueue.length"></a>PowerQueue.length()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ##
+-
+
+#### <a name="PowerQueue.length"></a>*powerqueue*.length()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
+-
+*This method __length__ is defined in `prototype` of `PowerQueue`*
 
 __Returns__  *{number}*  __(is reactive)__
 Number of tasks left in queue to be processed
 
 > ```self.length = invocations.length;``` [power-queue.js:67](power-queue.js#L67)
 
-## <a name="PowerQueue.progress"></a>PowerQueue.progress()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ##
+-
+
+#### <a name="PowerQueue.progress"></a>*powerqueue*.progress()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
+-
+*This method __progress__ is defined in `prototype` of `PowerQueue`*
 
 __Returns__  *{number}*  __(is reactive)__
 0 .. 100 % Indicates the status of the queue
 
 > ```self.progress = function() { ...``` [power-queue.js:73](power-queue.js#L73)
 
-## <a name="PowerQueue.usage"></a>PowerQueue.usage()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ##
+-
+
+#### <a name="PowerQueue.usage"></a>*powerqueue*.usage()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
+-
+*This method __usage__ is defined in `prototype` of `PowerQueue`*
 
 __Returns__  *{number}*  __(is reactive)__
 0 .. 100 % Indicates ressource usage of the queue
 
 > ```self.usage = function() { ...``` [power-queue.js:85](power-queue.js#L85)
 
-## <a name="PowerQueue.total"></a>PowerQueue.total()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ##
+-
+
+#### <a name="PowerQueue.total"></a>*powerqueue*.total()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
+-
+*This method __total__ is defined in `prototype` of `PowerQueue`*
 
 __Returns__  *{number}*  __(is reactive)__
 The total number of tasks added to this queue
 
 > ```self.total = _maxLength.get;``` [power-queue.js:93](power-queue.js#L93)
 
-## <a name="PowerQueue.isPaused"></a>PowerQueue.isPaused()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ##
+-
+
+#### <a name="PowerQueue.isPaused"></a>*powerqueue*.isPaused()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
+-
+*This method __isPaused__ is defined in `prototype` of `PowerQueue`*
 
 __Returns__  *{boolean}*  __(is reactive)__
 Status of the paused state of the queue
 
 > ```self.isPaused = _paused.get;``` [power-queue.js:99](power-queue.js#L99)
 
-## <a name="PowerQueue.processing"></a>PowerQueue.processing()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ##
+-
+
+#### <a name="PowerQueue.processing"></a>*powerqueue*.processing()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
+-
+*This method __processing__ is defined in `prototype` of `PowerQueue`*
 
 __Returns__  *{number}*  __(is reactive)__
 Number of tasks currently being processed
 
 > ```self.processing = _isProcessing.get;``` [power-queue.js:105](power-queue.js#L105)
 
-## <a name="PowerQueue.errors"></a>PowerQueue.errors()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ##
+-
+
+#### <a name="PowerQueue.errors"></a>*powerqueue*.errors()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
+-
+*This method __errors__ is defined in `prototype` of `PowerQueue`*
 
 __Returns__  *{number}*  __(is reactive)__
 The total number of errors
@@ -188,14 +262,22 @@ Errors are triggered when [maxFailures](PowerQueue.maxFailures) are exeeded
 
 > ```self.errors = _errors.get;``` [power-queue.js:112](power-queue.js#L112)
 
-## <a name="PowerQueue.failures"></a>PowerQueue.failures()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ##
+-
+
+#### <a name="PowerQueue.failures"></a>*powerqueue*.failures()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
+-
+*This method __failures__ is defined in `prototype` of `PowerQueue`*
 
 __Returns__  *{number}*  __(is reactive)__
 The total number of failed tasks
 
 > ```self.failures = _failures.get;``` [power-queue.js:118](power-queue.js#L118)
 
-## <a name="PowerQueue.isRunning"></a>PowerQueue.isRunning()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ##
+-
+
+#### <a name="PowerQueue.isRunning"></a>*powerqueue*.isRunning()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
+-
+*This method __isRunning__ is defined in `prototype` of `PowerQueue`*
 
 __Returns__  *{boolean}*  __(is reactive)__
 True if the queue is running
@@ -203,7 +285,11 @@ True if the queue is running
 
 > ```self.isRunning = _running.get;``` [power-queue.js:125](power-queue.js#L125)
 
-## <a name="PowerQueue.maxProcessing"></a>PowerQueue.maxProcessing([max])&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ##
+-
+
+#### <a name="PowerQueue.maxProcessing"></a>*powerqueue*.maxProcessing([max])&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
+-
+*This method __maxProcessing__ is defined in `prototype` of `PowerQueue`*
 
 __Arguments__
 
@@ -222,7 +308,11 @@ foo.maxProcessing(20);  // This sets the value to 20
 
 > ```self.maxProcessing = _maxProcessing.getset;``` [power-queue.js:138](power-queue.js#L138)
 
-## <a name="PowerQueue.autostart"></a>PowerQueue.autostart([autorun])&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ##
+-
+
+#### <a name="PowerQueue.autostart"></a>*powerqueue*.autostart([autorun])&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
+-
+*This method __autostart__ is defined in `prototype` of `PowerQueue`*
 
 __Arguments__
 
@@ -241,7 +331,11 @@ foo.autostart(true);  // This sets the value to true
 
 > ```self.autostart = _autostart.getset;``` [power-queue.js:151](power-queue.js#L151)
 
-## <a name="PowerQueue.maxFailures"></a>PowerQueue.maxFailures([max])&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ##
+-
+
+#### <a name="PowerQueue.maxFailures"></a>*powerqueue*.maxFailures([max])&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
+-
+*This method __maxFailures__ is defined in `prototype` of `PowerQueue`*
 
 __Arguments__
 
@@ -260,7 +354,11 @@ foo.maxFailures(10);  // This sets the value to 10
 
 > ```self.maxFailures = _maxFailures.getset;``` [power-queue.js:164](power-queue.js#L164)
 
-## <a name="PowerQueue.reset"></a>PowerQueue.reset()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ##
+-
+
+#### <a name="PowerQueue.reset"></a>*powerqueue*.reset()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
+-
+*This method __reset__ is defined in `prototype` of `PowerQueue`*
 Calling this will:
 stop the queue
 paused to false
@@ -271,7 +369,11 @@ Discart all queue data
 
 > ```self.reset = function() { ...``` [power-queue.js:176](power-queue.js#L176)
 
-## <a name="PowerQueue.add"></a>PowerQueue.add(data, [failures])&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ##
+-
+
+#### <a name="PowerQueue.add"></a>*powerqueue*.add(data, [failures])&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
+-
+*This method __add__ is defined in `prototype` of `PowerQueue`*
 
 __Arguments__
 
@@ -284,7 +386,11 @@ Internally used to Pass on number of failures.
 
 > ```self.add = function(data, failures) { ...``` [power-queue.js:190](power-queue.js#L190)
 
-## <a name="PowerQueue.next"></a>PowerQueue.next([err])&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ##
+-
+
+#### <a name="PowerQueue.next"></a>*powerqueue*.next([err])&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
+-
+*This method __next__ is defined in `prototype` of `PowerQueue`*
 
 __Arguments__
 
@@ -300,8 +406,12 @@ callback to mark an error or end of current task
 
 > ```self.next = function(err) { ...``` [power-queue.js:211](power-queue.js#L211)
 
-## <a name="PowerQueue.runTask"></a>PowerQueue.runTask(invocation)&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ##
+-
+
+#### <a name="PowerQueue.runTask"></a>*powerqueue*.runTask(invocation)&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
+-
 *This method is private*
+*This method __runTask__ is defined in `prototype` of `PowerQueue`*
 
 __Arguments__
 
@@ -313,10 +423,10 @@ The object stored in the micro-queue
 > ```self.runTask = function(invocation) { ...``` [power-queue.js:247](power-queue.js#L247)
 
 -
-If the task handler throws an error then add it to the queue again
-we allow this for a max of _maxFailures
 
-## <a name="PowerQueue.taskHandler"></a>PowerQueue.taskHandler&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ##
+#### <a name="PowerQueue.taskHandler"></a>*powerqueue*.taskHandler&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
+-
+*This callback __taskHandler__ is defined in `prototype` of `PowerQueue`*
 
 __Arguments__
 
@@ -347,7 +457,11 @@ self.taskHandler = function(data, next, failures) {
 
 > ```self.taskHandler = function(data, next, failures) { ...``` [power-queue.js:299](power-queue.js#L299)
 
-## <a name="PowerQueue.errorHandler"></a>PowerQueue.errorHandler&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ##
+-
+
+#### <a name="PowerQueue.errorHandler"></a>*powerqueue*.errorHandler&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
+-
+*This callback __errorHandler__ is defined in `prototype` of `PowerQueue`*
 
 __Arguments__
 
@@ -374,21 +488,22 @@ foo.errorHandler = function(data, addTask, failures) {
 > ```self.errorHandler = function(data, addTask, failures) { ...``` [power-queue.js:331](power-queue.js#L331)
 
 -
-This could be overwritten the data contains the task data and addTask
-is a helper for adding the task to the queue
-try again: addTask(data);
 
-## <a name="PowerQueue.pause"></a>PowerQueue.pause()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ##
-
-> ```self.pause = function() { ...``` [power-queue.js:340](power-queue.js#L340)
-
-## <a name="PowerQueue.resume"></a>PowerQueue.resume()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ##
+#### <a name="PowerQueue.resume"></a>*powerqueue*.resume()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
+-
+*This method __resume__ is defined in `prototype` of `PowerQueue`*
 > This will not start a stopped queue
 
 > ```self.resume = function() { ...``` [power-queue.js:347](power-queue.js#L347)
 
-## <a name="PowerQueue.run"></a>PowerQueue.run()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ##
+-
+
+#### <a name="PowerQueue.run"></a>*powerqueue*.run()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
+-
+*This method __run__ is defined in `prototype` of `PowerQueue`*
 > Using this command will resume a paused queue and will
 > start a stopped queue.
 
 > ```self.run = function() { ...``` [power-queue.js:356](power-queue.js#L356)
+
+-
