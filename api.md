@@ -31,7 +31,7 @@ Limit retries of failed tasks
 
 #### <a name="PowerQueue.onEnded"></a>*powerqueue*.onEnded&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
 -
-*This callback __onEnded__ is defined in `prototype` of `PowerQueue`*
+*This callback __onEnded__ is defined in `PowerQueue`*
 Is called when queue is ended
 
 > ```self.onEnded = options && options.onEnded || function() { ...``` [power-queue.js:56](power-queue.js#L56)
@@ -40,7 +40,7 @@ Is called when queue is ended
 
 #### <a name="PowerQueue.onAutostart"></a>*powerqueue*.onAutostart&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
 -
-*This callback __onAutostart__ is defined in `prototype` of `PowerQueue`*
+*This callback __onAutostart__ is defined in `PowerQueue`*
 Is called when queue is auto started
 
 > ```self.onAutostart = options && options.onAutostart || function() { ...``` [power-queue.js:61](power-queue.js#L61)
@@ -49,7 +49,7 @@ Is called when queue is auto started
 
 #### <a name="PowerQueue.length"></a>*powerqueue*.length()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
 -
-*This method __length__ is defined in `prototype` of `PowerQueue`*
+*This method __length__ is defined in `PowerQueue`*
 
 __Returns__  *{number}*  __(is reactive)__
 Number of tasks left in queue to be processed
@@ -60,7 +60,7 @@ Number of tasks left in queue to be processed
 
 #### <a name="PowerQueue.progress"></a>*powerqueue*.progress()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
 -
-*This method __progress__ is defined in `prototype` of `PowerQueue`*
+*This method __progress__ is defined in `PowerQueue`*
 
 __Returns__  *{number}*  __(is reactive)__
 0 .. 100 % Indicates the status of the queue
@@ -71,7 +71,7 @@ __Returns__  *{number}*  __(is reactive)__
 
 #### <a name="PowerQueue.usage"></a>*powerqueue*.usage()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
 -
-*This method __usage__ is defined in `prototype` of `PowerQueue`*
+*This method __usage__ is defined in `PowerQueue`*
 
 __Returns__  *{number}*  __(is reactive)__
 0 .. 100 % Indicates ressource usage of the queue
@@ -82,7 +82,7 @@ __Returns__  *{number}*  __(is reactive)__
 
 #### <a name="PowerQueue.total"></a>*powerqueue*.total()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
 -
-*This method __total__ is defined in `prototype` of `PowerQueue`*
+*This method __total__ is defined in `PowerQueue`*
 
 __Returns__  *{number}*  __(is reactive)__
 The total number of tasks added to this queue
@@ -93,7 +93,7 @@ The total number of tasks added to this queue
 
 #### <a name="PowerQueue.isPaused"></a>*powerqueue*.isPaused()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
 -
-*This method __isPaused__ is defined in `prototype` of `PowerQueue`*
+*This method __isPaused__ is defined in `PowerQueue`*
 
 __Returns__  *{boolean}*  __(is reactive)__
 Status of the paused state of the queue
@@ -104,7 +104,7 @@ Status of the paused state of the queue
 
 #### <a name="PowerQueue.processing"></a>*powerqueue*.processing()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
 -
-*This method __processing__ is defined in `prototype` of `PowerQueue`*
+*This method __processing__ is defined in `PowerQueue`*
 
 __Returns__  *{number}*  __(is reactive)__
 Number of tasks currently being processed
@@ -115,7 +115,7 @@ Number of tasks currently being processed
 
 #### <a name="PowerQueue.errors"></a>*powerqueue*.errors()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
 -
-*This method __errors__ is defined in `prototype` of `PowerQueue`*
+*This method __errors__ is defined in `PowerQueue`*
 
 __Returns__  *{number}*  __(is reactive)__
 The total number of errors
@@ -127,7 +127,7 @@ Errors are triggered when [maxFailures](PowerQueue.maxFailures) are exeeded
 
 #### <a name="PowerQueue.failures"></a>*powerqueue*.failures()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
 -
-*This method __failures__ is defined in `prototype` of `PowerQueue`*
+*This method __failures__ is defined in `PowerQueue`*
 
 __Returns__  *{number}*  __(is reactive)__
 The total number of failed tasks
@@ -138,7 +138,7 @@ The total number of failed tasks
 
 #### <a name="PowerQueue.isRunning"></a>*powerqueue*.isRunning()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
 -
-*This method __isRunning__ is defined in `prototype` of `PowerQueue`*
+*This method __isRunning__ is defined in `PowerQueue`*
 
 __Returns__  *{boolean}*  __(is reactive)__
 True if the queue is running
@@ -150,7 +150,7 @@ True if the queue is running
 
 #### <a name="PowerQueue.maxProcessing"></a>*powerqueue*.maxProcessing([max])&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
 -
-*This method __maxProcessing__ is defined in `prototype` of `PowerQueue`*
+*This method __maxProcessing__ is defined in `PowerQueue`*
 
 __Arguments__
 
@@ -173,7 +173,7 @@ foo.maxProcessing(20);  // This sets the value to 20
 
 #### <a name="PowerQueue.autostart"></a>*powerqueue*.autostart([autorun])&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
 -
-*This method __autostart__ is defined in `prototype` of `PowerQueue`*
+*This method __autostart__ is defined in `PowerQueue`*
 
 __Arguments__
 
@@ -196,7 +196,7 @@ foo.autostart(true);  // This sets the value to true
 
 #### <a name="PowerQueue.maxFailures"></a>*powerqueue*.maxFailures([max])&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
 -
-*This method __maxFailures__ is defined in `prototype` of `PowerQueue`*
+*This method __maxFailures__ is defined in `PowerQueue`*
 
 __Arguments__
 
@@ -219,7 +219,7 @@ foo.maxFailures(10);  // This sets the value to 10
 
 #### <a name="PowerQueue.reset"></a>*powerqueue*.reset()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
 -
-*This method __reset__ is defined in `prototype` of `PowerQueue`*
+*This method __reset__ is defined in `PowerQueue`*
 Calling this will:
 * stop the queue
 * paused to false
@@ -234,7 +234,7 @@ Calling this will:
 
 #### <a name="PowerQueue.add"></a>*powerqueue*.add(data, [failures])&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
 -
-*This method __add__ is defined in `prototype` of `PowerQueue`*
+*This method __add__ is defined in `PowerQueue`*
 
 __Arguments__
 
@@ -251,7 +251,7 @@ Internally used to Pass on number of failures.
 
 #### <a name="PowerQueue.next"></a>*powerqueue*.next([err])&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
 -
-*This method __next__ is defined in `prototype` of `PowerQueue`*
+*This method __next__ is defined in `PowerQueue`*
 
 __Arguments__
 
@@ -271,7 +271,7 @@ callback to mark an error or end of current task
 
 #### <a name="PowerQueue.taskHandler"></a>*powerqueue*.taskHandler&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
 -
-*This callback __taskHandler__ is defined in `prototype` of `PowerQueue`*
+*This callback __taskHandler__ is defined in `PowerQueue`*
 
 __Arguments__
 
@@ -306,7 +306,7 @@ self.taskHandler = function(data, next, failures) {
 
 #### <a name="PowerQueue.errorHandler"></a>*powerqueue*.errorHandler&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
 -
-*This callback __errorHandler__ is defined in `prototype` of `PowerQueue`*
+*This callback __errorHandler__ is defined in `PowerQueue`*
 
 __Arguments__
 
@@ -336,7 +336,7 @@ foo.errorHandler = function(data, addTask, failures) {
 
 #### <a name="PowerQueue.resume"></a>*powerqueue*.resume()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
 -
-*This method __resume__ is defined in `prototype` of `PowerQueue`*
+*This method __resume__ is defined in `PowerQueue`*
 > This will not start a stopped queue
 
 > ```self.resume = function() { ...``` [power-queue.js:347](power-queue.js#L347)
@@ -345,7 +345,7 @@ foo.errorHandler = function(data, addTask, failures) {
 
 #### <a name="PowerQueue.run"></a>*powerqueue*.run()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
 -
-*This method __run__ is defined in `prototype` of `PowerQueue`*
+*This method __run__ is defined in `PowerQueue`*
 > Using this command will resume a paused queue and will
 > start a stopped queue.
 
