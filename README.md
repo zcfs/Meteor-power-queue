@@ -1,11 +1,17 @@
 Power Queue [![Build Status](https://travis-ci.org/CollectionFS/Meteor-powerqueue.png?branch=master)](https://travis-ci.org/CollectionFS/Meteor-powerqueue)
 =========
 
-PowerQueue is a powerful tool for handling async tasks, throttling etc.
+PowerQueue is a powerful tool for handling:
+* async tasks
+* throttling resource usage
+* retry failed tasks
+* etc.
 
-Note: This is a basic queue right now, used by the new CollectionFS package.
-It is a work in progress. Pushes and PRs can go to the master branch.
+And... It's powered by Meteor's reactive sugar :)
 
+Kind regards Eric(@aldeed) and Morten(@raix)
+
+Happy coding!!
 
 #API
 All getters and setters are reactive.
