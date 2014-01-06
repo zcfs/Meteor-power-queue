@@ -4,10 +4,10 @@ Package.describe({
 
 Package.on_use(function (api) {
 
-  api.use('deps', ['client', 'server']);
+  api.use(['deps', 'reactive-property', 'reactive-list'], ['client', 'server']);
 
   api.export && api.export('PowerQueue');
-  api.add_files(['reactive-property.js', 'micro-queue.js', 'power-queue.js'], ['client', 'server']);
+  api.add_files(['micro-queue.js', 'power-queue.js'], ['client', 'server']);
 });
 
 Package.on_test(function (api) {

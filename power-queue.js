@@ -41,6 +41,9 @@ PowerQueue = function(options) {
   // Count of all added tasks
   var _maxLength = new ReactiveProperty(0);
 
+  // List of current tasks being processed
+  var _processList = new ReactiveList();
+
   // Boolean indicate whether or not a "add" task is allowed to start the queue
   var _autostart = new ReactiveProperty((options && options.autostart === false)?false : true);
 
@@ -103,6 +106,14 @@ PowerQueue = function(options) {
     * @returns {number} Number of tasks currently being processed
     */
   self.processing = _isProcessing.get;
+
+  /** @method PowerQueue.processList
+    * @reactive
+    * @returns {array} List of tasks currently being processed
+    */
+  self.processingList = function() {
+    return _processList.fetch();
+  };
 
   /** @method PowerQueue.errors
     * @reactive
@@ -187,10 +198,10 @@ PowerQueue = function(options) {
     * @param {any} data The task to be handled
     * @param {number} [failures] Internally used to Pass on number of failures.
     */
-  self.add = function(data, failures) {
+  self.add = function(data, failures, id) {
     var self = this;
     //console.log(title + ' ADD');
-    invocations.add({ data: data, failures: failures || 0 });
+    invocations.add({ _id: id || _maxLength.value+1, data: data, failures: failures || 0 });
     _maxLength.inc();
     // If we should start running the queue when tasks are added:
     if (!_paused.value && !_running.value && _autostart.value) {
@@ -246,7 +257,7 @@ PowerQueue = function(options) {
     */
   self.runTask = function(invocation) {
     var self = this;
-
+    _processList.insert(invocation._id, invocation.data);
     function callback(error) {
       if (typeof error !== 'undefined') {
         // If the task handler throws an error then add it to the queue again
@@ -255,13 +266,13 @@ PowerQueue = function(options) {
         _failures.inc();
         if (invocation.failures < _maxFailures.value) {
           // Add the task again with the increased failures
-          self.add(invocation.data, invocation.failures);
+          self.add(invocation.data, invocation.failures, invocation._id);
         } else {
           _errors.inc();
           self.errorHandler(invocation.data, self.add, invocation.failures);
         }
       }
-
+      _processList.remove(invocation._id);
       self.next();
     }
 
