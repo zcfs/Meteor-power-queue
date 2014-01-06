@@ -35,9 +35,14 @@ MicroQueue = function(lifo) {
 
   /** @method MicroQueue.add Add item to the queue
     * @param {any} value The item to add to the queue
+    * @param {boolean} reversed Internally used to add pre queue
     */
-  self.add = function(value) {
-    list[++last] = value;
+  self.add = function(value, reversed) {
+    if (reversed && first > 0) {
+      list[--first] = value;
+    } else {
+      list[++last] = value;
+    }
     _length.inc();
   };
 

@@ -26,6 +26,9 @@ PowerQueue = function(options) {
   // Reactive number of tasks being processed
   var _isProcessing = new ReactiveProperty(0);
 
+  // Marker if we did pause any sub queues
+  _pausedSubQueues = false;
+
   // Boolean indicating if queue is paused or not
   var _paused = new ReactiveProperty(options && options.isPaused || false);
 
@@ -57,6 +60,11 @@ PowerQueue = function(options) {
     * Is called when queue is ended
     */
   self.onEnded = options && options.onEnded || function() { console.log(title + ' ENDED'); };
+
+  /** @callback PowerQueue.onEnded
+    * Is called when queue is ended
+    */
+  self.onRelease = options && options.onRelease || function() { /* console.log(title + ' RELEASED'); */ };
 
   /** @callback PowerQueue.onAutostart
     * Is called when queue is auto started
@@ -188,6 +196,17 @@ PowerQueue = function(options) {
     console.log(title + ' RESET');
     _running.set(false);
     _paused.set(false);
+
+    // Loop through the processing tasks and reset these
+    _processList.forEach(function(data) {
+      if (data.queue instanceof PowerQueue) {
+        // _isProcessing.dec();
+
+        data.queue.reset();
+      }
+    }, true);
+    _pausedSubQueues = false;
+    // _processList.reset();
     _maxLength.set(0);
     _failures.set(0);
     _errors.set(0);
@@ -198,15 +217,18 @@ PowerQueue = function(options) {
     * @param {any} data The task to be handled
     * @param {number} [failures] Internally used to Pass on number of failures.
     */
-  self.add = function(data, failures, id) {
+  self.add = function(data, failures, id, reversed) {
     var self = this;
     //console.log(title + ' ADD');
-    invocations.add({ _id: id || _maxLength.value+1, data: data, failures: failures || 0 });
+    invocations.add({ _id: id || _maxLength.value+1, data: data, failures: failures || 0 }, reversed);
     _maxLength.inc();
     // If we should start running the queue when tasks are added:
     if (!_paused.value && !_running.value && _autostart.value) {
       self.onAutostart();
       _running.set(true);
+      self.next(null);
+    } else if (_running.value && !_paused.value) {
+      // Make sure that we use all available ressources
       self.next(null);
     }
   };
@@ -224,7 +246,6 @@ PowerQueue = function(options) {
     if (err !== null && _isProcessing.value > 0) {
       _isProcessing.dec();
     }
-
     // If not paused and running then
     if (!_paused.value && _running.value) {
       // If room for more current in process
@@ -242,6 +263,11 @@ PowerQueue = function(options) {
 
     }
 
+    // Check if queue has released ressources
+    if (_running.value && _isProcessing.value === 0 && err !== null && _paused.value) {
+      self.onRelease(invocations.length());
+    }
+
     // Check if queue is done working
     if (_running.value && _isProcessing.value === 0 && err !== null && !_paused.value) {
       // Stop the queue
@@ -257,30 +283,68 @@ PowerQueue = function(options) {
     */
   self.runTask = function(invocation) {
     var self = this;
-    _processList.insert(invocation._id, invocation.data);
+    if (invocation.data instanceof PowerQueue) {
+      _processList.insert(invocation._id, { id: invocation._id, queue: invocation.data });
+    } else {
+      _processList.insert(invocation._id, invocation.data);
+    }
     function callback(error) {
+      // Remove the invocation from the processing list
+
       if (typeof error !== 'undefined') {
         // If the task handler throws an error then add it to the queue again
         // we allow this for a max of _maxFailures
-        invocation.failures++;
-        _failures.inc();
+        if (error !== null) {
+          // If the error is null then we add the task silently back into the
+          // microQueue in reverse... This could be due to pause or throttling
+          invocation.failures++;
+          _failures.inc();
+        }
+
         if (invocation.failures < _maxFailures.value) {
           // Add the task again with the increased failures
-          self.add(invocation.data, invocation.failures, invocation._id);
+          self.add(invocation.data, invocation.failures, invocation._id, (error === null));
         } else {
           _errors.inc();
           self.errorHandler(invocation.data, self.add, invocation.failures);
         }
+
       }
       _processList.remove(invocation._id);
       self.next();
     }
 
     try {
-      self.taskHandler(invocation.data, callback, invocation.failures);
+      if (invocation.data instanceof PowerQueue) {
+        self.queueTaskHandler(invocation.data, callback, invocation.failures);
+      } else {
+        self.taskHandler(invocation.data, callback, invocation.failures);
+      }
     } catch(err) {
       throw new Error('Error while running taskHandler for queue, Error: ' + err.message);
     }
+  };
+
+  /** @method PowerQueue.queueTaskHandler
+    * This method handles tasks that are sub queues
+    */
+  self.queueTaskHandler = function(data, next, failures) {
+    data.onEnded = function() {
+      // We simply trigger next task when the sub queue is complete
+      next();
+      // When running subqueues it doesnt make sense to track failures and retry
+      // the sub queue - this is sub queue domain
+    };
+
+    data.onRelease = function(remaining) {
+      // Ok, we were paused - this could be throttling so we respect this
+      if (remaining > 0) {
+        // We get out of the queue but dont repport error and add to run later
+        next(null);
+      }
+    };
+
+    data.run();
   };
 
   /** @callback PowerQueue.taskHandler
@@ -347,16 +411,38 @@ PowerQueue = function(options) {
   };
 
   /** @method PowerQueue.pause Pause the queue
+    * @todo We should have it pause all processing tasks
     */
   self.pause = function() {
     _paused.set(true);
+    // Loop through the processing tasks and pause these
+    _processList.forEach(function(data) {
+      if (data.queue instanceof PowerQueue) {
+        // Set the flag that we have paused sub queues
+        _pausedSubQueues = true;
+        // Pause the sub queue
+        data.queue.pause();
+      }
+    }, true);
   };
 
   /** @method PowerQueue.resume Start a paused queue
+    * @todo We should have it resume all processing tasks
+    *
     * > This will not start a stopped queue
     */
   self.resume = function() {
+    // Loop through the processing tasks and resume these
+    if (_pausedSubQueues) {
+      _processList.forEach(function(data) {
+        if (data.queue instanceof PowerQueue) data.queue.resume();
+      }, true);
+    }
+    // Reset the marker
+    _pausedSubQueues = false;
+    // Un pause the queue
     _paused.set(false);
+    // Make sure we are up and running
     self.next(null);
   };
 
@@ -365,13 +451,36 @@ PowerQueue = function(options) {
     * > start a stopped queue.
     */
   self.run = function() {
-    //not paused and already running or queue empty
-    if (!_paused.value && _running.value || !invocations.length()) {
+    //not paused and already running or queue empty or paused subqueues
+    if (!_paused.value && _running.value || !invocations.length() && !_pausedSubQueues) {
       return;
     }
-    // console.log(title + ' RUN');
-    _paused.set(false);
-    _running.set(true);
-    self.next(null);
+
+    if (_pausedSubQueues) {
+      self.resume();
+    } else {
+      _paused.set(false);
+      _running.set(true);
+      self.next(null);
+    }
   };
+
+  // // Throttle subqueues
+  // Deps.autorun(function() {
+  //   var len = _isProcessing.get();
+  //   var max = _maxProcessing.get();
+  //   var diff = len-max;
+  //   if (len < max) {
+  //     // Room for more
+  //     self.next();
+  //   } else {
+  //     // Too many tasks are processing, try to scan for sub queues to pause
+  //     _processList.forEach(function(data) {
+  //       if (diff > 0 && data.queue instanceof PowerQueue) {
+  //         diff--;
+  //         data.queue.pause();
+  //       }
+  //     });
+  //   }
+  // });
 };
