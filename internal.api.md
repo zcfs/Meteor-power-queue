@@ -44,7 +44,7 @@ The result should be: "1, 2, 3"
 __Returns__  *{number}*  __(is reactive)__
 Length / number of items in queue
 
-> ```self.length = _length.get;``` [micro-queue.js:34](micro-queue.js#L34)
+> ```self.length = function() { ...``` [micro-queue.js:34](micro-queue.js#L34)
 
 -
 
@@ -61,7 +61,7 @@ Internally used to add pre queue
 
 -
 
-> ```self.add = function(value, reversed) { ...``` [micro-queue.js:40](micro-queue.js#L40)
+> ```self.add = function(value, reversed) { ...``` [micro-queue.js:43](micro-queue.js#L43)
 
 -
 
@@ -72,7 +72,7 @@ Internally used to add pre queue
 __Returns__  *{any}*
 The item that was next in line
 
-> ```self.get = function() { ...``` [micro-queue.js:52](micro-queue.js#L52)
+> ```self.get = function() { ...``` [micro-queue.js:56](micro-queue.js#L56)
 
 -
 
@@ -81,7 +81,7 @@ The item that was next in line
 *This method __reset__ is defined in `MicroQueue`*
 This method will empty all data in the queue.
 
-> ```self.reset = function() { ...``` [micro-queue.js:72](micro-queue.js#L72)
+> ```self.reset = function() { ...``` [micro-queue.js:77](micro-queue.js#L77)
 
 -
 
@@ -278,9 +278,9 @@ __Returns__  *{number}*  __(is reactive)__
 Maximum number of simultaneous processing tasks
 Example:
 ```js
-    foo.maxProcessing();    // Works as a getter and returns the current value
-    foo.maxProcessing(20);  // This sets the value to 20
-  ```
+ foo.maxProcessing();    // Works as a getter and returns the current value
+ foo.maxProcessing(20);  // This sets the value to 20
+```
 
 > ```self.maxProcessing = _maxProcessing.getset;``` [power-queue.js:163](power-queue.js#L163)
 
@@ -301,9 +301,9 @@ __Returns__  *{boolean}*  __(is reactive)__
 If adding a task may trigger the queue to start
 Example:
 ```js
-    foo.autostart();    // Works as a getter and returns the current value
-    foo.autostart(true);  // This sets the value to true
-  ```
+ foo.autostart();    // Works as a getter and returns the current value
+ foo.autostart(true);  // This sets the value to true
+```
 
 > ```self.autostart = _autostart.getset;``` [power-queue.js:184](power-queue.js#L184)
 
@@ -324,9 +324,9 @@ __Returns__  *{number}*  __(is reactive)__
 The maximum for failures pr. task before triggering an error
 Example:
 ```js
-    foo.maxFailures();    // Works as a getter and returns the current value
-    foo.maxFailures(10);  // This sets the value to 10
-  ```
+ foo.maxFailures();    // Works as a getter and returns the current value
+ foo.maxFailures(10);  // This sets the value to 10
+```
 
 > ```self.maxFailures = _maxFailures.getset;``` [power-queue.js:197](power-queue.js#L197)
 
@@ -409,9 +409,9 @@ __Arguments__
 Error message if task failed
 
 -
-> * Can pass in `null` to start the queue
-> * Passing in a string to `next` will trigger a failure
-> * Passing nothing will simply let the next task run
+Can pass in `null` to start the queue
+Passing in a string to `next` will trigger a failure
+Passing nothing will simply let the next task run
 `next` is handed into the [taskHandler](PowerQueue.taskHandler) as a
 callback to mark an error or end of current task
 
@@ -470,20 +470,20 @@ Number of failures on this task
 -
 Default task handler expects functions as data:
 ```js
-    self.taskHandler = function(data, next, failures) {
-      // This default task handler expects invocation to be a function to run
-      if (typeof data !== 'function') {
-        throw new Error('Default task handler expects a function');
-      }
-      try {
-        // Have the function call next
-        data(next, failures);
-      } catch(err) {
-        // Throw to fail this task
-        next('Default task handler could not run task, Error: ' + err.message);
-      }
-    };
-  ```
+ self.taskHandler = function(data, next, failures) {
+   // This default task handler expects invocation to be a function to run
+   if (typeof data !== 'function') {
+     throw new Error('Default task handler expects a function');
+   }
+   try {
+     // Have the function call next
+     data(next, failures);
+   } catch(err) {
+     // Throw to fail this task
+     next('Default task handler could not run task, Error: ' + err.message);
+   }
+ };
+```
 
 > ```self.taskHandler = function(data, next, failures) { ...``` [power-queue.js:500](power-queue.js#L500)
 
@@ -505,15 +505,15 @@ Number of failures on this task
 -
 The default callback:
 ```js
-    var foo = new PowerQueue();
-    // Overwrite the default action
-    foo.errorHandler = function(data, addTask, failures) {
-      // This could be overwritten the data contains the task data and addTask
-      // is a helper for adding the task to the queue
-      // try again: addTask(data);
-      // console.log('Terminate at ' + failures + ' failures');
-    };
-  ```
+ var foo = new PowerQueue();
+ // Overwrite the default action
+ foo.errorHandler = function(data, addTask, failures) {
+   // This could be overwritten the data contains the task data and addTask
+   // is a helper for adding the task to the queue
+   // try again: addTask(data);
+   // console.log('Terminate at ' + failures + ' failures');
+ };
+```
 
 > ```self.errorHandler = function(data, addTask, failures) { ...``` [power-queue.js:532](power-queue.js#L532)
 

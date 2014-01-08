@@ -25,13 +25,16 @@ MicroQueue = function(lifo) {
   var self = this, first = 0, last = -1, list = [];
 
   // The private reactive length property
-  var _length = new ReactiveProperty(0);
-
+  self._length = 0;
+  var _lengthDeps = new Deps.Dependency();
   /** @method MicroQueue.length
     * @reactive
     * @returns {number} Length / number of items in queue
     */
-  self.length = _length.get;
+  self.length = function() {
+    _lengthDeps.depend();
+    return self._length;
+  };
 
   /** @method MicroQueue.add Add item to the queue
     * @param {any} value The item to add to the queue
@@ -43,7 +46,8 @@ MicroQueue = function(lifo) {
     } else {
       list[++last] = value;
     }
-    _length.inc();
+    self._length++;
+    _lengthDeps.changed();
   };
 
   /** @method MicroQueue.get Get next tiem from queue
@@ -62,7 +66,8 @@ MicroQueue = function(lifo) {
       delete list[first]; // help garbage collector
       first++;
     }
-    _length.dec();
+    self._length--;
+    _lengthDeps.changed();
     return value;
   };
 
@@ -72,7 +77,18 @@ MicroQueue = function(lifo) {
   self.reset = function() {
     first = 0;
     last = -1;
-    _length.set(0);
+    self._length = 0;
+    _lengthDeps.changed();
     list = [];
+  };
+
+  self.insert = function(key, value) {
+    // Compare key with first/last depending on lifo to determin if it should
+    // be added reversed order
+    self.add(value);
+  };
+
+  self.getFirstItem = function() {
+    self.get();
   };
 };
