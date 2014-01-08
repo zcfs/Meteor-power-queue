@@ -11,18 +11,17 @@
   * @param {number} [options.maxProcessing=1] Limit of simultanous running tasks
   * @param {number} [options.maxFailures = 5] Limit retries of failed tasks
   * @param {number} [options.jumpOnFailure = true] Jump to next task and retry failed task later
+  * @param {boolean} [options.useMicroQueue = false] True will use the faster `MicroQueue` instead of `ReactiveList`
   */
 PowerQueue = function(options) {
   var self = this; var test = 5;
 
-  // // Allow user to use another micro-queue #3
-  // var ActiveQueue = options && options.queue || MicroQueue;
+  // Allow user to use another micro-queue #3
+  var ActiveQueue = options && options.queue || options && options.useMicroQueue && MicroQueue || ReactiveList;
 
   // Default is fifo lilo
-  var queueOrder = (options && options.filo || options && options.lifo)?
-          { sort: function(a, b) { return a > b; } }: { /* Default is fifo */ };
-  // var invocations = new ActiveQueue(options && options.filo || options && options.lifo);
-  var invocations = new ReactiveList(queueOrder);
+  var invocations = new ActiveQueue(options && options.filo || options && options.lifo);
+  //var invocations = new ReactiveList(queueOrder);
 
   // Max number of simultanious tasks being processed
   var _maxProcessing = new ReactiveProperty(options && options.maxProcessing || 1);

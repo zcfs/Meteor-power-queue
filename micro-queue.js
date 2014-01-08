@@ -89,6 +89,6 @@ MicroQueue = function(lifo) {
   };
 
   self.getFirstItem = function() {
-    self.get();
+    return self.get();
   };
 };
