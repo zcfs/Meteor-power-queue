@@ -5,7 +5,10 @@ PowerQueue is a powerful tool for handling:
 * async tasks
 * throttling resource usage
 * retry failed tasks
+* Allows sub queues
 * etc.
+
+[Live sub queue Example](http://power-queue-sub-test.meteor.com)
 
 And... It's powered by Meteor's reactive sugar :)
 
