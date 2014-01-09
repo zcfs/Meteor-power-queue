@@ -1,5 +1,5 @@
 // Rig weak dependencies
-if (typeof MicroQueue === 'undefined' && Package['reactive-list']) {
+if (typeof MicroQueue === 'undefined' && Package['micro-queue']) {
   MicroQueue = Package['micro-queue'].MicroQueue;
 }
 if (typeof ReactiveList === 'undefined' && Package['reactive-list']) {
