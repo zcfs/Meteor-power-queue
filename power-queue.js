@@ -23,6 +23,9 @@ PowerQueue = function(options) {
   var invocations = new ActiveQueue(options && options.filo || options && options.lifo);
   //var invocations = new ReactiveList(queueOrder);
 
+  // List of current tasks being processed
+  var _processList = new ActiveQueue(); //ReactiveList();
+
   // Max number of simultanious tasks being processed
   var _maxProcessing = new ReactiveProperty(options && options.maxProcessing || 1);
 
@@ -46,9 +49,6 @@ PowerQueue = function(options) {
 
   // Count of all added tasks
   var _maxLength = new ReactiveProperty(0);
-
-  // List of current tasks being processed
-  var _processList = new ReactiveList();
 
   // Boolean indicate whether or not a "add" task is allowed to start the queue
   var _autostart = new ReactiveProperty((options && options.autostart === false)?false : true);
@@ -147,6 +147,14 @@ PowerQueue = function(options) {
     * > NOTE: The task can be paused but marked as running
     */
   self.isRunning = _running.get;
+
+  /** @method PowerQueue.isHalted
+    * @reactive
+    * @returns {boolean} True if the queue is not running or paused
+    */
+  self.isHalted = function() {
+    return (!_running.get() || _paused.get());
+  };
 
   /** @method PowerQueue.maxProcessing Get setter for maxProcessing
     * @param {number} [max] If not used this function works as a getter
@@ -391,13 +399,12 @@ PowerQueue = function(options) {
 
     // Rig the callback function
     function callback(error) {
-      // Remove the invocation from the processing list
 
+      // If the task handler throws an error then add it to the queue again
+      // we allow this for a max of _maxFailures
+      // If the error is null then we add the task silently back into the
+      // microQueue in reverse... This could be due to pause or throttling
       if (typeof error !== 'undefined' && error !== null) {
-        // If the task handler throws an error then add it to the queue again
-        // we allow this for a max of _maxFailures
-        // If the error is null then we add the task silently back into the
-        // microQueue in reverse... This could be due to pause or throttling
         invocation.failures++;
         _failures.inc();
 

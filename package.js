@@ -4,10 +4,14 @@ Package.describe({
 
 Package.on_use(function (api) {
 
-  api.use(['deps', 'reactive-property', 'reactive-list'], ['client', 'server']);
+  api.use(['deps', 'reactive-property'], ['client', 'server']);
+
+  // We let the user decide what spinal queue to use - We support both
+  // reactive-list and micro-queue they obey the spinal-queue spec
+  api.use(['reactive-list', 'micro-queue'], ['client', 'server'], { weak: true });
 
   api.export && api.export('PowerQueue');
-  api.add_files(['micro-queue.js', 'power-queue.js'], ['client', 'server']);
+  api.add_files(['power-queue.js'], ['client', 'server']);
 });
 
 Package.on_test(function (api) {
