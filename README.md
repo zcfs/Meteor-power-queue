@@ -8,8 +8,9 @@ PowerQueue is a powerful tool for handling:
 * Allows sub queues
 * etc.
 
-* [Live queue Example](http://power-queue-test.meteor.com)
-* [Live sub queue Example](http://power-queue-sub-test.meteor.com)
+[Live queue Example](http://power-queue-test.meteor.com)
+
+[Live sub queue Example](http://power-queue-sub-test.meteor.com)
 
 And... It's powered by Meteor's reactive sugar :)
 
