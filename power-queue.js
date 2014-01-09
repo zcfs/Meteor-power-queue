@@ -11,13 +11,26 @@
   * @param {number} [options.maxProcessing=1] Limit of simultanous running tasks
   * @param {number} [options.maxFailures = 5] Limit retries of failed tasks
   * @param {number} [options.jumpOnFailure = true] Jump to next task and retry failed task later
-  * @param {boolean} [options.useMicroQueue = false] True will use the faster `MicroQueue` instead of `ReactiveList`
+  * @param {[SpinalQueue](spinal-queue.spec.md)} [options.spinalQueue] Set spinal queue uses pr. default `MicroQueue` or `ReactiveList` if added to the project
   */
 PowerQueue = function(options) {
   var self = this; var test = 5;
 
   // Allow user to use another micro-queue #3
-  var ActiveQueue = options && options.queue || options && options.useMicroQueue && MicroQueue || ReactiveList;
+  // We try setting the ActiveQueue to MicroQueue if installed in the app
+  var ActiveQueue = (typeof MicroQueue !== 'undefined') && MicroQueue;
+
+  // If ReactiveList is added to the project we use this over MicroQueue
+  ActiveQueue = (typeof ReactiveList !== 'undefined') && ReactiveList || ActiveQueue;
+
+  // We allow user to overrule and set a custom spinal-queue spec complient queue
+  if (options && typeof options.spinalQueue !== 'undefined') {
+    ActiveQueue = options.spinalQueue;
+  }
+
+  if (typeof ActiveQueue === 'undefined') {
+    throw new Error('Please add "micro-queue", "reactive-list" or other spinalQueue compatible packages');
+  }
 
   // Default is fifo lilo
   var invocations = new ActiveQueue(options && options.filo || options && options.lifo);
