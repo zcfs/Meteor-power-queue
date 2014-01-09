@@ -5,7 +5,7 @@ We allready have two implementations the [MicroQueue](https://github.com/Collect
 #SpinalQueue
 Provides a simple reactive list interface
 
-#### <a name="SpinalQueue"></a>new SpinalQueue([options], sort)&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
+#### <a name="SpinalQueue"></a>new SpinalQueue(lifo)&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
 -
 
 __Arguments__
