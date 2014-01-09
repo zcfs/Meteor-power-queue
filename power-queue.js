@@ -1,3 +1,11 @@
+// Rig weak dependencies
+if (typeof MicroQueue === 'undefined' && Package['reactive-list']) {
+  MicroQueue = Package['micro-queue'].MicroQueue;
+}
+if (typeof ReactiveList === 'undefined' && Package['reactive-list']) {
+  ReactiveList = Package['reactive-list'].ReactiveList;
+}
+
 /**
   * Creates an instance of a power queue // Testing inline comment
   * [Check out demo](http://power-queue-test.meteor.com/)
@@ -18,7 +26,7 @@ PowerQueue = function(options) {
 
   // Allow user to use another micro-queue #3
   // We try setting the ActiveQueue to MicroQueue if installed in the app
-  var ActiveQueue = (typeof MicroQueue !== 'undefined') && MicroQueue;
+  var ActiveQueue = (typeof MicroQueue !== 'undefined') && MicroQueue || undefined;
 
   // If ReactiveList is added to the project we use this over MicroQueue
   ActiveQueue = (typeof ReactiveList !== 'undefined') && ReactiveList || ActiveQueue;
@@ -29,6 +37,8 @@ PowerQueue = function(options) {
   }
 
   if (typeof ActiveQueue === 'undefined') {
+    console.log('Error: You need to add a spinal queue to the project');
+    console.log('Please add "micro-queue", "reactive-list" to the project');
     throw new Error('Please add "micro-queue", "reactive-list" or other spinalQueue compatible packages');
   }
 
