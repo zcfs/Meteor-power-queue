@@ -1,6 +1,6 @@
 #Spinal Queue Spec
 This specification declares the interface for the "spinal" queue in `PowerQueue`.
-We allready have two implementations the [MicroQueue]() and [ReactiveList]()
+We allready have two implementations the [MicroQueue](https://github.com/CollectionFS/Meteor-micro-queue) and [ReactiveList](https://github.com/CollectionFS/Meteor-reactive-list)
 
 #SpinalQueue
 Provides a simple reactive list interface
@@ -10,9 +10,8 @@ Provides a simple reactive list interface
 
 __Arguments__
 
-* __options__ *{object}*    (Optional)
-* __sort__ *{function}*  
-The sort algorithm to use
+* __lifo__ *{boolean}*
+Set the order of the queue default is `fifo`
 
 -
 Example:
@@ -62,6 +61,7 @@ Key to update
 Update with this value
 
 > Note: Method is currently not used by `PowerQueue`
+
 -
 
 #### <a name="SpinalQueue.insert"></a>*SpinalQueue*.insert(key, value)&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
@@ -96,6 +96,7 @@ __Returns__  *{any}*
 Pops last item from the list - removes the item from the list
 
 > Note: Method is currently not used by `PowerQueue`
+
 -
 
 #### <a name="SpinalQueue.getFirstItem"></a>*SpinalQueue*.getFirstItem()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####

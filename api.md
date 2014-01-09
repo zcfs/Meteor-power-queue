@@ -172,6 +172,17 @@ True if the queue is running
 
 -
 
+#### <a name="PowerQueue.isHalted"></a>*powerqueue*.isHalted()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
+-
+*This method __isHalted__ is defined in `PowerQueue`*
+
+__Returns__  *{boolean}*  __(is reactive)__
+True if the queue is not running or paused
+
+> ```self.isHalted = function() { ...``` [power-queue.js:155](power-queue.js#L155)
+
+-
+
 #### <a name="PowerQueue.maxProcessing"></a>*powerqueue*.maxProcessing([max])&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
 -
 *This method __maxProcessing__ is defined in `PowerQueue`*
@@ -191,7 +202,7 @@ Example:
   foo.maxProcessing(20);  // This sets the value to 20
 ```
 
-> ```self.maxProcessing = _maxProcessing.getset;``` [power-queue.js:162](power-queue.js#L162)
+> ```self.maxProcessing = _maxProcessing.getset;``` [power-queue.js:170](power-queue.js#L170)
 
 -
 
@@ -214,7 +225,7 @@ Example:
   foo.autostart(true);  // This sets the value to true
 ```
 
-> ```self.autostart = _autostart.getset;``` [power-queue.js:183](power-queue.js#L183)
+> ```self.autostart = _autostart.getset;``` [power-queue.js:191](power-queue.js#L191)
 
 -
 
@@ -237,7 +248,7 @@ Example:
   foo.maxFailures(10);  // This sets the value to 10
 ```
 
-> ```self.maxFailures = _maxFailures.getset;``` [power-queue.js:196](power-queue.js#L196)
+> ```self.maxFailures = _maxFailures.getset;``` [power-queue.js:204](power-queue.js#L204)
 
 -
 
@@ -252,7 +263,7 @@ Calling this will:
 > the `errors` and `failures` counters. This could change in the future or
 > be prevented by creating a whole new instance of the `PowerQueue`
 
-> ```self.reset = function() { ...``` [power-queue.js:208](power-queue.js#L208)
+> ```self.reset = function() { ...``` [power-queue.js:216](power-queue.js#L216)
 
 -
 
@@ -269,7 +280,7 @@ Internally used to Pass on number of failures.
 
 -
 
-> ```self.add = function(data, failures, id) { ...``` [power-queue.js:259](power-queue.js#L259)
+> ```self.add = function(data, failures, id) { ...``` [power-queue.js:267](power-queue.js#L267)
 
 -
 
@@ -289,7 +300,7 @@ Error message if task failed
 `next` is handed into the [taskHandler](PowerQueue.taskHandler) as a
 callback to mark an error or end of current task
 
-> ```self.next = function(err) { ...``` [power-queue.js:335](power-queue.js#L335)
+> ```self.next = function(err) { ...``` [power-queue.js:343](power-queue.js#L343)
 
 -
 
@@ -298,7 +309,7 @@ callback to mark an error or end of current task
 *This method __queueTaskHandler__ is defined in `PowerQueue`*
 This method handles tasks that are sub queues
 
-> ```self.queueTaskHandler = function(subQueue, next, failures) { ...``` [power-queue.js:454](power-queue.js#L454)
+> ```self.queueTaskHandler = function(subQueue, next, failures) { ...``` [power-queue.js:461](power-queue.js#L461)
 
 -
 
@@ -333,7 +344,7 @@ Default task handler expects functions as data:
   };
 ```
 
-> ```self.taskHandler = function(data, next, failures) { ...``` [power-queue.js:499](power-queue.js#L499)
+> ```self.taskHandler = function(data, next, failures) { ...``` [power-queue.js:506](power-queue.js#L506)
 
 -
 
@@ -363,7 +374,7 @@ The default callback:
   };
 ```
 
-> ```self.errorHandler = function(data, addTask, failures) { ...``` [power-queue.js:531](power-queue.js#L531)
+> ```self.errorHandler = function(data, addTask, failures) { ...``` [power-queue.js:538](power-queue.js#L538)
 
 -
 
@@ -371,7 +382,7 @@ The default callback:
 -
 *This method __pause__ is defined in `PowerQueue`*
 
-> ```self.pause = function() { ...``` [power-queue.js:541](power-queue.js#L541)
+> ```self.pause = function() { ...``` [power-queue.js:548](power-queue.js#L548)
 
 -
 
@@ -380,7 +391,7 @@ The default callback:
 *This method __resume__ is defined in `PowerQueue`*
 > This will not start a stopped queue
 
-> ```self.resume = function() { ...``` [power-queue.js:560](power-queue.js#L560)
+> ```self.resume = function() { ...``` [power-queue.js:567](power-queue.js#L567)
 
 -
 
@@ -390,6 +401,6 @@ The default callback:
 > Using this command will resume a paused queue and will
 > start a stopped queue.
 
-> ```self.run = function() { ...``` [power-queue.js:571](power-queue.js#L571)
+> ```self.run = function() { ...``` [power-queue.js:578](power-queue.js#L578)
 
 -

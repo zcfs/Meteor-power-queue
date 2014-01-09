@@ -1,92 +1,3 @@
-> File: ["micro-queue.js"](micro-queue.js)
-> Where: {client|server}
-
--
-
-#### <a name="MicroQueue"></a>new MicroQueue([lifo])&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
-```
-A basic lifo or fifo queue
-This is better than a simple array with pop/shift because shift is O(n)
-and can become slow with a large array.
-```
--
-
-__Arguments__
-
-* __lifo__ *{boolean}*    (Optional = false)
-Set true for `lifo`, default is `fifo`
-
--
-This queue was build as the spinal basis for the [`PowerQueue`](#PowerQueue)
-The interface is very basic and consists of:
-`add`, `get`, `reset` Making it possible to write a custom micro-queue for
-the `PowerQueue` eg.: a queue that is persisted into a database etc.
-Usage:
-```js
-var foo = new MicroQueue(); // Basic fifo queue
-foo.add(1);
-foo.add(2);
-foo.add(3);
-for (var i = 0; i < foo.length(); i++) {
-  console.log(foo.get());
-}
-```
-The result should be: "1, 2, 3"
-
-> ```MicroQueue = function(lifo) { ...``` [micro-queue.js:24](micro-queue.js#L24)
-
--
-
-#### <a name="MicroQueue.length"></a>*microqueue*.length()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
--
-*This method __length__ is defined in `MicroQueue`*
-
-__Returns__  *{number}*  __(is reactive)__
-Length / number of items in queue
-
-> ```self.length = function() { ...``` [micro-queue.js:34](micro-queue.js#L34)
-
--
-
-#### <a name="MicroQueue.add"></a>*microqueue*.add(value, reversed)&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
--
-*This method __add__ is defined in `MicroQueue`*
-
-__Arguments__
-
-* __value__ *{any}*  
-The item to add to the queue
-* __reversed__ *{boolean}*  
-Internally used to add pre queue
-
--
-
-> ```self.add = function(value, reversed) { ...``` [micro-queue.js:43](micro-queue.js#L43)
-
--
-
-#### <a name="MicroQueue.get"></a>*microqueue*.get()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
--
-*This method __get__ is defined in `MicroQueue`*
-
-__Returns__  *{any}*
-The item that was next in line
-
-> ```self.get = function() { ...``` [micro-queue.js:56](micro-queue.js#L56)
-
--
-
-#### <a name="MicroQueue.reset"></a>*microqueue*.reset()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
--
-*This method __reset__ is defined in `MicroQueue`*
-This method will empty all data in the queue.
-
-> ```self.reset = function() { ...``` [micro-queue.js:77](micro-queue.js#L77)
-
--
-
-
----
 > File: ["power-queue.js"](power-queue.js)
 > Where: {client|server}
 
@@ -265,6 +176,17 @@ True if the queue is running
 
 -
 
+#### <a name="PowerQueue.isHalted"></a>*powerqueue*.isHalted()&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
+-
+*This method __isHalted__ is defined in `PowerQueue`*
+
+__Returns__  *{boolean}*  __(is reactive)__
+True if the queue is not running or paused
+
+> ```self.isHalted = function() { ...``` [power-queue.js:155](power-queue.js#L155)
+
+-
+
 #### <a name="PowerQueue.maxProcessing"></a>*powerqueue*.maxProcessing([max])&nbsp;&nbsp;<sub><i>Anywhere</i></sub> ####
 -
 *This method __maxProcessing__ is defined in `PowerQueue`*
@@ -284,7 +206,7 @@ Example:
  foo.maxProcessing(20);  // This sets the value to 20
 ```
 
-> ```self.maxProcessing = _maxProcessing.getset;``` [power-queue.js:162](power-queue.js#L162)
+> ```self.maxProcessing = _maxProcessing.getset;``` [power-queue.js:170](power-queue.js#L170)
 
 -
 
@@ -307,7 +229,7 @@ Example:
  foo.autostart(true);  // This sets the value to true
 ```
 
-> ```self.autostart = _autostart.getset;``` [power-queue.js:183](power-queue.js#L183)
+> ```self.autostart = _autostart.getset;``` [power-queue.js:191](power-queue.js#L191)
 
 -
 
@@ -330,7 +252,7 @@ Example:
  foo.maxFailures(10);  // This sets the value to 10
 ```
 
-> ```self.maxFailures = _maxFailures.getset;``` [power-queue.js:196](power-queue.js#L196)
+> ```self.maxFailures = _maxFailures.getset;``` [power-queue.js:204](power-queue.js#L204)
 
 -
 
@@ -345,7 +267,7 @@ Discart all queue data
 > the `errors` and `failures` counters. This could change in the future or
 > be prevented by creating a whole new instance of the `PowerQueue`
 
-> ```self.reset = function() { ...``` [power-queue.js:208](power-queue.js#L208)
+> ```self.reset = function() { ...``` [power-queue.js:216](power-queue.js#L216)
 
 -
 
@@ -356,7 +278,7 @@ Discart all queue data
 This method defines the autostart algorithm that allows add task to trigger
 a start of the queue if queue is not paused.
 
-> ```self._autoStartTasks = function() { ...``` [power-queue.js:232](power-queue.js#L232)
+> ```self._autoStartTasks = function() { ...``` [power-queue.js:240](power-queue.js#L240)
 
 -
 
@@ -373,7 +295,7 @@ Internally used to Pass on number of failures.
 
 -
 
-> ```self.add = function(data, failures, id) { ...``` [power-queue.js:259](power-queue.js#L259)
+> ```self.add = function(data, failures, id) { ...``` [power-queue.js:267](power-queue.js#L267)
 
 -
 
@@ -385,7 +307,7 @@ Calling this method will update the throttle on the queue adding tasks.
 > Note: Currently we only support the PowerQueue - but we could support
 > a more general interface for pauseable tasks or other usecases.
 
-> ```self.updateThrottleUp = function() { ...``` [power-queue.js:285](power-queue.js#L285)
+> ```self.updateThrottleUp = function() { ...``` [power-queue.js:293](power-queue.js#L293)
 
 -
 
@@ -397,7 +319,7 @@ Calling this method will update the throttle on the queue pause tasks.
 > Note: Currently we only support the PowerQueue - but we could support
 > a more general interface for pauseable tasks or other usecases.
 
-> ```self.updateThrottleDown = function() { ...``` [power-queue.js:309](power-queue.js#L309)
+> ```self.updateThrottleDown = function() { ...``` [power-queue.js:317](power-queue.js#L317)
 
 -
 
@@ -417,7 +339,7 @@ Passing nothing will simply let the next task run
 `next` is handed into the [taskHandler](PowerQueue.taskHandler) as a
 callback to mark an error or end of current task
 
-> ```self.next = function(err) { ...``` [power-queue.js:335](power-queue.js#L335)
+> ```self.next = function(err) { ...``` [power-queue.js:343](power-queue.js#L343)
 
 -
 
@@ -427,7 +349,7 @@ callback to mark an error or end of current task
 *This method __spawnTask__ is defined in `PowerQueue`*
 This method spawns new task, this is an __internal__ method
 
-> ```self.spawnTask = function(data) { ...``` [power-queue.js:377](power-queue.js#L377)
+> ```self.spawnTask = function(data) { ...``` [power-queue.js:385](power-queue.js#L385)
 
 -
 
@@ -443,7 +365,7 @@ The object stored in the micro-queue
 
 -
 
-> ```self.runTask = function(invocation) { ...``` [power-queue.js:389](power-queue.js#L389)
+> ```self.runTask = function(invocation) { ...``` [power-queue.js:397](power-queue.js#L397)
 
 -
 
@@ -452,7 +374,7 @@ The object stored in the micro-queue
 *This method __queueTaskHandler__ is defined in `PowerQueue`*
 This method handles tasks that are sub queues
 
-> ```self.queueTaskHandler = function(subQueue, next, failures) { ...``` [power-queue.js:454](power-queue.js#L454)
+> ```self.queueTaskHandler = function(subQueue, next, failures) { ...``` [power-queue.js:461](power-queue.js#L461)
 
 -
 
@@ -487,7 +409,7 @@ Default task handler expects functions as data:
  };
 ```
 
-> ```self.taskHandler = function(data, next, failures) { ...``` [power-queue.js:499](power-queue.js#L499)
+> ```self.taskHandler = function(data, next, failures) { ...``` [power-queue.js:506](power-queue.js#L506)
 
 -
 
@@ -517,7 +439,7 @@ The default callback:
  };
 ```
 
-> ```self.errorHandler = function(data, addTask, failures) { ...``` [power-queue.js:531](power-queue.js#L531)
+> ```self.errorHandler = function(data, addTask, failures) { ...``` [power-queue.js:538](power-queue.js#L538)
 
 -
 
@@ -529,7 +451,7 @@ __TODO__
 * We should have it pause all processing tasks
 ```
 
-> ```self.pause = function() { ...``` [power-queue.js:541](power-queue.js#L541)
+> ```self.pause = function() { ...``` [power-queue.js:548](power-queue.js#L548)
 
 -
 
@@ -542,7 +464,7 @@ __TODO__
 ```
 > This will not start a stopped queue
 
-> ```self.resume = function() { ...``` [power-queue.js:560](power-queue.js#L560)
+> ```self.resume = function() { ...``` [power-queue.js:567](power-queue.js#L567)
 
 -
 
@@ -552,6 +474,6 @@ __TODO__
 > Using this command will resume a paused queue and will
 > start a stopped queue.
 
-> ```self.run = function() { ...``` [power-queue.js:571](power-queue.js#L571)
+> ```self.run = function() { ...``` [power-queue.js:578](power-queue.js#L578)
 
 -

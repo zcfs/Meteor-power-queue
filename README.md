@@ -26,6 +26,7 @@ All getters and setters are reactive.
 * PowerQueue.usage - Current load in percent
 * PowerQueue.total - Sum of tasks to run in current queue
 * PowerQueue.isPaused - True if queue is paused
+* PowerQueue.isHalted - True if queue is paused or stopped
 * PowerQueue.processing - Number of tasks being processed
 * PowerQueue.errors - Failures where task is passed to the errorHandler
 * PowerQueue.failures - Number of failures in current queue
@@ -35,12 +36,14 @@ All getters and setters are reactive.
 * PowerQueue.maxFailures - Max allowed retries for failing tasks before marked as an error
 * options.queue - Use custom micro-queue compatible queue
 * options.onEnded - Called when queue has ended
+* options.onRelease(remainingTasks) - Called when queue has ended or paused
 * options.onAutostart - Called when queue was autostarted
 
 ##Methods
 * PowerQueue.add(data) - Add a task to queue
 * PowerQueue.run() - Start the queue
 * PowerQueue.pause() - Pause the queue
+* PowerQueue.resume() - Resmue the queue if paused
 * PowerQueue.reset() - Reset the queue
 * PowerQueue.taskHandler(data, next, failures) - Default task handler, where data is a `function(done)`, can be overwritten
 * PowerQueue.errorHandler(data, addTask, failures) - Default error handler, can be overwritten
