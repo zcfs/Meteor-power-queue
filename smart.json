@@ -10,6 +10,10 @@
       "git": "https://github.com/CollectionFS/Meteor-reactive-property.git",
       "branch": "master"
     },
+    "micro-queue": {
+      "git": "https://github.com/CollectionFS/Meteor-micro-queue.git",
+      "branch": "master"
+    },
     "reactive-list": {
       "git": "https://github.com/CollectionFS/Meteor-reactive-list.git",
       "branch": "master"
