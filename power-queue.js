@@ -90,8 +90,8 @@ PowerQueue = function(options) {
     console.log(title + ' ENDED');
   };
 
-  /** @callback PowerQueue.onEnded
-   * Is called when queue is ended
+  /** @callback PowerQueue.onRelease
+   * Is called when queue is released
    */
   self.onRelease = options && options.onRelease || function() { /* console.log(title + ' RELEASED'); */ };
 
