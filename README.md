@@ -14,12 +14,14 @@ PowerQueue is a powerful tool for handling:
 
 And... It's powered by Meteor's reactive sugar :)
 
-Kind regards Eric(@aldeed) and Morten(@raix)
+Kind regards,  
+Eric(@aldeed) and Morten(@raix)
 
-Happy coding!!
+Happy coding!
 
 #API
 All getters and setters are reactive.
+
 [API Documentation](api.md)
 
 ##Helpers / Getters / Setters:
@@ -110,7 +112,8 @@ This is a very rough example of how to make custom task handling,
 ```
 
 #Contribute
-[API Complete Documentation](internal.api.md)
+Here's the [complete API documentation](internal.api.md), including private methods.
+
 Update docs, `npm install docmeteor`
 ```bash
 $ docmeteor
