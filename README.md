@@ -45,7 +45,7 @@ All getters and setters are reactive.
 * PowerQueue.add(data) - Add a task to queue
 * PowerQueue.run() - Start the queue
 * PowerQueue.pause() - Pause the queue
-* PowerQueue.resume() - Resmue the queue if paused
+* PowerQueue.resume() - Resume the queue if paused
 * PowerQueue.reset() - Reset the queue
 * PowerQueue.taskHandler(data, next, failures) - Default task handler, where data is a `function(done)`, can be overwritten
 * PowerQueue.errorHandler(data, addTask, failures) - Default error handler, can be overwritten
