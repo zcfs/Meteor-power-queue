@@ -21,11 +21,11 @@ Name of the queue
     - __maxProcessing__ *{number}*    (Default = 1)
 Limit of simultanous running tasks
     - __maxFailures__ *{number}*    (Default = 5)
-Limit retries of failed tasks
+Limit retries of failed tasks, if 0 or below we allow infinite failures
     - __jumpOnFailure__ *{number}*    (Default = true)
 Jump to next task and retry failed task later
     - __debug__ *{boolean}*    (Default = false)
-Verbose messages in the console.log
+Log verbose messages to the console
     - __reactive__ *{boolean}*    (Default = true)
 Set whether or not this queue should be reactive
     - __spinalQueue__ *{[SpinalQueue](spinal-queue.spec.md)}*    (Optional)
@@ -34,7 +34,8 @@ Set spinal queue uses pr. default `MicroQueue` or `ReactiveList` if added to the
 -
 
 
-> ```PowerQueue = function(options) { ...``` [power-queue.js:26](power-queue.js#L26)
+
+> ```PowerQueue = function(options) { ...``` [power-queue.js:27](power-queue.js#L27)
 
 -
 
@@ -43,7 +44,7 @@ Set spinal queue uses pr. default `MicroQueue` or `ReactiveList` if added to the
 *This callback __onEnded__ is defined in `PowerQueue`*
 Is called when queue is ended
 
-> ```self.onEnded = options && options.onEnded || function() { ...``` [power-queue.js:102](power-queue.js#L102)
+> ```self.onEnded = options && options.onEnded || function() { ...``` [power-queue.js:103](power-queue.js#L103)
 
 -
 
@@ -52,7 +53,7 @@ Is called when queue is ended
 *This callback __onRelease__ is defined in `PowerQueue`*
 Is called when queue is released
 
-> ```self.onRelease = options && options.onRelease || function() { ...``` [power-queue.js:109](power-queue.js#L109)
+> ```self.onRelease = options && options.onRelease || function() { ...``` [power-queue.js:110](power-queue.js#L110)
 
 -
 
@@ -61,7 +62,7 @@ Is called when queue is released
 *This callback __onAutostart__ is defined in `PowerQueue`*
 Is called when queue is auto started
 
-> ```self.onAutostart = options && options.onAutostart || function() { ...``` [power-queue.js:114](power-queue.js#L114)
+> ```self.onAutostart = options && options.onAutostart || function() { ...``` [power-queue.js:115](power-queue.js#L115)
 
 -
 
@@ -72,7 +73,7 @@ Is called when queue is auto started
 __Returns__  *{number}*  __(is reactive)__
 The total number of tasks added to this queue
 
-> ```self.total = self._maxLength.get;``` [power-queue.js:122](power-queue.js#L122)
+> ```self.total = self._maxLength.get;``` [power-queue.js:123](power-queue.js#L123)
 
 -
 
@@ -83,7 +84,7 @@ The total number of tasks added to this queue
 __Returns__  *{boolean}*  __(is reactive)__
 Status of the paused state of the queue
 
-> ```self.isPaused = self._paused.get;``` [power-queue.js:128](power-queue.js#L128)
+> ```self.isPaused = self._paused.get;``` [power-queue.js:129](power-queue.js#L129)
 
 -
 
@@ -94,7 +95,7 @@ Status of the paused state of the queue
 __Returns__  *{number}*  __(is reactive)__
 Number of tasks currently being processed
 
-> ```self.processing = self._isProcessing.get;``` [power-queue.js:134](power-queue.js#L134)
+> ```self.processing = self._isProcessing.get;``` [power-queue.js:135](power-queue.js#L135)
 
 -
 
@@ -106,7 +107,7 @@ __Returns__  *{number}*  __(is reactive)__
 The total number of errors
 Errors are triggered when [maxFailures](PowerQueue.maxFailures) are exeeded
 
-> ```self.errors = self._errors.get;``` [power-queue.js:141](power-queue.js#L141)
+> ```self.errors = self._errors.get;``` [power-queue.js:142](power-queue.js#L142)
 
 -
 
@@ -117,7 +118,7 @@ Errors are triggered when [maxFailures](PowerQueue.maxFailures) are exeeded
 __Returns__  *{number}*  __(is reactive)__
 The total number of failed tasks
 
-> ```self.failures = self._failures.get;``` [power-queue.js:147](power-queue.js#L147)
+> ```self.failures = self._failures.get;``` [power-queue.js:148](power-queue.js#L148)
 
 -
 
@@ -129,7 +130,7 @@ __Returns__  *{boolean}*  __(is reactive)__
 True if the queue is running
 > NOTE: The task can be paused but marked as running
 
-> ```self.isRunning = self._running.get;``` [power-queue.js:154](power-queue.js#L154)
+> ```self.isRunning = self._running.get;``` [power-queue.js:155](power-queue.js#L155)
 
 -
 
@@ -153,7 +154,7 @@ Example:
   foo.maxProcessing(20);  // This sets the value to 20
 ```
 
-> ```self.maxProcessing = self._maxProcessing.getset;``` [power-queue.js:167](power-queue.js#L167)
+> ```self.maxProcessing = self._maxProcessing.getset;``` [power-queue.js:168](power-queue.js#L168)
 
 -
 
@@ -177,7 +178,7 @@ Example:
   foo.autostart(true);  // This sets the value to true
 ```
 
-> ```self.autostart = self._autostart.getset;``` [power-queue.js:188](power-queue.js#L188)
+> ```self.autostart = self._autostart.getset;``` [power-queue.js:189](power-queue.js#L189)
 
 -
 
@@ -201,7 +202,7 @@ Example:
   foo.maxFailures(10);  // This sets the value to 10
 ```
 
-> ```self.maxFailures = self._maxFailures.getset;``` [power-queue.js:201](power-queue.js#L201)
+> ```self.maxFailures = self._maxFailures.getset;``` [power-queue.js:202](power-queue.js#L202)
 
 -
 
@@ -212,7 +213,7 @@ Example:
 __Returns__  *{array}*  __(is reactive)__
 List of tasks currently being processed
 
-> ```PowerQueue.prototype.processingList = function() { ...``` [power-queue.js:208](power-queue.js#L208)
+> ```PowerQueue.prototype.processingList = function() { ...``` [power-queue.js:209](power-queue.js#L209)
 
 -
 
@@ -223,7 +224,7 @@ List of tasks currently being processed
 __Returns__  *{boolean}*  __(is reactive)__
 True if the queue is not running or paused
 
-> ```PowerQueue.prototype.isHalted = function() { ...``` [power-queue.js:217](power-queue.js#L217)
+> ```PowerQueue.prototype.isHalted = function() { ...``` [power-queue.js:218](power-queue.js#L218)
 
 -
 
@@ -234,7 +235,7 @@ True if the queue is not running or paused
 __Returns__  *{number}*  __(is reactive)__
 Number of tasks left in queue to be processed
 
-> ```PowerQueue.prototype.length = function() { ...``` [power-queue.js:226](power-queue.js#L226)
+> ```PowerQueue.prototype.length = function() { ...``` [power-queue.js:227](power-queue.js#L227)
 
 -
 
@@ -245,7 +246,7 @@ Number of tasks left in queue to be processed
 __Returns__  *{number}*  __(is reactive)__
 0 .. 100 % Indicates the status of the queue
 
-> ```PowerQueue.prototype.progress = function() { ...``` [power-queue.js:235](power-queue.js#L235)
+> ```PowerQueue.prototype.progress = function() { ...``` [power-queue.js:236](power-queue.js#L236)
 
 -
 
@@ -256,7 +257,7 @@ __Returns__  *{number}*  __(is reactive)__
 __Returns__  *{number}*  __(is reactive)__
 0 .. 100 % Indicates ressource usage of the queue
 
-> ```PowerQueue.prototype.usage = function() { ...``` [power-queue.js:248](power-queue.js#L248)
+> ```PowerQueue.prototype.usage = function() { ...``` [power-queue.js:249](power-queue.js#L249)
 
 -
 
@@ -272,7 +273,7 @@ Calling this will:
 > the `errors` and `failures` counters. This could change in the future or
 > be prevented by creating a whole new instance of the `PowerQueue`
 
-> ```PowerQueue.prototype.reset = function() { ...``` [power-queue.js:263](power-queue.js#L263)
+> ```PowerQueue.prototype.reset = function() { ...``` [power-queue.js:264](power-queue.js#L264)
 
 -
 
@@ -289,7 +290,7 @@ Internally used to Pass on number of failures.
 
 -
 
-> ```PowerQueue.prototype.add = function(data, failures, id) { ...``` [power-queue.js:315](power-queue.js#L315)
+> ```PowerQueue.prototype.add = function(data, failures, id) { ...``` [power-queue.js:316](power-queue.js#L316)
 
 -
 
@@ -309,7 +310,7 @@ Error message if task failed
 `next` is handed into the [taskHandler](PowerQueue.taskHandler) as a
 callback to mark an error or end of current task
 
-> ```PowerQueue.prototype.next = function(err) { ...``` [power-queue.js:393](power-queue.js#L393)
+> ```PowerQueue.prototype.next = function(err) { ...``` [power-queue.js:394](power-queue.js#L394)
 
 -
 
@@ -318,7 +319,7 @@ callback to mark an error or end of current task
 *This method __queueTaskHandler__ is defined in `prototype` of `PowerQueue`*
 This method handles tasks that are sub queues
 
-> ```PowerQueue.prototype.queueTaskHandler = function(subQueue, next, failures) { ...``` [power-queue.js:553](power-queue.js#L553)
+> ```PowerQueue.prototype.queueTaskHandler = function(subQueue, next, failures) { ...``` [power-queue.js:555](power-queue.js#L555)
 
 -
 
@@ -354,7 +355,7 @@ Default task handler expects functions as data:
   };
 ```
 
-> ```PowerQueue.prototype.taskHandler = function(data, next, failures) { ...``` [power-queue.js:599](power-queue.js#L599)
+> ```PowerQueue.prototype.taskHandler = function(data, next, failures) { ...``` [power-queue.js:601](power-queue.js#L601)
 
 -
 
@@ -386,7 +387,7 @@ The default callback:
   };
 ```
 
-> ```PowerQueue.prototype.errorHandler = function(data, addTask, failures) { ...``` [power-queue.js:632](power-queue.js#L632)
+> ```PowerQueue.prototype.errorHandler = function(data, addTask, failures) { ...``` [power-queue.js:634](power-queue.js#L634)
 
 -
 
@@ -394,7 +395,7 @@ The default callback:
 -
 *This method __pause__ is defined in `prototype` of `PowerQueue`*
 
-> ```PowerQueue.prototype.pause = function() { ...``` [power-queue.js:643](power-queue.js#L643)
+> ```PowerQueue.prototype.pause = function() { ...``` [power-queue.js:645](power-queue.js#L645)
 
 -
 
@@ -404,7 +405,7 @@ The default callback:
 
 > This will not start a stopped queue
 
-> ```PowerQueue.prototype.resume = function() { ...``` [power-queue.js:663](power-queue.js#L663)
+> ```PowerQueue.prototype.resume = function() { ...``` [power-queue.js:665](power-queue.js#L665)
 
 -
 
@@ -414,6 +415,6 @@ The default callback:
 > Using this command will resume a paused queue and will
 > start a stopped queue.
 
-> ```PowerQueue.prototype.run = function() { ...``` [power-queue.js:675](power-queue.js#L675)
+> ```PowerQueue.prototype.run = function() { ...``` [power-queue.js:677](power-queue.js#L677)
 
 -
