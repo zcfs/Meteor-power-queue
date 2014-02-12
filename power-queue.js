@@ -45,44 +45,44 @@ PowerQueue = function(options) {
   }
 
   // Default is fifo lilo
-  var invocations = new ActiveQueue(options && options.filo || options && options.lifo);
-  //var invocations = new ReactiveList(queueOrder);
+  self.invocations = new ActiveQueue(options && options.filo || options && options.lifo);
+  //var self.invocations = new ReactiveList(queueOrder);
 
   // List of current tasks being processed
-  var _processList = new ActiveQueue(); //ReactiveList();
+  self._processList = new ActiveQueue(); //ReactiveList();
 
   // Max number of simultanious tasks being processed
-  var _maxProcessing = new ReactiveProperty(options && options.maxProcessing || 1);
+  self._maxProcessing = new ReactiveProperty(options && options.maxProcessing || 1);
 
   // Reactive number of tasks being processed
-  var _isProcessing = new ReactiveProperty(0);
+  self._isProcessing = new ReactiveProperty(0);
 
   // Boolean indicating if queue is paused or not
-  var _paused = new ReactiveProperty(options && options.isPaused || false);
+  self._paused = new ReactiveProperty(options && options.isPaused || false);
 
   // Boolean indicator for queue status active / running (can still be paused)
-  var _running = new ReactiveProperty(false);
+  self._running = new ReactiveProperty(false);
 
   // Counter for errors, errors are triggered if maxFailures is exeeded
-  var _errors = new ReactiveProperty(0);
+  self._errors = new ReactiveProperty(0);
 
   // Counter for task failures, contains error count
-  var _failures = new ReactiveProperty(0);
+  self._failures = new ReactiveProperty(0);
 
   // On failure jump to new task - if false the current task is rerun until error
-  var _jumpOnFailure = (options && options.jumpOnFailure === false) ? false : true;
+  self._jumpOnFailure = (options && options.jumpOnFailure === false) ? false : true;
 
   // Count of all added tasks
-  var _maxLength = new ReactiveProperty(0);
+  self._maxLength = new ReactiveProperty(0);
 
   // Boolean indicate whether or not a "add" task is allowed to start the queue
-  var _autostart = new ReactiveProperty((options && options.autostart === false) ? false : true);
+  self._autostart = new ReactiveProperty((options && options.autostart === false) ? false : true);
 
   // Limit times a task is allowed to fail and be rerun later before triggering an error
-  var _maxFailures = new ReactiveProperty(options && options.maxFailures || 5);
+  self._maxFailures = new ReactiveProperty(options && options.maxFailures || 5);
 
   // Name / title of this queue - Not used - should deprecate
-  var title = options && options.name || 'Queue';
+  self.title = options && options.name || 'Queue';
 
   // debug - will print error / failures passed to next
   self.debug = !!(options && options.debug);
@@ -91,102 +91,58 @@ PowerQueue = function(options) {
    * Is called when queue is ended
    */
   self.onEnded = options && options.onEnded || function() {
-    self.debug && console.log(title + ' ENDED');
+    self.debug && console.log(self.title + ' ENDED');
   };
 
   /** @callback PowerQueue.onRelease
    * Is called when queue is released
    */
-  self.onRelease = options && options.onRelease || function() { /* console.log(title + ' RELEASED'); */ };
+  self.onRelease = options && options.onRelease || function() { /* console.log(self.title + ' RELEASED'); */ };
 
   /** @callback PowerQueue.onAutostart
    * Is called when queue is auto started
    */
   self.onAutostart = options && options.onAutostart || function() {
-    self.debug && console.log(title + ' Autostart');
-  };
-
-  /** @method PowerQueue.length
-   * @reactive
-   * @returns {number} Number of tasks left in queue to be processed
-   */
-  self.length = function() {
-    return invocations.length();
-  };
-
-  /** @method PowerQueue.progress
-   * @reactive
-   * @returns {number} 0 .. 100 % Indicates the status of the queue
-   */
-  self.progress = function() {
-    var progress = _maxLength.get() - invocations.length();
-    if (_maxLength.value > 0) {
-      return Math.round(progress / _maxLength.value * 100);
-    }
-    return 0;
-  };
-
-  /** @method PowerQueue.usage
-   * @reactive
-   * @returns {number} 0 .. 100 % Indicates ressource usage of the queue
-   */
-  self.usage = function() {
-    return Math.round(_isProcessing.get() / _maxProcessing.get() * 100);
+    self.debug && console.log(self.title + ' Autostart');
   };
 
   /** @method PowerQueue.total
    * @reactive
    * @returns {number} The total number of tasks added to this queue
    */
-  self.total = _maxLength.get;
+  self.total = self._maxLength.get;
 
   /** @method PowerQueue.isPaused
    * @reactive
    * @returns {boolean} Status of the paused state of the queue
    */
-  self.isPaused = _paused.get;
+  self.isPaused = self._paused.get;
 
   /** @method PowerQueue.processing
    * @reactive
    * @returns {number} Number of tasks currently being processed
    */
-  self.processing = _isProcessing.get;
-
-  /** @method PowerQueue.processList
-   * @reactive
-   * @returns {array} List of tasks currently being processed
-   */
-  self.processingList = function() {
-    return _processList.fetch();
-  };
+  self.processing = self._isProcessing.get;
 
   /** @method PowerQueue.errors
    * @reactive
    * @returns {number} The total number of errors
    * Errors are triggered when [maxFailures](PowerQueue.maxFailures) are exeeded
    */
-  self.errors = _errors.get;
+  self.errors = self._errors.get;
 
   /** @method PowerQueue.failures
    * @reactive
    * @returns {number} The total number of failed tasks
    */
-  self.failures = _failures.get;
+  self.failures = self._failures.get;
 
   /** @method PowerQueue.isRunning
    * @reactive
    * @returns {boolean} True if the queue is running
    * > NOTE: The task can be paused but marked as running
    */
-  self.isRunning = _running.get;
-
-  /** @method PowerQueue.isHalted
-   * @reactive
-   * @returns {boolean} True if the queue is not running or paused
-   */
-  self.isHalted = function() {
-    return (!_running.get() || _paused.get());
-  };
+  self.isRunning = self._running.get;
 
   /** @method PowerQueue.maxProcessing Get setter for maxProcessing
    * @param {number} [max] If not used this function works as a getter
@@ -199,9 +155,9 @@ PowerQueue = function(options) {
    *   foo.maxProcessing(20);  // This sets the value to 20
    * ```
    */
-  self.maxProcessing = _maxProcessing.getset;
+  self.maxProcessing = self._maxProcessing.getset;
 
-  _maxProcessing.onChange = function() {
+  self._maxProcessing.onChange = function() {
     // The user can change the max allowed processing tasks up or down here...
     // Update the throttle up
     self.updateThrottleUp();
@@ -220,7 +176,7 @@ PowerQueue = function(options) {
    *   foo.autostart(true);  // This sets the value to true
    * ```
    */
-  self.autostart = _autostart.getset;
+  self.autostart = self._autostart.getset;
 
   /** @method PowerQueue.maxFailures Get setter for maxFailures
    * @param {number} [max] If not used this function works as a getter
@@ -233,9 +189,59 @@ PowerQueue = function(options) {
    *   foo.maxFailures(10);  // This sets the value to 10
    * ```
    */
-  self.maxFailures = _maxFailures.getset;
+  self.maxFailures = self._maxFailures.getset;
+};
 
-  /** @method PowerQueue.reset Reset the queue
+  /** @method PowerQueue.prototype.processList
+   * @reactive
+   * @returns {array} List of tasks currently being processed
+   */
+  PowerQueue.prototype.processingList = function() {
+    var self = this;
+    return self._processList.fetch();
+  };
+
+  /** @method PowerQueue.prototype.isHalted
+   * @reactive
+   * @returns {boolean} True if the queue is not running or paused
+   */
+  PowerQueue.prototype.isHalted = function() {
+    var self = this;
+    return (!self._running.get() || self._paused.get());
+  };
+
+  /** @method PowerQueue.prototype.length
+   * @reactive
+   * @returns {number} Number of tasks left in queue to be processed
+   */
+  PowerQueue.prototype.length = function() {
+    var self = this;
+    return self.invocations.length();
+  };
+
+  /** @method PowerQueue.prototype.progress
+   * @reactive
+   * @returns {number} 0 .. 100 % Indicates the status of the queue
+   */
+  PowerQueue.prototype.progress = function() {
+    var self = this;
+    var progress = self._maxLength.get() - self.invocations.length();
+    if (self._maxLength.value > 0) {
+      return Math.round(progress / self._maxLength.value * 100);
+    }
+    return 0;
+  };
+
+  /** @method PowerQueue.prototype.usage
+   * @reactive
+   * @returns {number} 0 .. 100 % Indicates ressource usage of the queue
+   */
+  PowerQueue.prototype.usage = function() {
+    var self = this;
+    return Math.round(self._isProcessing.get() / self._maxProcessing.get() * 100);
+  };
+
+  /** @method PowerQueue.prototype.reset Reset the queue
    * Calling this will:
    * * stop the queue
    * * paused to false
@@ -245,22 +251,23 @@ PowerQueue = function(options) {
    * > the `errors` and `failures` counters. This could change in the future or
    * > be prevented by creating a whole new instance of the `PowerQueue`
    */
-  self.reset = function() {
-    self.debug && console.log(title + ' RESET');
-    _running.set(false);
-    _paused.set(false);
-    invocations.reset();
-    _processList.reset();
+  PowerQueue.prototype.reset = function() {
+    var self = this;
+    self.debug && console.log(self.title + ' RESET');
+    self._running.set(false);
+    self._paused.set(false);
+    self.invocations.reset();
+    self._processList.reset();
 
     // // Loop through the processing tasks and reset these
-    // _processList.forEach(function(data) {
+    // self._processList.forEach(function(data) {
     //   if (data.queue instanceof PowerQueue) {
     //     data.queue.reset();
     //   }
     // }, true);
-    _maxLength.set(0);
-    _failures.set(0);
-    _errors.set(0);
+    self._maxLength.set(0);
+    self._failures.set(0);
+    self._errors.set(0);
   };
 
   /** @method PowerQueue._autoStartTasks
@@ -269,22 +276,22 @@ PowerQueue = function(options) {
    * This method defines the autostart algorithm that allows add task to trigger
    * a start of the queue if queue is not paused.
    */
-  self._autoStartTasks = function() {
+  PowerQueue.prototype._autoStartTasks = function() {
     var self = this;
 
     // We dont start anything by ourselfs if queue is paused
-    if (!_paused.value) {
+    if (!self._paused.value) {
 
       // Queue is not running and we are set to autostart so we start the queue
-      if (!_running.value && _autostart.value) {
+      if (!self._running.value && self._autostart.value) {
         // Trigger callback / event
         self.onAutostart();
         // Set queue as running
-        _running.set(true);
+        self._running.set(true);
       }
 
       // Make sure that we use all available ressources
-      if (_running.value) {
+      if (self._running.value) {
         // Call next to start up the queue
         self.next(null);
       }
@@ -292,29 +299,29 @@ PowerQueue = function(options) {
     }
   };
 
-  /** @method PowerQueue.add
+  /** @method PowerQueue.prototype.add
    * @param {any} data The task to be handled
    * @param {number} [failures] Internally used to Pass on number of failures.
    */
-  self.add = function(data, failures, id) {
+  PowerQueue.prototype.add = function(data, failures, id) {
     var self = this;
 
     // Assign new id to task
-    var assignNewId = _jumpOnFailure || typeof id === 'undefined';
+    var assignNewId = self._jumpOnFailure || typeof id === 'undefined';
 
     // Set the task id
-    var taskId = (assignNewId) ? _maxLength.value + 1 : id;
+    var taskId = (assignNewId) ? self._maxLength.value + 1 : id;
 
-    // invocations.add({ _id: currentId, data: data, failures: failures || 0 }, reversed);
-    invocations.insert(taskId, { _id: taskId, data: data, failures: failures || 0 });
+    // self.invocations.add({ _id: currentId, data: data, failures: failures || 0 }, reversed);
+    self.invocations.insert(taskId, { _id: taskId, data: data, failures: failures || 0 });
 
     // If we assigned new id then increase length
-    if (assignNewId) _maxLength.inc();
+    if (assignNewId) self._maxLength.inc();
 
     self._autoStartTasks();
   };
 
-  /** @method PowerQueue.updateThrottleUp
+  /** @method PowerQueue.prototype.updateThrottleUp
    * @private
    *
    * Calling this method will update the throttle on the queue adding tasks.
@@ -322,7 +329,7 @@ PowerQueue = function(options) {
    * > Note: Currently we only support the PowerQueue - but we could support
    * > a more general interface for pauseable tasks or other usecases.
    */
-  self.updateThrottleUp = function() {
+  PowerQueue.prototype.updateThrottleUp = function() {
     var self = this;
 
     // How many additional tasks can we handle?
@@ -339,7 +346,7 @@ PowerQueue = function(options) {
 
   };
 
-  /** @method PowerQueue.updateThrottleDown
+  /** @method PowerQueue.prototype.updateThrottleDown
    * @private
    *
    * Calling this method will update the throttle on the queue pause tasks.
@@ -347,14 +354,15 @@ PowerQueue = function(options) {
    * > Note: Currently we only support the PowerQueue - but we could support
    * > a more general interface for pauseable tasks or other usecases.
    */
-  self.updateThrottleDown = function() {
+  PowerQueue.prototype.updateThrottleDown = function() {
+    var self = this;
     // Calculate the differece between acutuall processing tasks and target
-    var diff = _isProcessing.value - _maxProcessing.value;
+    var diff = self._isProcessing.value - self._maxProcessing.value;
 
     // If the diff is more than 0 then we have many tasks processing.
     if (diff > 0) {
       // We pause the latest added tasks
-      _processList.forEachReverse(function(data) {
+      self._processList.forEachReverse(function(data) {
         if (diff > 0 && data.queue instanceof PowerQueue) {
           diff--;
           // We dont mind calling pause on multiple times on each task
@@ -365,7 +373,7 @@ PowerQueue = function(options) {
     }
   };
 
-  /** @method PowerQueue.next
+  /** @method PowerQueue.prototype.next
    * @param {string} [err] Error message if task failed
    * > * Can pass in `null` to start the queue
    * > * Passing in a string to `next` will trigger a failure
@@ -373,10 +381,11 @@ PowerQueue = function(options) {
    * `next` is handed into the [taskHandler](PowerQueue.taskHandler) as a
    * callback to mark an error or end of current task
    */
-  self.next = function(err) {
+  PowerQueue.prototype.next = function(err) {
+    var self = this;
     // If started with null then we are initialized by run
-    if (err !== null && _isProcessing.value > 0) {
-      _isProcessing.dec();
+    if (err !== null && self._isProcessing.value > 0) {
+      self._isProcessing.dec();
     }
 
     // Primary concern is to throttle up because we are either:
@@ -390,31 +399,31 @@ PowerQueue = function(options) {
     // throttle up and we got no errors.
     // 1. We are paused and releasing tasks
     // 2. We are done
-    if (_running.value && _isProcessing.value === 0 && err !== null) {
+    if (self._running.value && self._isProcessing.value === 0 && err !== null) {
 
       // We have no tasks processing so this queue is now releasing resources
       // this could be that the queue is paused or stopped, in that case the
-      // invocations._length would be > 0
-      // If on the other hand the invocations._length is 0 then we have no more
+      // self.invocations._length would be > 0
+      // If on the other hand the self.invocations._length is 0 then we have no more
       // tasks in the queue so the queue has ended
-      self.onRelease(invocations._length);
+      self.onRelease(self.invocations._length);
 
-      if (!invocations._length) { // !_paused.value &&
+      if (!self.invocations._length) { // !self._paused.value &&
         // Check if queue is done working
         // Stop the queue
-        _running.set(false);
-        // invocations.reset(); // This should be implicit
+        self._running.set(false);
+        // self.invocations.reset(); // This should be implicit
         self.onEnded();
       }
 
     }
   };
 
-  /** @method PowerQueue.runTask
+  /** @method PowerQueue.prototype.runTask
    * @private // This is not part of the open api
    * @param {object} invocation The object stored in the micro-queue
    */
-  self.runTask = function(invocation) {
+  PowerQueue.prototype.runTask = function(invocation) {
     var self = this;
 
     /** @callback done
@@ -435,21 +444,21 @@ PowerQueue = function(options) {
     function callback(feedback) {
 
       // If the task handler throws an error then add it to the queue again
-      // we allow this for a max of _maxFailures
+      // we allow this for a max of self._maxFailures
       // If the error is null then we add the task silently back into the
       // microQueue in reverse... This could be due to pause or throttling
       if (feedback instanceof Meteor.Error) {
         invocation.failures++;
-        _failures.inc();
+        self._failures.inc();
 
         // If the user has set the debug flag we print out failures/errors
-        self.debug && console.log('Queue "' + title + '" failure: ' + feedback.message);
+        self.debug && console.log('Queue "' + self.title + '" failure: ' + feedback.message);
 
-        if (invocation.failures < _maxFailures.value) {
+        if (invocation.failures < self._maxFailures.value) {
           // Add the task again with the increased failures
           self.add(invocation.data, invocation.failures, invocation._id);
         } else {
-          _errors.inc();
+          self._errors.inc();
           self.errorHandler(invocation.data, self.add, invocation.failures);
         }
 
@@ -461,7 +470,7 @@ PowerQueue = function(options) {
       // We use null to throttle pauseable tasks
       if (feedback === null) {
         // We add this task into the queue, no questions asked
-        invocations.insert(invocation._id, invocation);
+        self.invocations.insert(invocation._id, invocation);
       }
 
       // If the user returns a string we got a command
@@ -481,7 +490,7 @@ PowerQueue = function(options) {
       }
 
       // Task has ended we remove the task from the process list
-      _processList.remove(invocation._id);
+      self._processList.remove(invocation._id);
 
       // Next task
       self.next();
@@ -494,14 +503,14 @@ PowerQueue = function(options) {
       if (invocation.data instanceof PowerQueue) {
 
         // Insert PowerQueue into process list
-        _processList.insert(invocation._id, { id: invocation._id, queue: invocation.data });
+        self._processList.insert(invocation._id, { id: invocation._id, queue: invocation.data });
         // Handle task
         self.queueTaskHandler(invocation.data, callback, invocation.failures);
 
       } else {
 
         // Insert task into process list
-        _processList.insert(invocation._id, invocation.data);
+        self._processList.insert(invocation._id, invocation.data);
         // Handle task
         self.taskHandler(invocation.data, callback, invocation.failures);
 
@@ -511,10 +520,11 @@ PowerQueue = function(options) {
     }
   };
 
-  /** @method PowerQueue.queueTaskHandler
+  /** @method PowerQueue.prototype.queueTaskHandler
    * This method handles tasks that are sub queues
    */
-  self.queueTaskHandler = function(subQueue, next, failures) {
+  PowerQueue.prototype.queueTaskHandler = function(subQueue, next, failures) {
+    var self = this;
     // Monitor sub queue task releases
     subQueue.onRelease = function(remaining) {
       // Ok, we were paused - this could be throttling so we respect this
@@ -535,7 +545,7 @@ PowerQueue = function(options) {
     subQueue.run();
   };
 
-  /** @callback PowerQueue.taskHandler
+  /** @callback PowerQueue.prototype.taskHandler
    * @param {any} data This can be data or functions
    * @param {function} next Function `next` call this to end task
    * @param {number} failures Number of failures on this task
@@ -552,14 +562,15 @@ PowerQueue = function(options) {
    *       data(next, failures);
    *     } catch(err) {
    *       // Throw to fail this task
-   *       next('Default task handler could not run task, Error: ' + err.message);
+   *       next(err);
    *     }
    *   };
    * ```
    */
 
   // Can be overwrittin by the user
-  self.taskHandler = function(data, next, failures) {
+  PowerQueue.prototype.taskHandler = function(data, next, failures) {
+    var self = this;
     // This default task handler expects invocation to be a function to run
     if (typeof data !== 'function') {
       throw new Error('Default task handler expects a function');
@@ -573,7 +584,7 @@ PowerQueue = function(options) {
     }
   };
 
-  /** @callback PowerQueue.errorHandler
+  /** @callback PowerQueue.prototype.errorHandler
    * @param {any} data This can be data or functions
    * @param {function} addTask Use this function to insert the data into the queue again
    * @param {number} failures Number of failures on this task
@@ -591,22 +602,24 @@ PowerQueue = function(options) {
    *   };
    * ```
    */
-  self.errorHandler = function(data, addTask, failures) {
+  PowerQueue.prototype.errorHandler = function(data, addTask, failures) {
+    var self = this;
     // This could be overwritten the data contains the task data and addTask
     // is a helper for adding the task to the queue
     // try again: addTask(data);
     self.debug && console.log('Terminate at ' + failures + ' failures');
   };
 
-  /** @method PowerQueue.pause Pause the queue
+  /** @method PowerQueue.prototype.pause Pause the queue
    * @todo We should have it pause all processing tasks
    */
-  self.pause = function() {
-    if (!_paused.value) {
+  PowerQueue.prototype.pause = function() {
+    var self = this;
+    if (!self._paused.value) {
 
-      _paused.set(true);
+      self._paused.set(true);
       // Loop through the processing tasks and pause these
-      _processList.forEach(function(data) {
+      self._processList.forEach(function(data) {
         if (data.queue instanceof PowerQueue) {
           // Pause the sub queue
           data.queue.pause();
@@ -615,43 +628,46 @@ PowerQueue = function(options) {
     }
   };
 
-  /** @method PowerQueue.resume Start a paused queue
+  /** @method PowerQueue.prototype.resume Start a paused queue
    * @todo We should have it resume all processing tasks
    *
    * > This will not start a stopped queue
    */
-  self.resume = function() {
+  PowerQueue.prototype.resume = function() {
+    var self = this;
     // Un pause the queue
-    _paused.set(false);
+    self.self._paused.set(false);
     // Make sure we are up and running
     self.next(null);
   };
 
-  /** @method PowerQueue.run Starts the queue
+  /** @method PowerQueue.prototype.run Starts the queue
    * > Using this command will resume a paused queue and will
    * > start a stopped queue.
    */
-  self.run = function() {
+  PowerQueue.prototype.run = function() {
+    var self = this;
     //not paused and already running or queue empty or paused subqueues
-    if (!_paused.value && _running.value || !invocations._length) {
+    if (!self._paused.value && self._running.value || !self.invocations._length) {
       return;
     }
 
-    _paused.set(false);
-    _running.set(true);
+    self._paused.set(false);
+    self._running.set(true);
     self.next(null);
   };
 
-   /** @method PowerQueue.stop Stops the queue
+  /** @method PowerQueue.prototype.stop Stops the queue
    */
-  self.stop = function() {
+  PowerQueue.prototype.stop = function() {
     var self = this;
-    _running.set(false);
+    self._running.set(false);
   };
 
-  self.cancel = function() {
+  /** @method PowerQueue.prototype.cancel Cancel the queue
+   */
+  PowerQueue.prototype.cancel = function() {
     var self = this;
     self.reset();
   };
 
-};
