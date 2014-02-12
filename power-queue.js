@@ -498,7 +498,7 @@ PowerQueue = function(options) {
     // Next task
     Meteor.setTimeout(function() {
       self.next();
-    });
+    }, 0);
 
   };
 
