@@ -19,6 +19,7 @@ if (typeof ReactiveList === 'undefined' && Package['reactive-list']) {
  * @param {number} [options.maxProcessing=1] Limit of simultanous running tasks
  * @param {number} [options.maxFailures = 5] Limit retries of failed tasks
  * @param {number} [options.jumpOnFailure = true] Jump to next task and retry failed task later
+ * @param {boolean} [options.debug=false] Verbose messages in the console.log
  * @param {[SpinalQueue](spinal-queue.spec.md)} [options.spinalQueue] Set spinal queue uses pr. default `MicroQueue` or `ReactiveList` if added to the project
  */
 PowerQueue = function(options) {
@@ -83,11 +84,14 @@ PowerQueue = function(options) {
   // Name / title of this queue - Not used - should deprecate
   var title = options && options.name || 'Queue';
 
+  // debug - will print error / failures passed to next
+  self.debug = !!(options && options.debug);
+
   /** @callback PowerQueue.onEnded
    * Is called when queue is ended
    */
   self.onEnded = options && options.onEnded || function() {
-    console.log(title + ' ENDED');
+    self.debug && console.log(title + ' ENDED');
   };
 
   /** @callback PowerQueue.onRelease
@@ -99,7 +103,7 @@ PowerQueue = function(options) {
    * Is called when queue is auto started
    */
   self.onAutostart = options && options.onAutostart || function() {
-    console.log(title + ' Autostart');
+    self.debug && console.log(title + ' Autostart');
   };
 
   /** @method PowerQueue.length
@@ -242,7 +246,7 @@ PowerQueue = function(options) {
    * > be prevented by creating a whole new instance of the `PowerQueue`
    */
   self.reset = function() {
-    console.log(title + ' RESET');
+    self.debug && console.log(title + ' RESET');
     _running.set(false);
     _paused.set(false);
     invocations.reset();
@@ -441,6 +445,9 @@ PowerQueue = function(options) {
         invocation.failures++;
         _failures.inc();
 
+        // If the user has set the debug flag we print out failures/errors
+        self.debug && console('Queue "' + title + '" failure: ' + feedback.message);
+
         if (invocation.failures < _maxFailures.value) {
           // Add the task again with the increased failures
           self.add(invocation.data, invocation.failures, invocation._id);
@@ -572,7 +579,7 @@ PowerQueue = function(options) {
     // This could be overwritten the data contains the task data and addTask
     // is a helper for adding the task to the queue
     // try again: addTask(data);
-    console.log('Terminate at ' + failures + ' failures');
+    self.debug && console.log('Terminate at ' + failures + ' failures');
   };
 
   /** @method PowerQueue.pause Pause the queue
