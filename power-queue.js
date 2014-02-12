@@ -9,6 +9,7 @@ if (typeof ReactiveList === 'undefined' && Package['reactive-list']) {
 /**
  * Creates an instance of a power queue // Testing inline comment
  * [Check out demo](http://power-queue-test.meteor.com/)
+ *
  * @constructor
  * @self powerqueue
  * @param {object} [options] Settings
@@ -19,7 +20,7 @@ if (typeof ReactiveList === 'undefined' && Package['reactive-list']) {
  * @param {number} [options.maxProcessing=1] Limit of simultanous running tasks
  * @param {number} [options.maxFailures = 5] Limit retries of failed tasks
  * @param {number} [options.jumpOnFailure = true] Jump to next task and retry failed task later
- * @param {boolean} [options.debug=false] Verbose messages in the console.log
+ * @param {boolean} [options.debug=false] Log verbose messages to the console
  * @param {boolean} [options.reactive=true] Set whether or not this queue should be reactive
  * @param {[SpinalQueue](spinal-queue.spec.md)} [options.spinalQueue] Set spinal queue uses pr. default `MicroQueue` or `ReactiveList` if added to the project
  */
