@@ -18,7 +18,7 @@ if (typeof ReactiveList === 'undefined' && Package['reactive-list']) {
  * @param {boolean} [options.autostart=true] May adding a task start the queue
  * @param {string} [options.name="Queue"] Name of the queue
  * @param {number} [options.maxProcessing=1] Limit of simultanous running tasks
- * @param {number} [options.maxFailures = 5] Limit retries of failed tasks
+ * @param {number} [options.maxFailures = 5] Limit retries of failed tasks, if 0 or below we allow infinite failures
  * @param {number} [options.jumpOnFailure = true] Jump to next task and retry failed task later
  * @param {boolean} [options.debug=false] Log verbose messages to the console
  * @param {boolean} [options.reactive=true] Set whether or not this queue should be reactive
@@ -457,7 +457,8 @@ PowerQueue = function(options) {
     // If the error is null then we add the task silently back into the
     // microQueue in reverse... This could be due to pause or throttling
     if (feedback instanceof Meteor.Error) {
-      invocation.failures++;
+      // We only count failures if maxFailures are above 0
+      if (self._maxFailures.value > 0) invocation.failures++;
       self._failures.inc();
 
       // If the user has set the debug flag we print out failures/errors
