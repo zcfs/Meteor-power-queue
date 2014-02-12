@@ -153,8 +153,8 @@ Maximum number of simultaneous processing tasks
 
 Example:
 ```js
- foo.maxProcessing();    // Works as a getter and returns the current value
- foo.maxProcessing(20);  // This sets the value to 20
+  foo.maxProcessing();    // Works as a getter and returns the current value
+  foo.maxProcessing(20);  // This sets the value to 20
 ```
 
 > ```self.maxProcessing = self._maxProcessing.getset;``` [power-queue.js:167](power-queue.js#L167)
@@ -177,8 +177,8 @@ If adding a task may trigger the queue to start
 
 Example:
 ```js
- foo.autostart();    // Works as a getter and returns the current value
- foo.autostart(true);  // This sets the value to true
+  foo.autostart();    // Works as a getter and returns the current value
+  foo.autostart(true);  // This sets the value to true
 ```
 
 > ```self.autostart = self._autostart.getset;``` [power-queue.js:188](power-queue.js#L188)
@@ -201,8 +201,8 @@ The maximum for failures pr. task before triggering an error
 
 Example:
 ```js
- foo.maxFailures();    // Works as a getter and returns the current value
- foo.maxFailures(10);  // This sets the value to 10
+  foo.maxFailures();    // Works as a getter and returns the current value
+  foo.maxFailures(10);  // This sets the value to 10
 ```
 
 > ```self.maxFailures = self._maxFailures.getset;``` [power-queue.js:201](power-queue.js#L201)
@@ -268,9 +268,9 @@ __Returns__  *{number}*  __(is reactive)__
 -
 *This method __reset__ is defined in `prototype` of `PowerQueue`*
 Calling this will:
-stop the queue
-paused to false
-Discart all queue data
+* stop the queue
+* paused to false
+* Discart all queue data
 
 > NOTE: At the moment if the queue has processing tasks they can change
 > the `errors` and `failures` counters. This could change in the future or
@@ -347,9 +347,9 @@ __Arguments__
 Error message if task failed
 
 -
-Can pass in `null` to start the queue
-Passing in a string to `next` will trigger a failure
-Passing nothing will simply let the next task run
+> * Can pass in `null` to start the queue
+> * Passing in a string to `next` will trigger a failure
+> * Passing nothing will simply let the next task run
 `next` is handed into the [taskHandler](PowerQueue.taskHandler) as a
 callback to mark an error or end of current task
 
@@ -368,14 +368,14 @@ This allows the task to communicate with the queue
 -
 
 Explaination of `feedback`
-`Meteor.Error` This means that the task failed in a controlled manner and is allowed to rerun
-`Error` This will throw the passed error - as its an unitended error
-`null` The task is not done yet, rerun later
-`String` The task can perform certain commands on the queue
-"pause" - pause the queue
-"stop" - stop the queue
-"reset" - reset the queue
-"cancel" - cancel the queue
+* `Meteor.Error` This means that the task failed in a controlled manner and is allowed to rerun
+* `Error` This will throw the passed error - as its an unitended error
+* `null` The task is not done yet, rerun later
+* `String` The task can perform certain commands on the queue
+   * "pause" - pause the queue
+   * "stop" - stop the queue
+   * "reset" - reset the queue
+   * "cancel" - cancel the queue
 
 
 > ```PowerQueue.prototype.runTaskDone = function(feedback, invocation) { ...``` [power-queue.js:451](power-queue.js#L451)
@@ -444,19 +444,19 @@ Number of failures on this task
 
 Default task handler expects functions as data:
 ```js
- self.taskHandler = function(data, next, failures) {
-   // This default task handler expects invocation to be a function to run
-   if (typeof data !== 'function') {
-     throw new Error('Default task handler expects a function');
-   }
-   try {
-     // Have the function call next
-     data(next, failures);
-   } catch(err) {
-     // Throw to fail this task
-     next(err);
-   }
- };
+  self.taskHandler = function(data, next, failures) {
+    // This default task handler expects invocation to be a function to run
+    if (typeof data !== 'function') {
+      throw new Error('Default task handler expects a function');
+    }
+    try {
+      // Have the function call next
+      data(next, failures);
+    } catch(err) {
+      // Throw to fail this task
+      next(err);
+    }
+  };
 ```
 
 > ```PowerQueue.prototype.taskHandler = function(data, next, failures) { ...``` [power-queue.js:599](power-queue.js#L599)
@@ -480,15 +480,15 @@ Number of failures on this task
 
 The default callback:
 ```js
- var foo = new PowerQueue();
+  var foo = new PowerQueue();
 
- // Overwrite the default action
- foo.errorHandler = function(data, addTask, failures) {
-   // This could be overwritten the data contains the task data and addTask
-   // is a helper for adding the task to the queue
-   // try again: addTask(data);
-   // console.log('Terminate at ' + failures + ' failures');
- };
+  // Overwrite the default action
+  foo.errorHandler = function(data, addTask, failures) {
+    // This could be overwritten the data contains the task data and addTask
+    // is a helper for adding the task to the queue
+    // try again: addTask(data);
+    // console.log('Terminate at ' + failures + ' failures');
+  };
 ```
 
 > ```PowerQueue.prototype.errorHandler = function(data, addTask, failures) { ...``` [power-queue.js:632](power-queue.js#L632)
