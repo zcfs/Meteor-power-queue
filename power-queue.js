@@ -383,11 +383,6 @@ PowerQueue = function(options) {
    */
   PowerQueue.prototype.next = function(err) {
     var self = this;
-    // If started with null then we are initialized by run
-    if (err !== null && self._isProcessing.value > 0) {
-      self._isProcessing.dec();
-    }
-
     // Primary concern is to throttle up because we are either:
     // 1. Starting the queue
     // 2. Starting next task
@@ -496,6 +491,9 @@ PowerQueue = function(options) {
       self.next();
     }
 
+    // Decrease the number of tasks being processed
+    // make sure we dont go below 0
+    if (self._isProcessing.value > 0) self._isProcessing.dec();
     // We start the fitting task handler
     // Currently we only support the PowerQueue but we could have a more general
     // interface for tasks that allow throttling
