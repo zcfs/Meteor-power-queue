@@ -414,6 +414,95 @@ PowerQueue = function(options) {
     }
   };
 
+  /** @callback done
+   * @param {Meteor.Error | Error | String | null} [feedback] This allows the task to communicate with the queue
+   *
+   * Explaination of `feedback`
+   * * `Meteor.Error` This means that the task failed in a controlled manner and is allowed to rerun
+   * * `Error` This will throw the passed error - as its an unitended error
+   * * `null` The task is not done yet, rerun later
+   * * `String` The task can perform certain commands on the queue
+   *    * "pause" - pause the queue
+   *    * "stop" - stop the queue
+   *    * "reset" - reset the queue
+   *    * "cancel" - cancel the queue
+   *
+   */
+
+
+  /** @method PowerQueue.prototype.runTaskDone
+   * @private
+   * @param {Meteor.Error | Error | String | null} [feedback] This allows the task to communicate with the queue
+   * @param {object} invocation
+   *
+   * > Note: `feedback` is explained in [Done callback](#done)
+   *
+   */
+  // Rig the callback function
+  PowerQueue.prototype.runTaskDone = function(feedback, invocation) {
+    var self = this;
+
+    // If the task handler throws an error then add it to the queue again
+    // we allow this for a max of self._maxFailures
+    // If the error is null then we add the task silently back into the
+    // microQueue in reverse... This could be due to pause or throttling
+    if (feedback instanceof Meteor.Error) {
+      invocation.failures++;
+      self._failures.inc();
+
+      // If the user has set the debug flag we print out failures/errors
+      self.debug && console.log('Queue "' + self.title + '" failure: ' + feedback.message);
+
+      if (invocation.failures < self._maxFailures.value) {
+        // Add the task again with the increased failures
+        self.add(invocation.data, invocation.failures, invocation._id);
+      } else {
+        self._errors.inc();
+        self.errorHandler(invocation.data, self.add, invocation.failures);
+      }
+
+      // If a error is thrown we assume its not intended
+    } else if (feedback instanceof Error) throw feedback;
+
+    if (feedback)
+
+    // We use null to throttle pauseable tasks
+    if (feedback === null) {
+      // We add this task into the queue, no questions asked
+      self.invocations.insert(invocation._id, invocation);
+    }
+
+    // If the user returns a string we got a command
+    if (feedback === ''+feedback) {
+      var command = {
+        'pause': function() { self.pause(); },
+        'stop': function() { self.stop(); },
+        'reset': function() { self.reset(); },
+        'cancel': function() { self.cancel(); },
+      };
+      if (typeof command[feedback] === 'function') {
+        // Run the command on this queue
+        command[feedback]();
+      } else {
+        // We dont recognize this command, throw an error
+        throw new Error('Unknown queue command "' + feedback + '"');
+      }
+    }
+    // Decrease the number of tasks being processed
+    // make sure we dont go below 0
+    if (self._isProcessing.value > 0) self._isProcessing.dec();
+    // Task has ended we remove the task from the process list
+    self._processList.remove(invocation._id);
+
+    invocation = null;
+    // Next task
+    Meteor.setTimeout(function() {
+      self.next();
+    });
+
+  };
+
+
   /** @method PowerQueue.prototype.runTask
    * @private // This is not part of the open api
    * @param {object} invocation The object stored in the micro-queue
@@ -421,79 +510,6 @@ PowerQueue = function(options) {
   PowerQueue.prototype.runTask = function(invocation) {
     var self = this;
 
-    /** @callback done
-     * @param {Meteor.Error | Error | String | null} [feedback] This allows the task to communicate with the queue
-     *
-     * Explaination of `feedback`
-     * * `Meteor.Error` This means that the task failed in a controlled manner and is allowed to rerun
-     * * `Error` This will throw the passed error - as its an unitended error
-     * * `null` The task is not done yet, rerun later
-     * * `String` The task can perform certain commands on the queue
-     *    * "pause" - pause the queue
-     *    * "stop" - stop the queue
-     *    * "reset" - reset the queue
-     *    * "cancel" - cancel the queue
-     *
-     */
-    // Rig the callback function
-    function callback(feedback) {
-
-      // If the task handler throws an error then add it to the queue again
-      // we allow this for a max of self._maxFailures
-      // If the error is null then we add the task silently back into the
-      // microQueue in reverse... This could be due to pause or throttling
-      if (feedback instanceof Meteor.Error) {
-        invocation.failures++;
-        self._failures.inc();
-
-        // If the user has set the debug flag we print out failures/errors
-        self.debug && console.log('Queue "' + self.title + '" failure: ' + feedback.message);
-
-        if (invocation.failures < self._maxFailures.value) {
-          // Add the task again with the increased failures
-          self.add(invocation.data, invocation.failures, invocation._id);
-        } else {
-          self._errors.inc();
-          self.errorHandler(invocation.data, self.add, invocation.failures);
-        }
-
-        // If a error is thrown we assume its not intended
-      } else if (feedback instanceof Error) throw feedback;
-
-      if (feedback)
-
-      // We use null to throttle pauseable tasks
-      if (feedback === null) {
-        // We add this task into the queue, no questions asked
-        self.invocations.insert(invocation._id, invocation);
-      }
-
-      // If the user returns a string we got a command
-      if (feedback === ''+feedback) {
-        var command = {
-          'pause': function() { self.pause(); },
-          'stop': function() { self.stop(); },
-          'reset': function() { self.reset(); },
-          'cancel': function() { self.cancel(); },
-        };
-        if (typeof command[feedback] === 'function') {
-          // Run the command on this queue
-          command[feedback]();
-        } else {
-          throw new Error('Unknown queue command "' + feedback + '"');
-        }
-      }
-
-      // Task has ended we remove the task from the process list
-      self._processList.remove(invocation._id);
-
-      // Next task
-      self.next();
-    }
-
-    // Decrease the number of tasks being processed
-    // make sure we dont go below 0
-    if (self._isProcessing.value > 0) self._isProcessing.dec();
     // We start the fitting task handler
     // Currently we only support the PowerQueue but we could have a more general
     // interface for tasks that allow throttling
@@ -503,14 +519,18 @@ PowerQueue = function(options) {
         // Insert PowerQueue into process list
         self._processList.insert(invocation._id, { id: invocation._id, queue: invocation.data });
         // Handle task
-        self.queueTaskHandler(invocation.data, callback, invocation.failures);
+        self.queueTaskHandler(invocation.data, function(feedback) {
+          self.runTaskDone(feedback, invocation);
+        }, invocation.failures);
 
       } else {
 
         // Insert task into process list
         self._processList.insert(invocation._id, invocation.data);
         // Handle task
-        self.taskHandler(invocation.data, callback, invocation.failures);
+        self.taskHandler(invocation.data, function(feedback) {
+          self.runTaskDone(feedback, invocation);
+        }, invocation.failures);
 
       }
     } catch(err) {
