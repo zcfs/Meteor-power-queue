@@ -323,22 +323,19 @@ PowerQueue = function(options) {
    * > a more general interface for pauseable tasks or other usecases.
    */
   self.updateThrottleUp = function() {
+    var self = this;
 
-    Meteor.setTimeout(function() {
-
-      // How many additional tasks can we handle?
-      var availableSlots = _maxProcessing.value - _isProcessing.value;
-      // If we can handle more, we have more, we're running, and we're not paused
-      if (!_paused.value && _running.value && availableSlots > 0 && invocations._length > 0) {
-        // Increase counter of current number of tasks being processed
-        _isProcessing.inc();
-        // Run task
-        self.runTask(invocations.getFirstItem());
-        // Repeat recursively; this is better than a for loop to avoid blocking the UI
-        self.updateThrottleUp();
-      }
-
-    }, 0);
+    // How many additional tasks can we handle?
+    var availableSlots = self._maxProcessing.value - self._isProcessing.value;
+    // If we can handle more, we have more, we're running, and we're not paused
+    if (!self._paused.value && self._running.value && availableSlots > 0 && self.invocations._length > 0) {
+      // Increase counter of current number of tasks being processed
+      self._isProcessing.inc();
+      // Run task
+      self.runTask(self.invocations.getFirstItem());
+      // Repeat recursively; this is better than a for loop to avoid blocking the UI
+      self.updateThrottleUp();
+    }
 
   };
 
