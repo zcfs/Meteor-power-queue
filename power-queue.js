@@ -20,11 +20,14 @@ if (typeof ReactiveList === 'undefined' && Package['reactive-list']) {
  * @param {number} [options.maxFailures = 5] Limit retries of failed tasks
  * @param {number} [options.jumpOnFailure = true] Jump to next task and retry failed task later
  * @param {boolean} [options.debug=false] Verbose messages in the console.log
+ * @param {boolean} [options.reactive=true] Set whether or not this queue should be reactive
  * @param {[SpinalQueue](spinal-queue.spec.md)} [options.spinalQueue] Set spinal queue uses pr. default `MicroQueue` or `ReactiveList` if added to the project
  */
 PowerQueue = function(options) {
   var self = this;
   var test = 5;
+
+  self.reactive = (options && options.reactive === false) ? false :  true;
 
   // Allow user to use another micro-queue #3
   // We try setting the ActiveQueue to MicroQueue if installed in the app
@@ -45,41 +48,47 @@ PowerQueue = function(options) {
   }
 
   // Default is fifo lilo
-  self.invocations = new ActiveQueue(options && options.filo || options && options.lifo);
+  self.invocations = new ActiveQueue({
+    //
+    sort: (options && (options.filo || options.lifo)),
+    reactive: self.reactive
+  });
   //var self.invocations = new ReactiveList(queueOrder);
 
   // List of current tasks being processed
-  self._processList = new ActiveQueue(); //ReactiveList();
+  self._processList = new ActiveQueue({
+    reactive: self.reactive
+  }); //ReactiveList();
 
   // Max number of simultanious tasks being processed
-  self._maxProcessing = new ReactiveProperty(options && options.maxProcessing || 1);
+  self._maxProcessing = new ReactiveProperty(options && options.maxProcessing || 1, self.reactive);
 
   // Reactive number of tasks being processed
-  self._isProcessing = new ReactiveProperty(0);
+  self._isProcessing = new ReactiveProperty(0, self.reactive);
 
   // Boolean indicating if queue is paused or not
-  self._paused = new ReactiveProperty(options && options.isPaused || false);
+  self._paused = new ReactiveProperty((options && options.isPaused || false), self.reactive);
 
   // Boolean indicator for queue status active / running (can still be paused)
-  self._running = new ReactiveProperty(false);
+  self._running = new ReactiveProperty(false, self.reactive);
 
   // Counter for errors, errors are triggered if maxFailures is exeeded
-  self._errors = new ReactiveProperty(0);
+  self._errors = new ReactiveProperty(0, self.reactive);
 
   // Counter for task failures, contains error count
-  self._failures = new ReactiveProperty(0);
+  self._failures = new ReactiveProperty(0, self.reactive);
 
   // On failure jump to new task - if false the current task is rerun until error
   self._jumpOnFailure = (options && options.jumpOnFailure === false) ? false : true;
 
   // Count of all added tasks
-  self._maxLength = new ReactiveProperty(0);
+  self._maxLength = new ReactiveProperty(0, self.reactive);
 
   // Boolean indicate whether or not a "add" task is allowed to start the queue
-  self._autostart = new ReactiveProperty((options && options.autostart === false) ? false : true);
+  self._autostart = new ReactiveProperty( ((options && options.autostart === false) ? false : true), self.reactive);
 
   // Limit times a task is allowed to fail and be rerun later before triggering an error
-  self._maxFailures = new ReactiveProperty(options && options.maxFailures || 5);
+  self._maxFailures = new ReactiveProperty( (options && options.maxFailures || 5), self.reactive);
 
   // Name / title of this queue - Not used - should deprecate
   self.title = options && options.name || 'Queue';
