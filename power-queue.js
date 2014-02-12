@@ -416,6 +416,20 @@ PowerQueue = function(options) {
   self.runTask = function(invocation) {
     var self = this;
 
+    /** @callback done
+     * @param {Meteor.Error | Error | String | null} [feedback] This allows the task to communicate with the queue
+     *
+     * Explaination of `feedback`
+     * * `Meteor.Error` This means that the task failed in a controlled manner and is allowed to rerun
+     * * `Error` This will throw the passed error - as its an unitended error
+     * * `null` The task is not done yet, rerun later
+     * * `String` The task can perform certain commands on the queue
+     *    * "pause" - pause the queue
+     *    * "stop" - stop the queue
+     *    * "reset" - reset the queue
+     *    * "cancel" - cancel the queue
+     *
+     */
     // Rig the callback function
     function callback(error) {
 
