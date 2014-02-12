@@ -435,13 +435,13 @@ PowerQueue = function(options) {
      *
      */
     // Rig the callback function
-    function callback(error) {
+    function callback(feedback) {
 
       // If the task handler throws an error then add it to the queue again
       // we allow this for a max of _maxFailures
       // If the error is null then we add the task silently back into the
       // microQueue in reverse... This could be due to pause or throttling
-      if (typeof error !== 'undefined' && error !== null) {
+      if (feedback instanceof Meteor.Error) {
         invocation.failures++;
         _failures.inc();
 
@@ -456,12 +456,31 @@ PowerQueue = function(options) {
           self.errorHandler(invocation.data, self.add, invocation.failures);
         }
 
-      }
+        // If a error is thrown we assume its not intended
+      } else if (feedback instanceof Error) throw feedback;
+
+      if (feedback)
 
       // We use null to throttle pauseable tasks
-      if (error === null) {
+      if (feedback === null) {
         // We add this task into the queue, no questions asked
         invocations.insert(invocation._id, invocation);
+      }
+
+      // If the user returns a string we got a command
+      if (feedback === ''+feedback) {
+        var command = {
+          'pause': function() { self.pause(); },
+          'stop': function() { self.stop(); },
+          'reset': function() { self.reset(); },
+          'cancel': function() { self.cancel(); },
+        };
+        if (typeof command[feedback] === 'function') {
+          // Run the command on this queue
+          command[feedback]();
+        } else {
+          throw new Error('Unknown queue command "' + feedback + '"');
+        }
       }
 
       // Task has ended we remove the task from the process list
@@ -553,7 +572,7 @@ PowerQueue = function(options) {
       data(next, failures);
     } catch(err) {
       // Throw to fail this task
-      next('Default task handler could not run task, Error: ' + err.message);
+      next(err);
     }
   };
 
