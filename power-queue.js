@@ -626,4 +626,16 @@ PowerQueue = function(options) {
     self.next(null);
   };
 
+   /** @method PowerQueue.stop Stops the queue
+   */
+  self.stop = function() {
+    var self = this;
+    _running.set(false);
+  };
+
+  self.cancel = function() {
+    var self = this;
+    self.reset();
+  };
+
 };
