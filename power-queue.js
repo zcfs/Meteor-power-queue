@@ -460,7 +460,7 @@ PowerQueue = function(options) {
       self._failures.inc();
 
       // If the user has set the debug flag we print out failures/errors
-      self.debug && console.error('Error: "' + self.title + '" ' + feedback.message + ', ' + feedback.stack);
+      console.error('Error: "' + self.title + '" ' + feedback.message + ', ' + feedback.stack);
 
       if (invocation.failures < self._maxFailures.value) {
         // Add the task again with the increased failures
