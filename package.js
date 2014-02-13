@@ -15,8 +15,8 @@ Package.on_use(function (api) {
 });
 
 Package.on_test(function (api) {
-  api.use('power-queue');
-  api.use('test-helpers', 'server');
+  api.use(['power-queue', 'reactive-list']);
+  api.use('test-helpers', ['server', 'client']);
   api.use('tinytest');
 
   api.add_files('tests.js');
