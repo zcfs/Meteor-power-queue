@@ -22,6 +22,10 @@ if (typeof ReactiveList === 'undefined' && Package['reactive-list']) {
  * @param {number} [options.jumpOnFailure = true] Jump to next task and retry failed task later
  * @param {boolean} [options.debug=false] Log verbose messages to the console
  * @param {boolean} [options.reactive=true] Set whether or not this queue should be reactive
+ * @param {boolean} [options.onAutostart] Callback for the queue autostart event
+ * @param {boolean} [options.onPaused] Callback for the queue paused event
+ * @param {boolean} [options.onReleased] Callback for the queue release event
+ * @param {boolean} [options.onEnded] Callback for the queue end event
  * @param {[SpinalQueue](spinal-queue.spec.md)} [options.spinalQueue] Set spinal queue uses pr. default `MicroQueue` or `ReactiveList` if added to the project
  */
 PowerQueue = function(options) {
@@ -96,25 +100,6 @@ PowerQueue = function(options) {
 
   // debug - will print error / failures passed to next
   self.debug = !!(options && options.debug);
-
-  /** @callback PowerQueue.onEnded
-   * Is called when queue is ended
-   */
-  self.onEnded = options && options.onEnded || function() {
-    self.debug && console.log(self.title + ' ENDED');
-  };
-
-  /** @callback PowerQueue.onRelease
-   * Is called when queue is released
-   */
-  self.onRelease = options && options.onRelease || function() { /* console.log(self.title + ' RELEASED'); */ };
-
-  /** @callback PowerQueue.onAutostart
-   * Is called when queue is auto started
-   */
-  self.onAutostart = options && options.onAutostart || function() {
-    self.debug && console.log(self.title + ' Autostart');
-  };
 
   /** @method PowerQueue.total
    * @reactive
@@ -200,6 +185,34 @@ PowerQueue = function(options) {
    * ```
    */
   self.maxFailures = self._maxFailures.getset;
+
+  /** @callback PowerQueue.onPaused
+   * Is called when queue is ended
+   */
+  self.onPaused = options && options.onPaused || function() {
+    self.debug && console.log(self.title + ' ENDED');
+  };
+
+  /** @callback PowerQueue.onEnded
+   * Is called when queue is ended
+   */
+  self.onEnded = options && options.onEnded || function() {
+    self.debug && console.log(self.title + ' ENDED');
+  };
+
+  /** @callback PowerQueue.onRelease
+   * Is called when queue is released
+   */
+  self.onRelease = options && options.onRelease || function() {
+    self.debug && console.log(self.title + ' RELEASED');
+  };
+
+  /** @callback PowerQueue.onAutostart
+   * Is called when queue is auto started
+   */
+  self.onAutostart = options && options.onAutostart || function() {
+    self.debug && console.log(self.title + ' Autostart');
+  };
 };
 
   /** @method PowerQueue.prototype.processList
@@ -654,6 +667,9 @@ PowerQueue = function(options) {
           data.queue.pause();
         }
       }, true);
+
+      // Trigger callback
+      self.onPaused();
     }
   };
 
