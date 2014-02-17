@@ -493,7 +493,7 @@ PowerQueue = function(options) {
     // We use null to throttle pauseable tasks
     if (feedback === null) {
       // We add this task into the queue, no questions asked
-      self.invocations.insert(invocation._id, invocation);
+      self.invocations.insert(invocation._id, { data: invocation.data, failures: invocation.failures, _id: invocation._id });
     }
 
     // If the user returns a string we got a command
@@ -518,7 +518,11 @@ PowerQueue = function(options) {
     // Task has ended we remove the task from the process list
     self._processList.remove(invocation._id);
 
+    invocation.data = null;
+    invocation.failures = null;
+    invocation._id = null;
     invocation = null;
+    delete invocation;
     // Next task
     Meteor.setTimeout(function() {
       self.next();
@@ -543,7 +547,7 @@ PowerQueue = function(options) {
         // Insert PowerQueue into process list
         self._processList.insert(invocation._id, { id: invocation._id, queue: invocation.data });
         // Handle task
-        self.queueTaskHandler(invocation.data, function(feedback) {
+        self.queueTaskHandler(invocation.data, function subQueueCallbackDone(feedback) {
           self.runTaskDone(feedback, invocation);
         }, invocation.failures);
 
@@ -552,7 +556,7 @@ PowerQueue = function(options) {
         // Insert task into process list
         self._processList.insert(invocation._id, invocation.data);
         // Handle task
-        self.taskHandler(invocation.data, function(feedback) {
+        self.taskHandler(invocation.data, function taskCallbackDone(feedback) {
           self.runTaskDone(feedback, invocation);
         }, invocation.failures);
 
