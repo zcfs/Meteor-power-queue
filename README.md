@@ -1,18 +1,20 @@
 Power Queue [![Build Status](https://travis-ci.org/CollectionFS/Meteor-powerqueue.png?branch=master)](https://travis-ci.org/CollectionFS/Meteor-powerqueue)
 =========
 
-PowerQueue is a powerful tool for handling:
+PowerQueue is a native Meteor package for memory-backed job queue processing. Features include:
 * async tasks
 * throttling resource usage
-* retry failed tasks
-* Allows sub queues
+* retrying failed tasks
+* managing sub-queues
+* powered by Meteor's reactive sugar
 * etc.
+ 
+PowerQueue can use one of two [spinal-queue](https://github.com/CollectionFS/Meteor-power-queue/blob/master/spinal-queue.spec.md) packages, [ReactiveList](https://github.com/CollectionFS/Meteor-reactive-list) or [MicroQueue](https://github.com/CollectionFS/Meteor-micro-queue).
 
+## Demos
 [Live queue Example](http://power-queue-test.meteor.com)
 
 [Live sub queue Example](http://power-queue-sub-test.meteor.com)
-
-And... It's powered by Meteor's reactive sugar :)
 
 Kind regards,  
 Eric(@aldeed) and Morten(@raix)
