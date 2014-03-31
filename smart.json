@@ -3,20 +3,11 @@
 	"description": "PowerQueue is a powerful tool for handling async tasks, throttling etc.",
 	"homepage": "https://github.com/CollectionFS/Meteor-power-queue",
 	"author": "Eric Dobbertin (https://github.com/aldeed), Morten Henriksen (https://github.com/raix)",
-	"version": "0.9.7",
+	"version": "0.9.8",
 	"git": "https://github.com/CollectionFS/Meteor-power-queue.git",
 	"packages": {
-		"reactive-property": {
-			"git": "https://github.com/CollectionFS/Meteor-reactive-property.git",
-			"branch": "master"
-		},
-		"micro-queue": {
-			"git": "https://github.com/CollectionFS/Meteor-micro-queue.git",
-			"branch": "master"
-		},
-		"reactive-list": {
-			"git": "https://github.com/CollectionFS/Meteor-reactive-list.git",
-			"branch": "master"
-		}
+		"reactive-property": {},
+		"micro-queue": {},
+		"reactive-list": {}
 	}
 }
