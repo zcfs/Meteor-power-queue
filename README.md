@@ -12,9 +12,11 @@ PowerQueue is a native Meteor package for memory-backed job queue processing. Fe
 PowerQueue can use one of two [spinal-queue](https://github.com/CollectionFS/Meteor-power-queue/blob/master/spinal-queue.spec.md) packages, [ReactiveList](https://github.com/CollectionFS/Meteor-reactive-list) or [MicroQueue](https://github.com/CollectionFS/Meteor-micro-queue).
 
 ## Demos
-[Live queue Example](http://power-queue-test.meteor.com)
 
-[Live sub queue Example](http://power-queue-sub-test.meteor.com)
+**Check out the cool [live queue demo](http://power-queue-test.meteor.com) and [live sub queue example](http://power-queue-sub-test.meteor.com).**
+
+Source code for both can be found in the two branches of the [power-queue-example repo](https://github.com/CollectionFS/power-queue-example).
+
 
 Kind regards,  
 Eric(@aldeed) and Morten(@raix)
