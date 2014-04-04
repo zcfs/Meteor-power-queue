@@ -23,12 +23,12 @@ Eric(@aldeed) and Morten(@raix)
 
 Happy coding!
 
-#API
+# API
 All getters and setters are reactive.
 
 [API Documentation](api.md)
 
-##Helpers / Getters / Setters:
+## Helpers / Getters / Setters:
 * PowerQueue.length - Number of tasks in queue
 * PowerQueue.progress - Current progress in percent
 * PowerQueue.usage - Current load in percent
@@ -47,7 +47,7 @@ All getters and setters are reactive.
 * options.onRelease(remainingTasks) - Called when queue has ended or paused
 * options.onAutostart - Called when queue was autostarted
 
-##Methods
+## Methods
 * PowerQueue.add(data) - Add a task to queue
 * PowerQueue.run() - Start the queue
 * PowerQueue.pause() - Pause the queue
@@ -56,7 +56,7 @@ All getters and setters are reactive.
 * PowerQueue.taskHandler(data, next, failures) - Default task handler, where data is a `function(done)`, can be overwritten
 * PowerQueue.errorHandler(data, addTask, failures) - Default error handler, can be overwritten
 
-#Example 1
+# Example 1
 ```js
     var queue = new PowerQueue({
       isPaused: true
@@ -79,8 +79,10 @@ All getters and setters are reactive.
     queue.run();
 ```
 
-#Example 2
-This is a very rough example of how to make custom task handling,
+# Example 2
+
+This is a very rough example of how to make custom task handling.
+
 ```js
 
   queue.errorHandler = function(data, addTask) {
@@ -115,10 +117,13 @@ This is a very rough example of how to make custom task handling,
   queue.add({ id: tasks.insert({ status: 'added', index: ++taskId }) });
 ```
 
-#Contribute
+# Contribute
+
 Here's the [complete API documentation](internal.api.md), including private methods.
 
-Update docs, `npm install docmeteor`
-```bash
-$ docmeteor
-```
+To update the docs, run `npm install docmeteor` then `docmeteor`.
+
+
+## TODO / Wishlist
+
+* scheduling jobs to run in the future, like [meteor-queue](https://github.com/artwells/meteor-queue#features) - see [issue #15](https://github.com/CollectionFS/Meteor-power-queue/issues/15)
