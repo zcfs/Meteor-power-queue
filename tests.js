@@ -180,7 +180,7 @@ Tinytest.addAsync('PowerQueue - test 2 task in parallel', function (test, onComp
 //Test API:
 //test.isFalse(v, msg)
 //test.isTrue(v, msg)
-//test.equalactual, expected, message, not
+//test.equal(actual, expected, message, not)
 //test.length(obj, len)
 //test.include(s, v)
 //test.isNaN(v, msg)
