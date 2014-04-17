@@ -257,7 +257,7 @@ PowerQueue = function(options) {
 
   /** @method PowerQueue.prototype.usage
    * @reactive
-   * @returns {number} 0 .. 100 % Indicates ressource usage of the queue
+   * @returns {number} 0 .. 100 % Indicates resource usage of the queue
    */
   PowerQueue.prototype.usage = function() {
     var self = this;
@@ -313,7 +313,7 @@ PowerQueue = function(options) {
         self._running.set(true);
       }
 
-      // Make sure that we use all available ressources
+      // Make sure that we use all available resources
       if (self._running.value) {
         // Call next to start up the queue
         self.next(null);
@@ -324,7 +324,7 @@ PowerQueue = function(options) {
 
   /** @method PowerQueue.prototype.add
    * @param {any} data The task to be handled
-   * @param {number} [failures] Internally used to Pass on number of failures.
+   * @param {number} [failures] Used internally to Pass on number of failures.
    */
   PowerQueue.prototype.add = function(data, failures, id) {
     var self = this;
