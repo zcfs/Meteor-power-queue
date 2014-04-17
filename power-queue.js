@@ -248,7 +248,7 @@ PowerQueue = function(options) {
    */
   PowerQueue.prototype.progress = function() {
     var self = this;
-    var progress = self._maxLength.get() - self.invocations.length();
+    var progress = self._maxLength.get() - self.invocations.length() - self._isProcessing.get();
     if (self._maxLength.value > 0) {
       return Math.round(progress / self._maxLength.value * 100);
     }
