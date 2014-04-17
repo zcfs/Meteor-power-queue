@@ -684,10 +684,7 @@ PowerQueue = function(options) {
    */
   PowerQueue.prototype.resume = function() {
     var self = this;
-    // Un pause the queue
-    self.self._paused.set(false);
-    // Make sure we are up and running
-    self.next(null);
+    self.run();
   };
 
   /** @method PowerQueue.prototype.run Starts the queue
