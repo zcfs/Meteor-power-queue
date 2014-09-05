@@ -1,4 +1,4 @@
-Power Queue [![Build Status](https://travis-ci.org/CollectionFS/Meteor-powerqueue.png?branch=master)](https://travis-ci.org/CollectionFS/Meteor-powerqueue)
+cfs:power-queue [![Build Status](https://travis-ci.org/CollectionFS/Meteor-powerqueue.png?branch=master)](https://travis-ci.org/CollectionFS/Meteor-powerqueue)
 =========
 
 PowerQueue is a native Meteor package for memory-backed job queue processing. Features include:
