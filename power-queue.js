@@ -6,6 +6,14 @@ if (typeof ReactiveList === 'undefined' && Package['reactive-list']) {
   ReactiveList = Package['reactive-list'].ReactiveList;
 }
 
+// Rig weak dependencies in +0.9.1
+if (typeof MicroQueue === 'undefined' && Package['cfs:micro-queue']) {
+  MicroQueue = Package['cfs:micro-queue'].MicroQueue;
+}
+if (typeof ReactiveList === 'undefined' && Package['cfs:reactive-list']) {
+  ReactiveList = Package['cfs:reactive-list'].ReactiveList;
+}
+
 /**
  * Creates an instance of a power queue // Testing inline comment
  * [Check out demo](http://power-queue-test.meteor.com/)

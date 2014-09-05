@@ -1,6 +1,6 @@
 Package.describe({
   name: 'cfs:power-queue',
-  version: '0.0.0',
+  version: '0.0.1',
   summary: "PowerQueue is a powerful tool for handling async tasks, throtling etc."
 });
 
