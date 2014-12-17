@@ -1,6 +1,6 @@
 Package.describe({
   name: 'cfs:power-queue',
-  version: '0.9.10',
+  version: '0.9.11',
   summary: "PowerQueue is a powerful tool for handling async tasks, throtling etc.",
   git: 'https://github.com/CollectionFS/Meteor-power-queue.git'
 });
