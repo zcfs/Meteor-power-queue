@@ -12,7 +12,7 @@ Package.onUse(function (api) {
 
   // We let the user decide what spinal queue to use - We support both
   // reactive-list and micro-queue they obey the spinal-queue spec
-  api.use(['cfs:reactive-list@0.0.8', 'cfs:micro-queue@0.0.4'], ['client', 'server'], { weak: true });
+  api.use(['cfs:reactive-list@0.0.8', 'cfs:micro-queue@0.0.5'], ['client', 'server'], { weak: true });
 
   api.export && api.export('PowerQueue');
   api.addFiles(['power-queue.js'], ['client', 'server']);
