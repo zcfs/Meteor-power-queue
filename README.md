@@ -1,6 +1,13 @@
 cfs:power-queue [![Build Status](https://travis-ci.org/CollectionFS/Meteor-powerqueue.png?branch=master)](https://travis-ci.org/CollectionFS/Meteor-powerqueue)
 =========
 
+~~Looking for maintainers - please reach out!~~
+This package is to be archived due to inability to find contributors, thanks to everyone who helped make it possible.
+
+**If you're looking for an alternative, we highly recommend [Meteor-Files](https://github.com/VeliovGroup/Meteor-Files) by [VeliovGroup](https://github.com/VeliovGroup)**
+
+---
+
 PowerQueue is a native Meteor package for memory-backed job queue processing. Features include:
 * async tasks
 * throttling resource usage
