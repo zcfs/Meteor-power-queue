@@ -1,6 +1,6 @@
 #Spinal Queue Spec
 This specification declares the interface for the "spinal" queue in `PowerQueue`.
-We allready have two implementations the [MicroQueue](https://github.com/CollectionFS/Meteor-micro-queue) and [ReactiveList](https://github.com/CollectionFS/Meteor-reactive-list)
+We allready have two implementations the [MicroQueue](https://github.com/zcfs/Meteor-micro-queue) and [ReactiveList](https://github.com/zcfs/Meteor-reactive-list)
 
 #SpinalQueue
 Provides a simple reactive list interface

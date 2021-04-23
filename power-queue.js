@@ -7,11 +7,11 @@ if (typeof ReactiveList === 'undefined' && Package['reactive-list']) {
 }
 
 // Rig weak dependencies in +0.9.1
-if (typeof MicroQueue === 'undefined' && Package['cfs:micro-queue']) {
-  MicroQueue = Package['cfs:micro-queue'].MicroQueue;
+if (typeof MicroQueue === 'undefined' && Package['zcfs:micro-queue']) {
+  MicroQueue = Package['zcfs:micro-queue'].MicroQueue;
 }
-if (typeof ReactiveList === 'undefined' && Package['cfs:reactive-list']) {
-  ReactiveList = Package['cfs:reactive-list'].ReactiveList;
+if (typeof ReactiveList === 'undefined' && Package['zcfs:reactive-list']) {
+  ReactiveList = Package['zcfs:reactive-list'].ReactiveList;
 }
 
 /**
